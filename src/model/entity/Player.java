@@ -41,8 +41,8 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
         //Define the start screen's andres
-        worldX = gp.titleSize * 23;
-        worldY = gp.titleSize * 12;
+        worldX = gp.titleSize * 18;
+        worldY = gp.titleSize * (gp.maxWorldRow - 12);
         speed = gp.titleSize/5;
         direction = "up";
     }
@@ -66,10 +66,10 @@ public class Player extends Entity {
 
     public void update() {
 
-        //Animation
+        //Move
         if(keyHandler.upPressed == true || keyHandler.downPressed == true || keyHandler.leftPressed == true || keyHandler.rightPressed == true)
         {
-
+            //GamePanel.isMove = true;
             if (keyHandler.upPressed == true) {
                 direction = "up";
             }
@@ -109,7 +109,9 @@ public class Player extends Entity {
                         break;
                 }
             }
-
+//            else {
+//                GamePanel.isMove = false;
+//            }
             spriteConuter++;
             if (spriteConuter > 15) {
                 if (spriteNum == 1) {

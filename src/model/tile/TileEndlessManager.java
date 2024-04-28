@@ -202,8 +202,7 @@ public class TileEndlessManager {
             tile[40] = new Tile();
             tile[40].image = ImageIO.read(getClass().getResourceAsStream("/tiles/road/road08.png"));
 
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.getStackTrace();
         }
     }
@@ -286,34 +285,6 @@ public class TileEndlessManager {
 
     public void draw(Graphics2D g2)
     {
-
-//        int worldCol = gp.maxWorldCol - 1;
-//        int worldRow = gp.maxWorldRow - 10;
-//
-//
-//        while (worldCol > 0 && worldRow > 0) {
-//
-//            int tileNum = map[worldCol][worldRow];
-//
-//            int worldX = worldCol * gp.titleSize;
-//            int worldY = worldRow * gp.titleSize;
-//            int screenX = worldX - gp.player.worldX + gp.player.screenX;
-//            int screenY = worldY - gp.player.worldY + gp.player.screenY;
-//
-//            //Han che ve frame
-//            if (worldX > gp.player.worldX - gp.player.screenX - gp.titleSize && worldX < gp.player.worldX + gp.player.screenX + gp.titleSize &&
-//                    worldY > gp.player.worldY - gp.player.screenY - gp.titleSize && worldY < gp.player.worldY + gp.player.screenY + gp.titleSize) {
-//                g2.drawImage(tile[tileNum].image, screenX, screenY, gp.titleSize, gp.titleSize, null);
-//            }
-//            worldCol--;
-//
-//            if (worldCol == 0) {
-//                worldCol = gp.maxWorldCol - 1;
-//                worldRow--;
-//            }
-//        }
-//    }
-
 
         int worldCol = 0;
         int worldRow = 0;

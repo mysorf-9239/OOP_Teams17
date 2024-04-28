@@ -13,8 +13,9 @@ public class GamePanel extends JPanel implements Runnable
 {
     //Screen setting
     final int originalTitleSize = 16;
-    final int scale = 3;
-    public final int titleSize = originalTitleSize * scale;     //16*3 = 48px
+    final int scale = 2;
+    public final int titleSize = originalTitleSize * scale;
+    //16*3 = 48px
     //Change size of frame there
     public final int maxScreenCol = 20;
     public final int maxScreenRow = 20;
@@ -27,6 +28,9 @@ public class GamePanel extends JPanel implements Runnable
     public final int maxWorldRow = 500;
     public final int worldWidth = titleSize * maxWorldCol;
     public final int worldHeight = titleSize * maxScreenRow;
+
+    //Player is moved
+    public static boolean isMove = false;
 
     //FPS
     int FPS = 60;
