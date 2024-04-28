@@ -41,8 +41,8 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
         //Define the start screen's andres
-        worldX = gp.titleSize * 24;
-        worldY = gp.titleSize * 24;
+        worldX = gp.titleSize * 23;
+        worldY = gp.titleSize * 12;
         speed = gp.titleSize/5;
         direction = "up";
     }

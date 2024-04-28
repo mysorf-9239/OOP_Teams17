@@ -60,7 +60,7 @@ public class UI {
             g2.drawString("x: " + gp.player.hasKey, 74, 65);
 
             playTime+= (double) 1/60;
-            g2.drawString("Time: " + decimalFormat.format(playTime), gp.titleSize*16, 65);
+            //g2.drawString("Time: " + decimalFormat.format(playTime), gp.titleSize*16, 65);
 
             if (messageOn == true) {
 
