@@ -1,9 +1,6 @@
-package view;
+package model.Object;
 
-import model.Object.Obj_Boots;
-import model.Object.Obj_Chest;
-import model.Object.Obj_Door;
-import model.Object.Obj_Key;
+import view.GamePanel;
 
 public class AssetSetter {
 

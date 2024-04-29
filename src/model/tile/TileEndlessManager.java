@@ -14,15 +14,17 @@ public class TileEndlessManager {
     GamePanel gp;
     public Tile[] tile;
     int[][] map;
+    public static String path;
 
     public TileEndlessManager(GamePanel gp)
     {
         this.gp = gp;
+        //this.path = path;
 
         tile = new Tile[50];
         this.map = new int[gp.maxWorldCol][gp.maxWorldRow];
 
-        loadMap("/map/Maptest.txt");
+        loadMap(path);
         GamePanel.map = this.map;
         getTileImage();
 

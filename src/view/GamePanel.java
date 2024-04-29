@@ -2,6 +2,7 @@ package view;
 
 import controller.CollisionChecker;
 import controller.KeyHandler;
+import model.Object.AssetSetter;
 import model.Object.SuperObject;
 import model.entity.Player;
 import model.tile.*;
@@ -9,18 +10,17 @@ import model.tile.*;
 import javax.swing.*;
 import java.awt.*;
 
-public class GamePanel extends JPanel implements Runnable
-{
+public class GamePanel extends JPanel implements Runnable {
     //Screen setting
     final int originalTitleSize = 16;
-    final int scale = 2;
+    final int scale = 3;
     public final int titleSize = originalTitleSize * scale;
     //16*3 = 48px
     //Change size of frame there
     public final int maxScreenCol = 20;
     public final int maxScreenRow = 20;
-    public final int screenWidth = titleSize * maxScreenCol;           //48*10 = 480px
-    public final int screenHeight = titleSize * maxScreenRow;          //48*10 = 480px
+    public final int screenWidth = titleSize * maxScreenCol;           //48*20 = 960px
+    public final int screenHeight = titleSize * maxScreenRow;          //48*20 = 960px
     public static int[][] map;
 
     //World setting
@@ -30,13 +30,13 @@ public class GamePanel extends JPanel implements Runnable
     public final int worldHeight = titleSize * maxScreenRow;
 
     //Player is moved
-    public static boolean isMove = false;
+    //public static boolean isMove = false;
 
     //FPS
     int FPS = 60;
 
     //System
-    public TileEndlessManager tileManager = new TileEndlessManager(this);
+    public TileEndlessManager tileManager = new TileEndlessManager(this);  //"/map/Maptest.txt"
     KeyHandler keyHandler = new KeyHandler();
     Sound music = new Sound();
     Sound se = new Sound();
@@ -50,8 +50,8 @@ public class GamePanel extends JPanel implements Runnable
     public SuperObject[] obj = new SuperObject[10];
 
 
-
     public GamePanel() {
+
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
@@ -105,21 +105,19 @@ public class GamePanel extends JPanel implements Runnable
 //    }
 
     public void run() {
-        double drawInterval = 1000000000/FPS;
+        double drawInterval = 1000000000 / FPS;
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
 
-        while (gameThread != null)
-        {
+        while (gameThread != null) {
             currentTime = System.nanoTime();
 
-            delta += (currentTime - lastTime) /drawInterval;
+            delta += (currentTime - lastTime) / drawInterval;
 
             lastTime = currentTime;
 
-            if (delta >= 1)
-            {
+            if (delta >= 1) {
                 update();
                 repaint();
                 delta--;
@@ -136,10 +134,10 @@ public class GamePanel extends JPanel implements Runnable
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D)g;
+        Graphics2D g2 = (Graphics2D) g;
 
         tileManager.draw(g2);
-        for(int i = 0; i < obj.length; i++) {
+        for (int i = 0; i < obj.length; i++) {
             if (obj[i] != null) {
 
                 obj[i].draw(g2, this);
@@ -167,25 +165,28 @@ public class GamePanel extends JPanel implements Runnable
         se.play();
     }
 
-    public static void main(String[] args)
-    {
-        EventQueue.invokeLater(new Runnable() { public void run() {
-            JFrame windown = new JFrame();
-            windown.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            windown.setResizable(false);
-            windown.setTitle("Fugitive");
 
-            GamePanel gamePanel = new GamePanel();
-            windown.add(gamePanel);
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                JFrame windown = new JFrame();
+                windown.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                windown.setResizable(false);
+                windown.setTitle("Fugitive");
 
-            windown.pack();
+                TileEndlessManager.path = "/map/Maptest.txt";
 
-            windown.setLocationRelativeTo(null);
-            windown.setVisible(true);
+                GamePanel gamePanel = new GamePanel();
+                windown.add(gamePanel);
 
-            gamePanel.setupObject();
-            gamePanel.StartGameThread();
-        }
+                windown.pack();
+
+                windown.setLocationRelativeTo(null);
+                windown.setVisible(true);
+
+                gamePanel.setupObject();
+                gamePanel.StartGameThread();
+            }
         });
     }
 }
