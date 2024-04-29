@@ -1,6 +1,7 @@
 package model.entity;
 
 import controller.KeyHandler;
+import controller.UtilityTool;
 import model.tile.TileEndlessManager;
 import view.GamePanel;
 
@@ -50,98 +51,99 @@ public class Player extends Entity {
 
     public void getPlayerImage() {
 
+        up[1] = setup("up01");
+        up[2] = setup("up02");
+        up[3] = setup("up03");
+        up[4] = setup("up04");
+        up[5] = setup("up05");
+        up[6] = setup("up06");
+        up[7] = setup("up07");
+        up[8] = setup("up08");
+        up[9] = setup("up09");
+        up[10] = setup("up10");
+        up[11] = setup("up11");
+        up[12] = setup("up12");
+        up[13] = setup("up13");
+        up[14] = setup("up14");
+        up[15] = setup("up15");
+        up[16] = setup("up16");
+        up[17] = setup("up17");
+        up[18] = setup("up18");
+
+        left[1] = setup("left01");
+        left[2] = setup("left02");
+        left[3] = setup("left03");
+        left[4] = setup("left04");
+        left[5] = setup("left05");
+        left[6] = setup("left06");
+        left[7] = setup("left07");
+        left[8] = setup("left08");
+        left[9] = setup("left09");
+        left[10] = setup("left10");
+        left[11] = setup("left11");
+        left[12] = setup("left12");
+        left[13] = setup("left13");
+        left[14] = setup("left14");
+        left[15] = setup("left15");
+        left[16] = setup("left16");
+        left[17] = setup("left17");
+        left[18] = setup("left18");
+
+
+        down[1] = setup("down01");
+        down[2] = setup("down02");
+        down[3] = setup("down03");
+        down[4] = setup("down04");
+        down[5] = setup("down05");
+        down[6] = setup("down06");
+        down[7] = setup("down07");
+        down[8] = setup("down08");
+        down[9] = setup("down09");
+        down[10] = setup("down10");
+        down[11] = setup("down11");
+        down[12] = setup("down12");
+        down[13] = setup("down13");
+        down[14] = setup("down14");
+        down[15] = setup("down15");
+        down[16] = setup("down16");
+        down[17] = setup("down17");
+        down[18] = setup("down18");
+
+        right[1] = setup("right01");
+        right[2] = setup("right02");
+        right[3] = setup("right03");
+        right[4] = setup("right04");
+        right[5] = setup("right05");
+        right[6] = setup("right06");
+        right[7] = setup("right07");
+        right[8] = setup("right08");
+        right[9] = setup("right09");
+        right[10] = setup("right10");
+        right[11] = setup("right11");
+        right[12] = setup("right12");
+        right[13] = setup("right13");
+        right[14] = setup("right14");
+        right[15] = setup("right15");
+        right[16] = setup("right16");
+        right[17] = setup("right17");
+        right[18] = setup("right18");
+
+    }
+
+    public BufferedImage setup(String imageName) {
+
+        UtilityTool utilityTool = new UtilityTool();
+        BufferedImage image = null;
+
         try {
-
-//            up[1] = ImageIO.read(getClass().getResourceAsStream("/player/player_up_1.png"));
-//            up[2] = ImageIO.read(getClass().getResourceAsStream("/player/player_up_2.png"));
-//            down[1] = ImageIO.read(getClass().getResourceAsStream("/player/player_down_1.png"));
-//            down[2] = ImageIO.read(getClass().getResourceAsStream("/player/player_down_2.png"));
-//            left[1] = ImageIO.read(getClass().getResourceAsStream("/player/player_left_1.png"));
-//            left[2] = ImageIO.read(getClass().getResourceAsStream("/player/player_left_2.png"));
-//            right[1] = ImageIO.read(getClass().getResourceAsStream("/player/player_right_1.png"));
-//            right[2] = ImageIO.read(getClass().getResourceAsStream("/player/player_right_2.png"));
-
-            up[1] = ImageIO.read(getClass().getResourceAsStream("/player/up01.png"));
-            up[2] = ImageIO.read(getClass().getResourceAsStream("/player/up02.png"));
-            up[3] = ImageIO.read(getClass().getResourceAsStream("/player/up03.png"));
-            up[4] = ImageIO.read(getClass().getResourceAsStream("/player/up04.png"));
-            up[5] = ImageIO.read(getClass().getResourceAsStream("/player/up05.png"));
-            up[6] = ImageIO.read(getClass().getResourceAsStream("/player/up06.png"));
-            up[7] = ImageIO.read(getClass().getResourceAsStream("/player/up07.png"));
-            up[8] = ImageIO.read(getClass().getResourceAsStream("/player/up08.png"));
-            up[9] = ImageIO.read(getClass().getResourceAsStream("/player/up09.png"));
-            up[10] = ImageIO.read(getClass().getResourceAsStream("/player/up10.png"));
-            up[11] = ImageIO.read(getClass().getResourceAsStream("/player/up11.png"));
-            up[12] = ImageIO.read(getClass().getResourceAsStream("/player/up12.png"));
-            up[13] = ImageIO.read(getClass().getResourceAsStream("/player/up13.png"));
-            up[14] = ImageIO.read(getClass().getResourceAsStream("/player/up14.png"));
-            up[15] = ImageIO.read(getClass().getResourceAsStream("/player/up15.png"));
-            up[16] = ImageIO.read(getClass().getResourceAsStream("/player/up16.png"));
-            up[17] = ImageIO.read(getClass().getResourceAsStream("/player/up17.png"));
-            up[18] = ImageIO.read(getClass().getResourceAsStream("/player/up18.png"));
-
-            left[1] = ImageIO.read(getClass().getResourceAsStream("/player/left01.png"));
-            left[2] = ImageIO.read(getClass().getResourceAsStream("/player/left02.png"));
-            left[3] = ImageIO.read(getClass().getResourceAsStream("/player/left03.png"));
-            left[4] = ImageIO.read(getClass().getResourceAsStream("/player/left04.png"));
-            left[5] = ImageIO.read(getClass().getResourceAsStream("/player/left05.png"));
-            left[6] = ImageIO.read(getClass().getResourceAsStream("/player/left06.png"));
-            left[7] = ImageIO.read(getClass().getResourceAsStream("/player/left07.png"));
-            left[8] = ImageIO.read(getClass().getResourceAsStream("/player/left08.png"));
-            left[9] = ImageIO.read(getClass().getResourceAsStream("/player/left09.png"));
-            left[10] = ImageIO.read(getClass().getResourceAsStream("/player/left10.png"));
-            left[11] = ImageIO.read(getClass().getResourceAsStream("/player/left11.png"));
-            left[12] = ImageIO.read(getClass().getResourceAsStream("/player/left12.png"));
-            left[13] = ImageIO.read(getClass().getResourceAsStream("/player/left13.png"));
-            left[14] = ImageIO.read(getClass().getResourceAsStream("/player/left14.png"));
-            left[15] = ImageIO.read(getClass().getResourceAsStream("/player/left15.png"));
-            left[16] = ImageIO.read(getClass().getResourceAsStream("/player/left16.png"));
-            left[17] = ImageIO.read(getClass().getResourceAsStream("/player/left17.png"));
-            left[18] = ImageIO.read(getClass().getResourceAsStream("/player/left18.png"));
-
-
-            down[1] = ImageIO.read(getClass().getResourceAsStream("/player/down01.png"));
-            down[2] = ImageIO.read(getClass().getResourceAsStream("/player/down02.png"));
-            down[3] = ImageIO.read(getClass().getResourceAsStream("/player/down03.png"));
-            down[4] = ImageIO.read(getClass().getResourceAsStream("/player/down04.png"));
-            down[5] = ImageIO.read(getClass().getResourceAsStream("/player/down05.png"));
-            down[6] = ImageIO.read(getClass().getResourceAsStream("/player/down06.png"));
-            down[7] = ImageIO.read(getClass().getResourceAsStream("/player/down07.png"));
-            down[8] = ImageIO.read(getClass().getResourceAsStream("/player/down08.png"));
-            down[9] = ImageIO.read(getClass().getResourceAsStream("/player/down09.png"));
-            down[10] = ImageIO.read(getClass().getResourceAsStream("/player/down10.png"));
-            down[11] = ImageIO.read(getClass().getResourceAsStream("/player/down11.png"));
-            down[12] = ImageIO.read(getClass().getResourceAsStream("/player/down12.png"));
-            down[13] = ImageIO.read(getClass().getResourceAsStream("/player/down13.png"));
-            down[14] = ImageIO.read(getClass().getResourceAsStream("/player/down14.png"));
-            down[15] = ImageIO.read(getClass().getResourceAsStream("/player/down15.png"));
-            down[16] = ImageIO.read(getClass().getResourceAsStream("/player/down16.png"));
-            down[17] = ImageIO.read(getClass().getResourceAsStream("/player/down17.png"));
-            down[18] = ImageIO.read(getClass().getResourceAsStream("/player/down18.png"));
-
-            right[1] = ImageIO.read(getClass().getResourceAsStream("/player/right01.png"));
-            right[2] = ImageIO.read(getClass().getResourceAsStream("/player/right02.png"));
-            right[3] = ImageIO.read(getClass().getResourceAsStream("/player/right03.png"));
-            right[4] = ImageIO.read(getClass().getResourceAsStream("/player/right04.png"));
-            right[5] = ImageIO.read(getClass().getResourceAsStream("/player/right05.png"));
-            right[6] = ImageIO.read(getClass().getResourceAsStream("/player/right06.png"));
-            right[7] = ImageIO.read(getClass().getResourceAsStream("/player/right07.png"));
-            right[8] = ImageIO.read(getClass().getResourceAsStream("/player/right08.png"));
-            right[9] = ImageIO.read(getClass().getResourceAsStream("/player/right09.png"));
-            right[10] = ImageIO.read(getClass().getResourceAsStream("/player/right10.png"));
-            right[11] = ImageIO.read(getClass().getResourceAsStream("/player/right11.png"));
-            right[12] = ImageIO.read(getClass().getResourceAsStream("/player/right12.png"));
-            right[13] = ImageIO.read(getClass().getResourceAsStream("/player/right13.png"));
-            right[14] = ImageIO.read(getClass().getResourceAsStream("/player/right14.png"));
-            right[15] = ImageIO.read(getClass().getResourceAsStream("/player/right15.png"));
-            right[16] = ImageIO.read(getClass().getResourceAsStream("/player/right16.png"));
-            right[17] = ImageIO.read(getClass().getResourceAsStream("/player/right17.png"));
-            right[18] = ImageIO.read(getClass().getResourceAsStream("/player/right18.png"));
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
+            image = utilityTool.scaleImage(image, gp.titleSize, gp.titleSize);
         }
+        catch (IOException e) {
+            e.getStackTrace();
+        }
+
+        return image;
     }
 
     public void update() {
@@ -467,7 +469,7 @@ public class Player extends Entity {
 //                        break;
 //                }
         }
-        g2.drawImage(image, screenX, screenY, gp.titleSize, gp.titleSize, null);
+        g2.drawImage(image, screenX, screenY, null);
 
 
     }

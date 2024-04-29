@@ -25,8 +25,8 @@ public class UI {
 
         arial_40 = new Font("Arial", Font.ITALIC, 40);
 
-        Obj_Key key = new Obj_Key();
-        keyImage = key.image;;
+        Obj_Key key = new Obj_Key(gp);
+        keyImage = key.image;
     }
 
     public void showMess(String text) {
