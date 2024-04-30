@@ -5,7 +5,6 @@ import view.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,23 +16,26 @@ public class TileEndlessManager {
     public Tile[] tile;
     int[][] map;
     public static String path;
+    int lavaY;
+    int lavaSpeed;
 
     public TileEndlessManager(GamePanel gp)
     {
         this.gp = gp;
-        //this.path = path;
 
         tile = new Tile[50];
         this.map = new int[gp.maxWorldCol][gp.maxWorldRow];
 
         loadMap(path);
         GamePanel.map = this.map;
-        getTileImage();
 
+        lavaY = (gp.maxWorldRow - 1) * gp.titleSize;
+        lavaSpeed = 1;
+
+        getTileImage();
     }
 
     public void getTileImage() {
-
 
         setup(0, "/tiles/earth.png", false);
         setup(1, "/tiles/grass/grass01.png", false);
@@ -76,6 +78,7 @@ public class TileEndlessManager {
         setup(38, "/tiles/road/road06.png", false);
         setup(39, "/tiles/road/road07.png", false);
         setup(40, "/tiles/road/road08.png", false);
+        setup(41, "/tiles/lava.png", true);
 
     }
 
@@ -84,7 +87,6 @@ public class TileEndlessManager {
         UtilityTool utilityTool = new UtilityTool();
 
         try {
-
             tile[index] = new Tile();
             tile[index].image = ImageIO.read(getClass().getResourceAsStream(imagePath));
             tile[index].image = utilityTool.scaleImage(tile[index].image, gp.titleSize, gp.titleSize);
@@ -130,6 +132,18 @@ public class TileEndlessManager {
         }
     }
 
+    public void updateMap() {
+
+        lavaY -= lavaSpeed;
+
+        int lavaRow = lavaY/gp.titleSize;
+        if (map[0][lavaRow] != 41) {
+            for(int i = 0; i < gp.maxWorldCol; i++) {
+                    map[i][lavaRow] = 41;
+            }
+        }
+    }
+
     public void draw(Graphics2D g2)
     {
 
@@ -151,8 +165,6 @@ public class TileEndlessManager {
                     worldY > gp.player.worldY - gp.player.screenY - gp.titleSize && worldY < gp.player.worldY + gp.player.screenY + gp.titleSize) {
                 g2.drawImage(tile[tileNum].image, screenX, screenY, null);
             }
-
-
             worldCol++;
 
             if (worldCol == gp.maxWorldCol) {

@@ -1,6 +1,7 @@
 package view;
 
 import controller.CollisionChecker;
+import controller.EventHandler;
 import controller.KeyHandler;
 import model.Object.AssetSetter;
 import model.Object.SuperObject;
@@ -37,7 +38,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     //System
     public TileEndlessManager tileManager = new TileEndlessManager(this);  //"/map/Maptest.txt"
-    KeyHandler keyHandler = new KeyHandler(this);
+    public KeyHandler keyHandler = new KeyHandler(this);
+    public EventHandler eventHandler = new EventHandler(this);
     Sound music = new Sound();
     Sound se = new Sound();
     public CollisionChecker collisionChecker = new CollisionChecker(this);
@@ -79,39 +81,6 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread.start();
     }
 
-//    @Override
-//    public void run() {
-//
-//        double drawInterval = 1000000000/FPS;
-//        double nextDrawTime = System.nanoTime() + drawInterval;
-//
-//        while(gameThread != null)
-//        {
-//
-//            update();
-//
-//
-//            repaint();
-//
-//
-//            try {
-//                double remainingTime = nextDrawTime - System.nanoTime();
-//                remainingTime = remainingTime/1000000;
-//
-//                if (remainingTime < 0) {
-//                    remainingTime = 0;
-//                }
-//
-//                Thread.sleep((long) remainingTime);
-//
-//                nextDrawTime += drawInterval;
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-//
-//        }
-//
-//    }
 
     public void run() {
         double drawInterval = 1000000000 / FPS;
@@ -138,8 +107,8 @@ public class GamePanel extends JPanel implements Runnable {
 
         if (gameState == playState) {
             player.update();
+            tileManager.updateMap();
         }
-
         if (gameState == pauseState) {
 
         }
@@ -166,7 +135,6 @@ public class GamePanel extends JPanel implements Runnable {
             }
             player.draw(g2);
             ui.draw(g2);
-
         }
 
         g2.dispose();

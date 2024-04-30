@@ -32,8 +32,6 @@ public class Entity {
     public int maxLife;
     public int life;
 
-
-
     public Entity (GamePanel gp) {
 
         this.gp = gp;

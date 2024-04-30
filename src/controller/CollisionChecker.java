@@ -139,5 +139,19 @@ public class CollisionChecker {
         return index;
     }
 
+    public boolean checkLava() {
+
+        int playerCol = gp.player.worldX / gp.titleSize;
+        int playerRow = gp.player.worldY / gp.titleSize;
+
+
+        if (GamePanel.map[playerCol][playerRow] == 41) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
 
 }

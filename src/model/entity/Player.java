@@ -151,6 +151,11 @@ public class Player extends Entity {
 
     public void update() {
 
+        //Check Lava
+        if (gp.collisionChecker.checkLava()) {
+            gp.player.worldY -= gp.titleSize;
+        }
+
         //Move
         if(keyHandler.upPressed == true || keyHandler.downPressed == true || keyHandler.leftPressed == true || keyHandler.rightPressed == true)
         {
@@ -473,7 +478,6 @@ public class Player extends Entity {
 //                }
         }
         g2.drawImage(image, screenX, screenY, null);
-
 
     }
 }
