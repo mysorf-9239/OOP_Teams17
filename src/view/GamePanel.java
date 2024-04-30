@@ -119,6 +119,11 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
+        long drawStart = System.nanoTime();
+        if (keyHandler.showDebugText == true) {
+            drawStart = System.nanoTime();
+        }
+
         //TITLE SCREEN
         if (gameState == titleState) { ui.draw(g2);}
         //Other
@@ -148,6 +153,27 @@ public class GamePanel extends JPanel implements Runnable {
             entitiesList.clear();
 
             ui.draw(g2);
+
+            //Debug
+            if (keyHandler.showDebugText == true) {
+                long drawEnd = System.nanoTime();
+                long passed = drawEnd - drawStart;
+
+                g2.setFont(new Font("Arial", Font.PLAIN, 20));
+                g2.setColor(Color.white);
+                int x = 10;
+                int y = 400;
+                int lineHeight = 20;
+
+                g2.drawString("WorldX: " + player.worldX, x, y); y += lineHeight;
+                g2.drawString("WorldY: " + player.worldY, x, y); y += lineHeight;
+                g2.drawString("Col: " + (player.worldY+player.solidArea.x)/titleSize, x, y); y += lineHeight;
+                g2.drawString("Row: " + (player.worldY+player.solidArea.y)/titleSize, x, y); y += lineHeight;
+                g2.drawString("DrawTime: " + passed, x, y);
+
+            }
+
+
         }
 
         g2.dispose();

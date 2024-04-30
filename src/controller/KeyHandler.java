@@ -13,6 +13,9 @@ public class KeyHandler implements KeyListener
     public Player player;
     public static boolean movingKeyPressed = false;
 
+    //Debug
+    public boolean showDebugText = false;
+
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
     }
@@ -86,6 +89,7 @@ public class KeyHandler implements KeyListener
                             System.exit(0);
                             break;
                     }
+
                 }
             }
             else if (gp.ui.titleScreenState == 1) {
@@ -143,6 +147,19 @@ public class KeyHandler implements KeyListener
                 if (code == KeyEvent.VK_D) {
                     rightPressed = true;
                     movingKeyPressed = true;
+                }
+
+                //DeBug
+                if (code == KeyEvent.VK_T) {
+                    if (showDebugText == false) {
+                        showDebugText = true;
+                    } else if (showDebugText == true) {
+                        showDebugText =false;
+                    }
+                }
+                //Load map
+                if (code == KeyEvent.VK_R) {
+                    gp.tileManager.loadMap("/map/Maptest.txt");
                 }
             }
         }
