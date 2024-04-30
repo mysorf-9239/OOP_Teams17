@@ -2,7 +2,7 @@ package view;
 
 import model.Object.Obj_Heart;
 import model.Object.Obj_Key;
-import model.Object.SuperObject;
+import model.entity.Entity;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -51,7 +51,7 @@ public class UI {
 
 
         //Create hub object
-        SuperObject heart = new Obj_Heart(gp);
+        Entity heart = new Obj_Heart(gp);
         heart_full = heart.image;
         heart_half = heart.image2;
         heart_blank = heart.image3;
@@ -101,22 +101,35 @@ public class UI {
         //Reset x, y
         x = gp.titleSize/2;
         y = gp.titleSize/2;
+        int life = gp.player.life;
 
         //Draw current life
-        while (i < gp.player.maxLife/2) {
+        if (life > 0 && life <= 1) {
             g2.drawImage(heart_half, x, y, null);
-            i++;
-            if (i < gp.player.life) {
-                g2.drawImage(heart_full, x, y, null);
-            }
-            i++;
-            x += gp.titleSize;
+        }
+        else if (life > 1 && life <= 2) {
+            g2.drawImage(heart_full, x, y, null);
+        }
+        else if (life > 2 && life <= 3) {
+            g2.drawImage(heart_full, x, y, null);
+            g2.drawImage(heart_half, x + gp.titleSize, y, null);
+        }
+        else if (life > 3 && life <= 4) {
+            g2.drawImage(heart_full, x, y, null);
+            g2.drawImage(heart_full, x + gp.titleSize, y, null);
+        }
+        else if (life > 4 && life <= 5) {
+            g2.drawImage(heart_full, x, y, null);
+            g2.drawImage(heart_full, x + gp.titleSize, y, null);
+            g2.drawImage(heart_half, x + gp.titleSize*2, y, null);
+        }else if (life > 5) {
+            g2.drawImage(heart_full, x, y, null);
+            g2.drawImage(heart_full, x + gp.titleSize, y, null);
+            g2.drawImage(heart_full, x + gp.titleSize*2, y, null);
         }
 
 
-
     }
-
 
     public void drawTitleScreen() {
         //Background

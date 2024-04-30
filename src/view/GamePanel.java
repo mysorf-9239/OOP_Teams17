@@ -4,19 +4,23 @@ import controller.CollisionChecker;
 import controller.EventHandler;
 import controller.KeyHandler;
 import model.Object.AssetSetter;
-import model.Object.SuperObject;
+import model.entity.Entity;
 import model.entity.Player;
 import model.tile.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
     //Screen setting
     final int originalTitleSize = 16;
     final int scale = 3;
     public final int titleSize = originalTitleSize * scale;
-    //16*3 = 48px
+
     //Change size of frame there
     public final int maxScreenCol = 20;
     public final int maxScreenRow = 20;
@@ -49,8 +53,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     //Entity and Object
     public Player player = new Player(this, keyHandler);
-    public SuperObject[] obj = new SuperObject[10];
-
+    public Entity[] obj = new Entity[10];
+    ArrayList<Entity> entitiesList = new ArrayList<>();
 
     //GAME STATE
     public int gameState;
@@ -81,7 +85,6 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread.start();
     }
 
-
     public void run() {
         double drawInterval = 1000000000 / FPS;
         double delta = 0;
@@ -104,15 +107,11 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-
         if (gameState == playState) {
             player.update();
             tileManager.updateMap();
         }
-        if (gameState == pauseState) {
-
-        }
-
+        if (gameState == pauseState) { }
     }
 
     public void paintComponent(Graphics g) {
@@ -121,19 +120,33 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
 
         //TITLE SCREEN
-        if (gameState == titleState) {
-            ui.draw(g2);
-        }
+        if (gameState == titleState) { ui.draw(g2);}
         //Other
         else {
+            //Tile Map
             tileManager.draw(g2);
-            for (int i = 0; i < obj.length; i++) {
-                if (obj[i] != null) {
 
-                    obj[i].draw(g2, this);
-                }
+            //Add Entity (Player, object)
+            entitiesList.add(player);
+            for (int i = 0; i < obj.length; i++) {
+                if (obj[i] != null) { entitiesList.add(obj[i]);}
             }
-            player.draw(g2);
+
+            //Sort
+            Collections.sort(entitiesList, new Comparator<Entity>() {
+                @Override
+                public int compare(Entity e1, Entity e2) {
+                    int result = Integer.compare(e1.worldY, e2.worldY);
+                    return result;
+                }
+            });
+
+            //Draw
+            for (int i = 0; i < entitiesList.size(); i++) { entitiesList.get(i).draw(g2);}
+
+            //Empty entitiesList
+            entitiesList.clear();
+
             ui.draw(g2);
         }
 
@@ -147,15 +160,14 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void stopMusic() {
-
         music.stop();
     }
 
     public void playSE(int i) {
-
         se.setFile(i);
         se.play();
     }
+
 
 
     public static void main(String[] args) {

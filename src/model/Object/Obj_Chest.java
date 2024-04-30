@@ -1,26 +1,20 @@
 package model.Object;
 
+import model.entity.Entity;
 import view.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-public class Obj_Chest extends SuperObject {
+public class Obj_Chest extends Entity {
 
     GamePanel gp;
 
     public Obj_Chest(GamePanel gp) {
 
-        this.gp = gp;
+        super(gp);
         name = "Chest";
-
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/objects/Chess.png"));
-            utilityTool.scaleImage(image, gp.titleSize, gp.titleSize);
-        } catch (IOException e) {
-            e.getStackTrace();
-        }
-
+        down[1] = setup("/objects/Chess.png");
 
     }
 

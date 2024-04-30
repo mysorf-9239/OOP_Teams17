@@ -23,7 +23,7 @@ public class TileEndlessManager {
     {
         this.gp = gp;
 
-        tile = new Tile[50];
+        tile = new Tile[100];
         this.map = new int[gp.maxWorldCol][gp.maxWorldRow];
 
         loadMap(path);
@@ -78,7 +78,11 @@ public class TileEndlessManager {
         setup(38, "/tiles/road/road06.png", false);
         setup(39, "/tiles/road/road07.png", false);
         setup(40, "/tiles/road/road08.png", false);
-        setup(41, "/tiles/lava.png", true);
+        setup(41, "/tiles/lava/lava10.png", true);
+        setup(42, "/tiles/lava/lava01.png", false);
+        setup(43, "/tiles/lava/lava00.png", false);
+        setup(44, "/tiles/lava/lava02.png", false);
+        setup(45, "/tiles/lava/lava03.png", true);
 
     }
 
@@ -137,9 +141,33 @@ public class TileEndlessManager {
         lavaY -= lavaSpeed;
 
         int lavaRow = lavaY/gp.titleSize;
-        if (map[0][lavaRow] != 41) {
-            for(int i = 0; i < gp.maxWorldCol; i++) {
+        int z = gp.maxWorldRow - lavaRow;
+        if (z < 10) {
+            for (int i = 0; i < gp.maxWorldCol; i++) {
+                map[i][lavaRow] = 41;
+            }
+            if (z > 1) {
+                for (int i = 0; i < gp.maxWorldCol; i++) {
+                    map[i][lavaRow + 1] = 45;
+                }
+            }
+
+        }
+        else {
+            if (map[0][lavaRow] != 42) {
+
+                for (int i = 0; i < 10; i++) {
                     map[i][lavaRow] = 41;
+                    map[i][lavaRow+1] = 45;
+                }
+                for (int i = 10; i < 30; i++) {
+                    map[i][lavaRow] = 42;
+                    map[i][lavaRow+1] = 45;
+                }
+                for (int i = 30; i < gp.maxWorldCol; i++) {
+                    map[i][lavaRow] = 41;
+                    map[i][lavaRow+1] = 45;
+                }
             }
         }
     }

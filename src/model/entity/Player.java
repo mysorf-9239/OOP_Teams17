@@ -1,14 +1,10 @@
 package model.entity;
 
 import controller.KeyHandler;
-import controller.UtilityTool;
-import model.tile.TileEndlessManager;
 import view.GamePanel;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class Player extends Entity {
 
@@ -28,12 +24,12 @@ public class Player extends Entity {
         screenY = gp.screenHeight/2;
 
         solidArea = new Rectangle();
-        solidArea.x = 8;
-        solidArea.y = 16;
+        solidArea.x = 12;
+        solidArea.y = 21;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        solidArea.width = 32;
-        solidArea.height = 32;
+        solidArea.width = 24;
+        solidArea.height = 27;
 
         this.keyHandler = keyHandler;
         setDefaultValues();
@@ -43,7 +39,7 @@ public class Player extends Entity {
     public void setDefaultValues() {
         //Define the start screen's andres
         worldX = gp.titleSize * 18;
-        worldY = gp.titleSize * (gp.maxWorldRow - 12);
+        worldY = gp.titleSize * (gp.maxWorldRow - 11);
         speed = gp.titleSize/5;
         direction = "up";
 
@@ -54,110 +50,94 @@ public class Player extends Entity {
 
     public void getPlayerImage() {
 
-        up[1] = setup("up01");
-        up[2] = setup("up02");
-        up[3] = setup("up03");
-        up[4] = setup("up04");
-        up[5] = setup("up05");
-        up[6] = setup("up06");
-        up[7] = setup("up07");
-        up[8] = setup("up08");
-        up[9] = setup("up09");
-        up[10] = setup("up10");
-        up[11] = setup("up11");
-        up[12] = setup("up12");
-        up[13] = setup("up13");
-        up[14] = setup("up14");
-        up[15] = setup("up15");
-        up[16] = setup("up16");
-        up[17] = setup("up17");
-        up[18] = setup("up18");
+        up[1] = setup("/player/up01");
+        up[2] = setup("/player/up02");
+        up[3] = setup("/player/up03");
+        up[4] = setup("/player/up04");
+        up[5] = setup("/player/up05");
+        up[6] = setup("/player/up06");
+        up[7] = setup("/player/up07");
+        up[8] = setup("/player/up08");
+        up[9] = setup("/player/up09");
+        up[10] = setup("/player/up10");
+        up[11] = setup("/player/up11");
+        up[12] = setup("/player/up12");
+        up[13] = setup("/player/up13");
+        up[14] = setup("/player/up14");
+        up[15] = setup("/player/up15");
+        up[16] = setup("/player/up16");
+        up[17] = setup("/player/up17");
+        up[18] = setup("/player/up18");
 
-        left[1] = setup("left01");
-        left[2] = setup("left02");
-        left[3] = setup("left03");
-        left[4] = setup("left04");
-        left[5] = setup("left05");
-        left[6] = setup("left06");
-        left[7] = setup("left07");
-        left[8] = setup("left08");
-        left[9] = setup("left09");
-        left[10] = setup("left10");
-        left[11] = setup("left11");
-        left[12] = setup("left12");
-        left[13] = setup("left13");
-        left[14] = setup("left14");
-        left[15] = setup("left15");
-        left[16] = setup("left16");
-        left[17] = setup("left17");
-        left[18] = setup("left18");
+        left[1] = setup("/player/left01");
+        left[2] = setup("/player/left02");
+        left[3] = setup("/player/left03");
+        left[4] = setup("/player/left04");
+        left[5] = setup("/player/left05");
+        left[6] = setup("/player/left06");
+        left[7] = setup("/player/left07");
+        left[8] = setup("/player/left08");
+        left[9] = setup("/player/left09");
+        left[10] = setup("/player/left10");
+        left[11] = setup("/player/left11");
+        left[12] = setup("/player/left12");
+        left[13] = setup("/player/left13");
+        left[14] = setup("/player/left14");
+        left[15] = setup("/player/left15");
+        left[16] = setup("/player/left16");
+        left[17] = setup("/player/left17");
+        left[18] = setup("/player/left18");
 
 
-        down[1] = setup("down01");
-        down[2] = setup("down02");
-        down[3] = setup("down03");
-        down[4] = setup("down04");
-        down[5] = setup("down05");
-        down[6] = setup("down06");
-        down[7] = setup("down07");
-        down[8] = setup("down08");
-        down[9] = setup("down09");
-        down[10] = setup("down10");
-        down[11] = setup("down11");
-        down[12] = setup("down12");
-        down[13] = setup("down13");
-        down[14] = setup("down14");
-        down[15] = setup("down15");
-        down[16] = setup("down16");
-        down[17] = setup("down17");
-        down[18] = setup("down18");
+        down[1] = setup("/player/down01");
+        down[2] = setup("/player/down02");
+        down[3] = setup("/player/down03");
+        down[4] = setup("/player/down04");
+        down[5] = setup("/player/down05");
+        down[6] = setup("/player/down06");
+        down[7] = setup("/player/down07");
+        down[8] = setup("/player/down08");
+        down[9] = setup("/player/down09");
+        down[10] = setup("/player/down10");
+        down[11] = setup("/player/down11");
+        down[12] = setup("/player/down12");
+        down[13] = setup("/player/down13");
+        down[14] = setup("/player/down14");
+        down[15] = setup("/player/down15");
+        down[16] = setup("/player/down16");
+        down[17] = setup("/player/down17");
+        down[18] = setup("/player/down18");
 
-        right[1] = setup("right01");
-        right[2] = setup("right02");
-        right[3] = setup("right03");
-        right[4] = setup("right04");
-        right[5] = setup("right05");
-        right[6] = setup("right06");
-        right[7] = setup("right07");
-        right[8] = setup("right08");
-        right[9] = setup("right09");
-        right[10] = setup("right10");
-        right[11] = setup("right11");
-        right[12] = setup("right12");
-        right[13] = setup("right13");
-        right[14] = setup("right14");
-        right[15] = setup("right15");
-        right[16] = setup("right16");
-        right[17] = setup("right17");
-        right[18] = setup("right18");
+        right[1] = setup("/player/right01");
+        right[2] = setup("/player/right02");
+        right[3] = setup("/player/right03");
+        right[4] = setup("/player/right04");
+        right[5] = setup("/player/right05");
+        right[6] = setup("/player/right06");
+        right[7] = setup("/player/right07");
+        right[8] = setup("/player/right08");
+        right[9] = setup("/player/right09");
+        right[10] = setup("/player/right10");
+        right[11] = setup("/player/right11");
+        right[12] = setup("/player/right12");
+        right[13] = setup("/player/right13");
+        right[14] = setup("/player/right14");
+        right[15] = setup("/player/right15");
+        right[16] = setup("/player/right16");
+        right[17] = setup("/player/right17");
+        right[18] = setup("/player/right18");
 
-    }
-
-    public BufferedImage setup(String imageName) {
-
-        UtilityTool utilityTool = new UtilityTool();
-        BufferedImage image = null;
-
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
-            image = utilityTool.scaleImage(image, gp.titleSize, gp.titleSize);
-        }
-        catch (IOException e) {
-            e.getStackTrace();
-        }
-
-        return image;
     }
 
     public void update() {
 
         //Check Lava
-        if (gp.collisionChecker.checkLava()) {
-            gp.player.worldY -= gp.titleSize;
-        }
+//        if (gp.collisionChecker.checkLava()) {
+//            gp.player.worldY -= gp.titleSize;
+//        }
 
         //Move
-        if(keyHandler.upPressed == true || keyHandler.downPressed == true || keyHandler.leftPressed == true || keyHandler.rightPressed == true)
+        if(keyHandler.upPressed == true || keyHandler.downPressed == true || keyHandler.leftPressed == true || keyHandler.rightPressed == true )
         {
             //GamePanel.isMove = true;
             if (keyHandler.upPressed == true) {
@@ -181,6 +161,9 @@ public class Player extends Entity {
             int objIndex = gp.collisionChecker.CheckObject(this, true);
             pickUpObject(objIndex);
 
+            //CHECK EVENT
+            gp.eventHandler.checkEvent();
+
             //IF COLLISION IS FALSE -> MOVE
             if (collidisionOn == false) {
 
@@ -198,8 +181,7 @@ public class Player extends Entity {
                         worldX += speed;
                         break;
                 }
-            }
-            else {
+            } else {
                 switch (direction) {
                     case "up":
                         KeyHandler.upPressed = false;
@@ -216,30 +198,24 @@ public class Player extends Entity {
                 }
                 KeyHandler.movingKeyPressed = false;
             }
-            spriteConuter++;
+            spriteCounter++;
             int spriteDistance = 0;
-            if (spriteConuter - spriteDistance > 1) {
+            if (spriteCounter - spriteDistance > 1) {
                 if (spriteNum < 12) {
                     spriteNum++;
                     spriteDistance += 1;
-                }
-                else {
+                } else {
                     spriteNum = 1;
                     spriteDistance = 0;
                 }
-                spriteConuter = 0;
+                spriteCounter = 0;
             }
         }
-
-
     }
 
     public void pickUpObject(int i) {
 
         if (i != 999) {
-
-
-
 //            String objectName = gp.obj[i].name;
 //
 //            switch (objectName) {
@@ -255,8 +231,7 @@ public class Player extends Entity {
 //                        hasKey--;
 //                        gp.obj[i] = null;
 //                        gp.ui.showMess("You opened the door");
-//                    }
-//                    else {
+//                    } else {
 //                        gp.ui.showMess("You need a key to unlock!");
 //                    }
 //                    break;
@@ -266,18 +241,15 @@ public class Player extends Entity {
 //                    gp.obj[i] = null;
 //                    gp.ui.showMess("Speed up");
 //                    break;
-//                case "Chest":
-//
+//                case "Chest"://
 //                    gp.ui.gameFnished = true;
 //                    gp.stopMusic();
 //                    gp.playSE(4);
 //                    break;
             }
-
     }
 
     public void draw(Graphics2D g2) {
-
 
         BufferedImage image = null;
 
@@ -445,37 +417,6 @@ public class Player extends Entity {
                         break;
                 }
                 break;
-//            default:
-//                switch (direction) {
-//                    case "up":
-//                        switch (spriteNum) {
-//                            case 1:
-//                            case 7:
-//                                image = up[1];
-//                                break;
-//                            case 2:
-//                            case 8:
-//                                image = up[2];
-//                                break;
-//                            case 3:
-//                            case 9:
-//                                image = up[3];
-//                                break;
-//                            case 4:
-//                            case 10:
-//                                image = up[4];
-//                                break;
-//                            case 5:
-//                            case 11:
-//                                image = up[5];
-//                                break;
-//                            case 6:
-//                            case 12:
-//                                image = up[6];
-//                                break;
-//                        }
-//                        break;
-//                }
         }
         g2.drawImage(image, screenX, screenY, null);
 
