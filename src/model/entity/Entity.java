@@ -28,6 +28,12 @@ public class Entity {
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collidisionOn = false;
 
+    //Character status
+    public int maxLife;
+    public int life;
+
+
+
     public Entity (GamePanel gp) {
 
         this.gp = gp;

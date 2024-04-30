@@ -46,6 +46,10 @@ public class Player extends Entity {
         worldY = gp.titleSize * (gp.maxWorldRow - 12);
         speed = gp.titleSize/5;
         direction = "up";
+
+        //Player life
+        maxLife= 6;
+        life = maxLife;
     }
 
     public void getPlayerImage() {

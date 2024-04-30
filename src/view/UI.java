@@ -1,33 +1,61 @@
 package view;
 
+import model.Object.Obj_Heart;
 import model.Object.Obj_Key;
+import model.Object.SuperObject;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 
 public class UI {
 
     GamePanel gp;
     Graphics2D g2;
-    Font arial_40;
-    BufferedImage keyImage;
+    Font maruMonica;
+
+    //Obj image
+    BufferedImage heart_full, heart_half, heart_blank;
+
+
+    //Message
     public boolean messageOn = false;
     public String message = "";
     int messageCounter = 0;
+
+    //Other
     public boolean gameFnished = false;
     double playTime;
     DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+
+    public int titleScreenState = 0;
+    public int commanNum = 0;
 
 
     public UI (GamePanel gp) {
 
         this.gp = gp;
 
-        arial_40 = new Font("Arial", Font.BOLD, 40);
 
-//        Obj_Key key = new Obj_Key(gp);
-//        keyImage = key.image;
+        //Define font
+        try {
+            InputStream inputStream = getClass().getResourceAsStream("/font/x12y16pxMaruMonica.ttf");
+            maruMonica = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+        } catch (IOException e) {
+            e.getStackTrace();
+        } catch (FontFormatException e) {
+            e.getStackTrace();
+        }
+
+
+        //Create hub object
+        SuperObject heart = new Obj_Heart(gp);
+        heart_full = heart.image;
+        heart_half = heart.image2;
+        heart_blank = heart.image3;
+
     }
 
     public void showMess(String text) {
@@ -41,14 +69,153 @@ public class UI {
 
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 80F));
         g2.setColor(Color.white);
-
-        if (gp.gameState == gp.playState) {
-
-
+        //Title state
+        if (gp.gameState == gp.titleState) {
+            drawTitleScreen();
         }
+        //Play State
+        if (gp.gameState == gp.playState) {
+            drawPlayerLife();
+        }
+        //Pause state
         if (gp.gameState == gp.pauseState) {
+            drawPlayerLife();
             drawPauseScreen();
         }
+    }
+
+    public void drawPlayerLife() {
+
+        int x = gp.titleSize/2;
+        int y = gp.titleSize/2;
+
+        int i = 0;
+
+        //Draw max blank heart
+        while (i < gp.player.maxLife/2) {
+            g2.drawImage(heart_blank, x, y, null);
+            i++;
+            x += gp.titleSize;
+        }
+
+        //Reset x, y
+        x = gp.titleSize/2;
+        y = gp.titleSize/2;
+
+        //Draw current life
+        while (i < gp.player.maxLife/2) {
+            g2.drawImage(heart_half, x, y, null);
+            i++;
+            if (i < gp.player.life) {
+                g2.drawImage(heart_full, x, y, null);
+            }
+            i++;
+            x += gp.titleSize;
+        }
+
+
+
+    }
+
+
+    public void drawTitleScreen() {
+        //Background
+        g2.setColor(new Color(70, 120, 80));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+
+
+        if (titleScreenState == 0) {
+
+            //Title name
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
+            String text = "Fugitive";
+            int x = getXforCenterText(text);
+            int y = gp.titleSize*3;
+
+            //Shadow
+            g2.setColor(Color.black);
+            g2.drawString(text, x+5, y+5);
+
+            //Main Color
+            g2.setColor(Color.white);
+            g2.drawString(text, x, y);
+
+            //Character image
+            x = gp.screenWidth/2 - gp.titleSize;
+            y += gp.titleSize*2;
+            g2.drawImage(gp.player.down[1], x, y, gp.titleSize*2, gp.titleSize*2, null);
+
+            //MENU
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 32F));
+
+            text = "New Game";
+            x = getXforCenterText(text);
+            y += gp.titleSize * 8;
+            g2.drawString(text, x, y);
+            if (commanNum == 0) {
+                g2.drawString(">", x - gp.titleSize * 2 / 3, y);
+            }
+
+            text = "Load Game";
+            x = getXforCenterText(text);
+            y += gp.titleSize;
+            g2.drawString(text, x, y);
+            if (commanNum == 1) {
+                g2.drawString(">", x - gp.titleSize * 2 / 3, y);
+            }
+
+            text = "Mode";
+            x = getXforCenterText(text);
+            y += gp.titleSize;
+            g2.drawString(text, x, y);
+            if (commanNum == 2) {
+                g2.drawString(">", x - gp.titleSize * 2 / 3, y);
+            }
+
+            text = "Setting";
+            x = getXforCenterText(text);
+            y += gp.titleSize;
+            g2.drawString(text, x, y);
+            if (commanNum == 3) {
+                g2.drawString(">", x - gp.titleSize * 2 / 3, y);
+            }
+
+            text = "Quit";
+            x = getXforCenterText(text);
+            y += gp.titleSize;
+            g2.drawString(text, x, y);
+            if (commanNum == 4) {
+                g2.drawString(">", x - gp.titleSize * 2 / 3, y);
+            }
+        }
+        else if (titleScreenState == 1) {
+
+            g2.setColor(Color.white);
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 32F));
+
+            String text = "Select your mode";
+            int x = getXforCenterText(text);
+            int y = gp.titleSize*3;
+            g2.drawString(text, x, y);
+
+            text = "Endless";
+            x = getXforCenterText(text);
+            y += gp.titleSize*9;
+            g2.drawString(text, x, y);
+            if (commanNum == 0) {
+                g2.drawString(">", x - gp.titleSize * 2 / 3, y);
+            }
+
+            text = "Overcome";
+            x = getXforCenterText(text);
+            y += gp.titleSize;
+            g2.drawString(text, x, y);
+            if (commanNum == 1) {
+                g2.drawString(">", x - gp.titleSize * 2 / 3, y);
+            }
+        }
+
     }
 
     public void drawPauseScreen() {

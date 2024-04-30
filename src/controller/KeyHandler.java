@@ -47,31 +47,102 @@ public class KeyHandler implements KeyListener
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        if (movingKeyPressed) {
-            return;
-        } else {
-            if (code == KeyEvent.VK_W) {
-                upPressed = true;
-                movingKeyPressed = true;
+
+        //Title state
+        if (gp.gameState == gp.titleState) {
+            if (gp.ui.titleScreenState == 0) {
+
+                if (code == KeyEvent.VK_W) {
+                    gp.ui.commanNum--;
+                    if (gp.ui.commanNum < 0) {
+                        gp.ui.commanNum = 4;
+                    }
+                }
+                if (code == KeyEvent.VK_S) {
+                    gp.ui.commanNum++;
+                    if (gp.ui.commanNum > 4) {
+                        gp.ui.commanNum = 0;
+                    }
+                }
+                if (code == KeyEvent.VK_ENTER) {
+                    switch (gp.ui.commanNum) {
+                        //New game
+                        case 0:
+                            gp.gameState = gp.playState;
+                            break;
+                        //Load game
+                        case 1:
+                            break;
+                        //Mode
+                        case 2:
+                            gp.ui.titleScreenState = 1;
+                            break;
+                        //Setting
+                        case 3:
+                            gp.ui.titleScreenState = 2;
+                            break;
+                        //Quit
+                        case 4:
+                            System.exit(0);
+                            break;
+                    }
+                }
             }
-            if (code == KeyEvent.VK_S) {
-                downPressed = true;
-                movingKeyPressed = true;
+            else if (gp.ui.titleScreenState == 1) {
+
+                if (code == KeyEvent.VK_W) {
+                    gp.ui.commanNum--;
+                    if (gp.ui.commanNum < 0) {
+                        gp.ui.commanNum = 1;
+                    }
+                }
+                if (code == KeyEvent.VK_S) {
+                    gp.ui.commanNum++;
+                    if (gp.ui.commanNum > 1) {
+                        gp.ui.commanNum = 0;
+                    }
+                }
+                if (code == KeyEvent.VK_ENTER) {
+                    switch (gp.ui.commanNum) {
+                        //Endless
+                        case 0:
+                            break;
+                        //Overcome
+                        case 1:
+                            break;
+                    }
+                }
             }
-            if (code == KeyEvent.VK_A) {
-                leftPressed = true;
-                movingKeyPressed = true;
-            }
-            if (code == KeyEvent.VK_D) {
-                rightPressed = true;
-                movingKeyPressed = true;
-            }
+        }
+
+        //Play state
+        if (gp.gameState == gp.playState) {
             if (code == KeyEvent.VK_ESCAPE) {
                 if (gp.gameState == gp.playState) {
                     gp.gameState = gp.pauseState;
-                }
-                else if (gp.gameState == gp.pauseState) {
+                } else if (gp.gameState == gp.pauseState) {
                     gp.gameState = gp.playState;
+                }
+            }
+
+            if (movingKeyPressed) {
+                return;
+            } else {
+                if (code == KeyEvent.VK_W) {
+                    upPressed = true;
+                    movingKeyPressed = true;
+                }
+                if (code == KeyEvent.VK_S) {
+                    downPressed = true;
+                    movingKeyPressed = true;
+                }
+                if (code == KeyEvent.VK_A) {
+                    leftPressed = true;
+                    movingKeyPressed = true;
+                }
+                if (code == KeyEvent.VK_D) {
+                    rightPressed = true;
+                    movingKeyPressed = true;
                 }
             }
         }
