@@ -19,19 +19,21 @@ public class UI {
     //Obj image
     BufferedImage heart_full, heart_half, heart_blank;
 
-
     //Message
     public boolean messageOn = false;
     public String message = "";
     int messageCounter = 0;
+    public int commanNum = 0;
 
     //Other
     public boolean gameFnished = false;
     double playTime;
     DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+    String currentDialogue = "";
 
     public int titleScreenState = 0;
-    public int commanNum = 0;
+    public int subState = 0;
+
 
 
     public UI (GamePanel gp) {
@@ -77,10 +79,9 @@ public class UI {
         if (gp.gameState == gp.playState) {
             drawPlayerLife();
         }
-        //Pause state
-        if (gp.gameState == gp.pauseState) {
-            drawPlayerLife();
-            drawPauseScreen();
+        //Option screen
+        if (gp.gameState == gp.optionState) {
+            drawOptionScreen();
         }
     }
 
@@ -136,10 +137,7 @@ public class UI {
         g2.setColor(new Color(70, 120, 80));
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 
-
-
         if (titleScreenState == 0) {
-
             //Title name
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
             String text = "Fugitive";
@@ -178,7 +176,7 @@ public class UI {
                 g2.drawString(">", x - gp.titleSize * 2 / 3, y);
             }
 
-            text = "Mode";
+            text = "Setting";
             x = getXforCenterText(text);
             y += gp.titleSize;
             g2.drawString(text, x, y);
@@ -186,23 +184,55 @@ public class UI {
                 g2.drawString(">", x - gp.titleSize * 2 / 3, y);
             }
 
-            text = "Setting";
+            text = "Quit";
             x = getXforCenterText(text);
             y += gp.titleSize;
             g2.drawString(text, x, y);
             if (commanNum == 3) {
                 g2.drawString(">", x - gp.titleSize * 2 / 3, y);
             }
+        }
+        else if (titleScreenState == 1) {
 
-            text = "Quit";
+            g2.setColor(Color.white);
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 32F));
+
+            String text = "Setting";
+            int x = getXforCenterText(text);
+            int y = gp.titleSize*3;
+            g2.drawString(text, x, y);
+
+            text = "Mode";
+            x = getXforCenterText(text);
+            y += gp.titleSize*9;
+            g2.drawString(text, x, y);
+            if (commanNum == 0) {
+                g2.drawString(">", x - gp.titleSize * 2 / 3, y);
+            }
+
+            text = "Music";
             x = getXforCenterText(text);
             y += gp.titleSize;
             g2.drawString(text, x, y);
-            if (commanNum == 4) {
+            if (commanNum == 1) {
+                g2.drawString(">", x - gp.titleSize * 2 / 3, y);
+            }
+            text = "SE";
+            x = getXforCenterText(text);
+            y += gp.titleSize;
+            g2.drawString(text, x, y);
+            if (commanNum == 2) {
+                g2.drawString(">", x - gp.titleSize * 2 / 3, y);
+            }
+            text = "Back";
+            x = getXforCenterText(text);
+            y += gp.titleSize;
+            g2.drawString(text, x, y);
+            if (commanNum == 3) {
                 g2.drawString(">", x - gp.titleSize * 2 / 3, y);
             }
         }
-        else if (titleScreenState == 1) {
+        else if (titleScreenState == 2) {
 
             g2.setColor(Color.white);
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 32F));
@@ -219,7 +249,6 @@ public class UI {
             if (commanNum == 0) {
                 g2.drawString(">", x - gp.titleSize * 2 / 3, y);
             }
-
             text = "Overcome";
             x = getXforCenterText(text);
             y += gp.titleSize;
@@ -227,18 +256,15 @@ public class UI {
             if (commanNum == 1) {
                 g2.drawString(">", x - gp.titleSize * 2 / 3, y);
             }
+            text = "Back";
+            x = getXforCenterText(text);
+            y += gp.titleSize;
+            g2.drawString(text, x, y);
+            if (commanNum == 2) {
+                g2.drawString(">", x - gp.titleSize * 2 / 3, y);
+            }
         }
 
-    }
-
-    public void drawPauseScreen() {
-
-        String text = "Pause";
-        int x = getXforCenterText(text);
-
-        int y = gp.screenHeight/2;
-
-        g2.drawString(text, x, y);
     }
 
     public int getXforCenterText(String text) {
@@ -247,6 +273,131 @@ public class UI {
         int x = gp.screenWidth/2 - length/2;
 
         return x;
+    }
+
+    private void drawSubWindown(int x, int y, int width, int height) {
+
+        Color c = new Color(0, 0, 0, 210);
+        g2.setColor(c);
+        g2.fillRoundRect(x, y, width, height, 35, 35);
+
+        c = new Color(255, 255, 255);
+        g2.setColor(c);
+        g2.setStroke(new BasicStroke(5));
+        g2.drawRoundRect(x+5, y+5, width - 10, height - 10, 25, 25);
+    }
+
+    private void drawOptionScreen() {
+
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(32F));
+
+        int frameX = gp.titleSize*6;
+        int frameY = gp.titleSize*3;
+        int frameWidth = gp.titleSize*8;
+        int frameHeight = gp.titleSize*12;
+        drawSubWindown(frameX, frameY, frameWidth, frameHeight);
+
+        switch (subState) {
+            case 0:
+                option_tops(frameX,frameY);
+                break;
+            case 1:
+                option_EndGame_Confirmation(frameX, frameY);
+                break;
+        }
+    }
+
+    public void option_tops(int frameX, int frameY) {
+
+        int textX;
+        int textY;
+
+        //Title
+        String text = "Options";
+        textX = getXforCenterText(text);
+        textY = frameY + gp.titleSize;
+        g2.drawString(text, textX, textY);
+
+
+        //Music
+        textX = frameX + gp.titleSize;
+        textY += gp.titleSize*2;
+        g2.drawString("Music", textX, textY);
+        if (commanNum == 0) {
+            g2.drawString(">", textX - 25, textY);
+        }
+
+        //SE
+        textX = frameX + gp.titleSize;
+        textY += gp.titleSize*2;
+        g2.drawString("SE", textX, textY);
+        if (commanNum == 1) {
+            g2.drawString(">", textX - 25, textY);
+        }
+
+        //EndGame
+        textX = frameX + gp.titleSize;
+        textY += gp.titleSize*2;
+        g2.drawString("EndGame", textX, textY);
+        if (commanNum == 2) {
+            g2.drawString(">", textX - 25, textY);
+        }
+
+        //Back
+        textX = frameX + gp.titleSize;
+        textY += gp.titleSize*4;
+        g2.drawString("Back", textX, textY);
+        if (commanNum == 3) {
+            g2.drawString(">", textX - 25, textY);
+        }
+
+        //Music bar
+        textX = frameX + gp.titleSize*4 + 5;
+        textY = frameY + gp.titleSize*2 + 24;
+        g2.setStroke(new BasicStroke(3));
+        g2.drawRect(textX, textY, 120, 24);
+        int volumeWidth = 24 * gp.music.volumeScale;
+        g2.fillRect(textX, textY, volumeWidth, 24);
+
+        //SE bar
+        textY += gp.titleSize*2;
+        g2.drawRect(textX, textY, 120, 24);
+        volumeWidth = 24 * gp.se.volumeScale;
+        g2.fillRect(textX, textY, volumeWidth, 24);
+
+    }
+
+    public void option_EndGame_Confirmation(int frameX, int frameY) {
+
+        int textX = frameX + gp.titleSize + 20;
+        int textY = frameY = gp.titleSize*6;
+
+        currentDialogue = "Quit the game and \nreturn to the title screen";
+
+        for (String line: currentDialogue.split("\n")) {
+            g2.drawString(line, textX, textY);
+            textX -= 40;
+            textY += gp.titleSize;
+        }
+
+        //Yes
+        String text = "Yes";
+        textX = getXforCenterText(text);
+        textY += gp.titleSize * 4;
+        g2.drawString(text, textX, textY);
+        if (commanNum == 0) {
+            g2.drawString(">", textX-25, textY);
+        }
+
+        //No
+        text = "No";
+        textX = getXforCenterText(text);
+        textY += gp.titleSize * 2;
+        g2.drawString(text, textX, textY);
+        if (commanNum == 1) {
+            g2.drawString(">", textX-25, textY);
+        }
     }
 
 //    public void draw(Graphics2D g2) {

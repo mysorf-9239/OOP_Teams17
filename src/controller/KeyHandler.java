@@ -10,8 +10,9 @@ public class KeyHandler implements KeyListener
 {
     GamePanel gp;
     public static boolean upPressed, downPressed, leftPressed, rightPressed;
-    public Player player;
+    public static boolean enterPresses = false;
     public static boolean movingKeyPressed = false;
+    public Player player;
 
     //Debug
     public boolean showDebugText = false;
@@ -21,151 +22,281 @@ public class KeyHandler implements KeyListener
     }
 
     @Override
-    public void keyTyped(KeyEvent e)
-    {
-        int code = e.getKeyCode();
-
-        if(code == KeyEvent.VK_W) {
-            synchronized(player) {
-                upPressed = true;
-            }
-        }
-        if(code == KeyEvent.VK_S) {
-            synchronized(player) {
-                downPressed = true;
-            }
-        }
-        if(code == KeyEvent.VK_A) {
-            synchronized(player) {
-                leftPressed = true;
-            }
-        }
-        if(code == KeyEvent.VK_D) {
-            synchronized(player) {
-                rightPressed = true;
-            }
-        }
-    }
+    public void keyTyped(KeyEvent e){ }
 
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
         //Title state
-        if (gp.gameState == gp.titleState) {
-            if (gp.ui.titleScreenState == 0) {
+        if (gp.gameState == gp.titleState) { titleState(code);}
 
-                if (code == KeyEvent.VK_W) {
-                    gp.ui.commanNum--;
-                    if (gp.ui.commanNum < 0) {
-                        gp.ui.commanNum = 4;
-                    }
-                }
-                if (code == KeyEvent.VK_S) {
-                    gp.ui.commanNum++;
-                    if (gp.ui.commanNum > 4) {
-                        gp.ui.commanNum = 0;
-                    }
-                }
-                if (code == KeyEvent.VK_ENTER) {
-                    switch (gp.ui.commanNum) {
-                        //New game
-                        case 0:
-                            gp.gameState = gp.playState;
-                            break;
-                        //Load game
-                        case 1:
-                            break;
-                        //Mode
-                        case 2:
-                            gp.ui.titleScreenState = 1;
-                            break;
-                        //Setting
-                        case 3:
-                            gp.ui.titleScreenState = 2;
-                            break;
-                        //Quit
-                        case 4:
-                            System.exit(0);
-                            break;
-                    }
+        //Play state
+        if (gp.gameState == gp.playState) { playState(code); }
 
+        //Option state
+        if (gp.gameState == gp.optionState) {optionState(code);}
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) { }
+
+    public void playState(int code) {
+
+        if (code == KeyEvent.VK_ESCAPE) {
+            gp.gameState = gp.optionState;
+        }
+
+        if (!movingKeyPressed) {
+            if (code == KeyEvent.VK_W) {
+                upPressed = true;
+                movingKeyPressed = true;
+            }
+            if (code == KeyEvent.VK_S) {
+                downPressed = true;
+                movingKeyPressed = true;
+            }
+            if (code == KeyEvent.VK_A) {
+                leftPressed = true;
+                movingKeyPressed = true;
+            }
+            if (code == KeyEvent.VK_D) {
+                rightPressed = true;
+                movingKeyPressed = true;
+            }
+
+            //DeBug
+            if (code == KeyEvent.VK_T) {
+                if (showDebugText == false) {
+                    showDebugText = true;
+                } else if (showDebugText == true) {
+                    showDebugText =false;
                 }
             }
-            else if (gp.ui.titleScreenState == 1) {
+            //Load map
+            if (code == KeyEvent.VK_R) {
+                gp.tileManager.loadMap("/map/Maptest.txt");
+            }
+        }
+    }
 
-                if (code == KeyEvent.VK_W) {
-                    gp.ui.commanNum--;
-                    if (gp.ui.commanNum < 0) {
-                        gp.ui.commanNum = 1;
-                    }
+    public void titleState(int code) {
+        if (gp.ui.titleScreenState == 0) {
+
+            if (code == KeyEvent.VK_W) {
+                gp.ui.commanNum--;
+                if (gp.ui.commanNum < 0) {
+                    gp.ui.commanNum = 3;
                 }
-                if (code == KeyEvent.VK_S) {
-                    gp.ui.commanNum++;
-                    if (gp.ui.commanNum > 1) {
+            }
+            if (code == KeyEvent.VK_S) {
+                gp.ui.commanNum++;
+                if (gp.ui.commanNum > 3) {
+                    gp.ui.commanNum = 0;
+                }
+            }
+            if (code == KeyEvent.VK_ENTER) {
+                switch (gp.ui.commanNum) {
+                    //New game
+                    case 0:
+                        gp.gameState = gp.playState;
+                        gp.playMusic(0);
                         gp.ui.commanNum = 0;
-                    }
+                        break;
+                    //Load game
+                    case 1:
+                        break;
+                    //Setting
+                    case 2:
+                        gp.ui.titleScreenState = 1;
+                        gp.ui.commanNum = 0;
+                        break;
+                    //Quit
+                    case 3:
+                        System.exit(0);
+                        break;
                 }
-                if (code == KeyEvent.VK_ENTER) {
-                    switch (gp.ui.commanNum) {
-                        //Endless
-                        case 0:
-                            break;
-                        //Overcome
-                        case 1:
-                            break;
-                    }
+
+            }
+        }
+        else if (gp.ui.titleScreenState == 1) {
+
+            if (code == KeyEvent.VK_W) {
+                gp.ui.commanNum--;
+                if (gp.ui.commanNum < 0) {
+                    gp.ui.commanNum = 3;
+                }
+            }
+            if (code == KeyEvent.VK_S) {
+                gp.ui.commanNum++;
+                if (gp.ui.commanNum > 3) {
+                    gp.ui.commanNum = 0;
+                }
+            }
+            if (code == KeyEvent.VK_ENTER) {
+                switch (gp.ui.commanNum) {
+                    //Mode
+                    case 0:
+                        //Mode screen
+                        gp.ui.titleScreenState = 2;
+                        gp.ui.commanNum = 0;
+                        break;
+                    //Music
+                    case 1:
+                        //Change music
+
+                        //Return title screen 0
+                        gp.ui.titleScreenState = 0;
+                        gp.ui.commanNum = 0;
+                        break;
+                    //SE
+                    case 2:
+                        //Change SE
+
+                        //Return title screen 0
+                        gp.ui.titleScreenState = 0;
+                        gp.ui.commanNum = 0;
+                        break;
+                    //Back
+                    case 3:
+                        //Return title screen 0
+                        gp.ui.titleScreenState = 0;
+                        gp.ui.commanNum = 0;
+                        break;
                 }
             }
         }
-
-        //Play state
-        if (gp.gameState == gp.playState) {
-            if (code == KeyEvent.VK_ESCAPE) {
-                if (gp.gameState == gp.playState) {
-                    gp.gameState = gp.pauseState;
-                } else if (gp.gameState == gp.pauseState) {
-                    gp.gameState = gp.playState;
+        else if (gp.ui.titleScreenState == 2) {
+            if (code == KeyEvent.VK_W) {
+                gp.ui.commanNum--;
+                if (gp.ui.commanNum < 0) {
+                    gp.ui.commanNum = 2;
                 }
             }
+            if (code == KeyEvent.VK_S) {
+                gp.ui.commanNum++;
+                if (gp.ui.commanNum > 2) {
+                    gp.ui.commanNum = 0;
+                }
+            }
+            if (code == KeyEvent.VK_ENTER) {
+                switch (gp.ui.commanNum) {
+                    //Endless
+                    case 0:
+                        //Choose map
 
-            if (movingKeyPressed) {
-                return;
-            } else {
-                if (code == KeyEvent.VK_W) {
-                    upPressed = true;
-                    movingKeyPressed = true;
-                }
-                if (code == KeyEvent.VK_S) {
-                    downPressed = true;
-                    movingKeyPressed = true;
-                }
-                if (code == KeyEvent.VK_A) {
-                    leftPressed = true;
-                    movingKeyPressed = true;
-                }
-                if (code == KeyEvent.VK_D) {
-                    rightPressed = true;
-                    movingKeyPressed = true;
-                }
+                        //Return title screen 0
+                        gp.ui.titleScreenState = 1;
+                        break;
+                    //Overcome
+                    case 1:
+                        //Choose map
 
-                //DeBug
-                if (code == KeyEvent.VK_T) {
-                    if (showDebugText == false) {
-                        showDebugText = true;
-                    } else if (showDebugText == true) {
-                        showDebugText =false;
-                    }
-                }
-                //Load map
-                if (code == KeyEvent.VK_R) {
-                    gp.tileManager.loadMap("/map/Maptest.txt");
+                        //Return title screen 0
+                        gp.ui.titleScreenState = 1;
+                        break;
+                    //Back
+                    case 2:
+                        gp.ui.titleScreenState = 1;
+                        gp.ui.commanNum = 0;
+                        break;
                 }
             }
         }
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
+    private void optionState(int code) {
+        if (code == KeyEvent.VK_SPACE) {
+            gp.gameState = gp.playState;
+        }
+
+        if (code == KeyEvent.VK_W) {
+            gp.ui.commanNum--;
+            gp.playSE(5);
+            if (gp.ui.subState == 0) {
+                if (gp.ui.commanNum < 0) {
+                    gp.ui.commanNum = 3;
+                }
+            }
+            if (gp.ui.subState == 1) {
+                if (gp.ui.commanNum < 0) {
+                    gp.ui.commanNum = 1;
+                }
+            }
+        }
+        if (code == KeyEvent.VK_S) {
+            gp.ui.commanNum++;
+            gp.playSE(5);
+            if (gp.ui.subState == 0) {
+                if (gp.ui.commanNum > 3) {
+                    gp.ui.commanNum = 0;
+                }
+            }
+            if (gp.ui.subState == 1) {
+                if (gp.ui.commanNum > 1) {
+                    gp.ui.commanNum = 0;
+                }
+            }
+        }
+        if (code == KeyEvent.VK_A) {
+            if(gp.ui.subState == 0) {
+                if (gp.ui.commanNum == 0 && gp.music.volumeScale > 0) {
+                    gp.music.volumeScale--;
+                    gp.music.checkVolume();
+                    gp.playSE(5);
+                }
+            }
+            if(gp.ui.subState == 0) {
+                if (gp.ui.commanNum == 1 && gp.se.volumeScale > 0) {
+                    gp.se.volumeScale--;
+                    gp.playSE(5);
+                }
+            }
+        }
+        if (code == KeyEvent.VK_D) {
+            if(gp.ui.subState == 0) {
+                if (gp.ui.commanNum == 0 && gp.music.volumeScale < 5) {
+                    gp.music.volumeScale++;
+                    gp.music.checkVolume();
+                    gp.playSE(5);
+                }
+            }
+            if(gp.ui.subState == 0) {
+                if (gp.ui.commanNum == 1 && gp.se.volumeScale < 5) {
+                    gp.se.volumeScale++;
+                    gp.playSE(5);
+                }
+            }
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            if (gp.ui.subState == 0) {
+                switch (gp.ui.commanNum) {
+                    //EndGame
+                    case 2:
+                        gp.ui.subState = 1;
+                        gp.ui.commanNum = 0;
+                        break;
+                    //Back
+                    case 3:
+                        gp.gameState = gp.playState;
+                        gp.ui.commanNum = 0;
+                        break;
+                }
+            }
+            if (gp.ui.subState == 1) {
+                switch (gp.ui.commanNum) {
+                    //Yes
+                    case 0:
+                        gp.ui.subState = 0;
+                        gp.gameState = gp.titleState;
+                        break;
+                    //No
+                    case 1:
+                        gp.ui.subState = 1;
+                        gp.ui.commanNum = 2;
+                        break;
+                }
+            }
+        }
     }
 }

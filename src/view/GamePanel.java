@@ -44,8 +44,8 @@ public class GamePanel extends JPanel implements Runnable {
     public TileEndlessManager tileManager = new TileEndlessManager(this);  //"/map/Maptest.txt"
     public KeyHandler keyHandler = new KeyHandler(this);
     public EventHandler eventHandler = new EventHandler(this);
-    Sound music = new Sound();
-    Sound se = new Sound();
+    public Sound music = new Sound();
+    public Sound se = new Sound();
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     public AssetSetter assetSetter = new AssetSetter(this);
     public UI ui = new UI(this);
@@ -60,7 +60,7 @@ public class GamePanel extends JPanel implements Runnable {
     public int gameState;
     public final int titleState = 0;
     public final int playState = 1;
-    public final int pauseState = 2;
+    public final int optionState = 2;
 
 
     public GamePanel() {
@@ -111,7 +111,6 @@ public class GamePanel extends JPanel implements Runnable {
             player.update();
             tileManager.updateMap();
         }
-        if (gameState == pauseState) { }
     }
 
     public void paintComponent(Graphics g) {
@@ -192,31 +191,5 @@ public class GamePanel extends JPanel implements Runnable {
     public void playSE(int i) {
         se.setFile(i);
         se.play();
-    }
-
-
-
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                JFrame windown = new JFrame();
-                windown.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                windown.setResizable(false);
-                windown.setTitle("Fugitive");
-
-                TileEndlessManager.path = "/map/Maptest.txt";
-
-                GamePanel gamePanel = new GamePanel();
-                windown.add(gamePanel);
-
-                windown.pack();
-
-                windown.setLocationRelativeTo(null);
-                windown.setVisible(true);
-
-                gamePanel.setupObject();
-                gamePanel.StartGameThread();
-            }
-        });
     }
 }
