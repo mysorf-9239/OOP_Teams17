@@ -45,12 +45,11 @@ public class UI {
         try {
             InputStream inputStream = getClass().getResourceAsStream("/font/x12y16pxMaruMonica.ttf");
             maruMonica = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-        } catch (IOException e) {
-            e.getStackTrace();
         } catch (FontFormatException e) {
             e.getStackTrace();
+        }  catch (IOException e) {
+        e.getStackTrace();
         }
-
 
         //Create hub object
         Entity heart = new Obj_Heart(gp);
@@ -69,7 +68,7 @@ public class UI {
     public void draw(Graphics2D g2) {
         this.g2 = g2;
 
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 80F));
+        g2.setFont(maruMonica);
         g2.setColor(Color.white);
         //Title state
         if (gp.gameState == gp.titleState) {
@@ -82,6 +81,10 @@ public class UI {
         //Option screen
         if (gp.gameState == gp.optionState) {
             drawOptionScreen();
+        }
+        //Game over screen
+        if (gp.gameState == gp.gameOverState) {
+            drawGameOverScreen();
         }
     }
 
@@ -141,11 +144,11 @@ public class UI {
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
             String text = "Fugitive";
             int x = getXforCenterText(text);
-            int y = gp.titleSize*3;
+            int y = gp.titleSize*4;
 
             //Shadow
             g2.setColor(Color.black);
-            g2.drawString(text, x+5, y+5);
+            g2.drawString(text, x+3, y+3);
 
             //Main Color
             g2.setColor(Color.white);
@@ -157,49 +160,87 @@ public class UI {
             g2.drawImage(gp.player.down[1], x, y, gp.titleSize*2, gp.titleSize*2, null);
 
             //MENU
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 32F));
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 36F));
 
             text = "New Game";
             x = getXforCenterText(text);
-            y += gp.titleSize * 8;
+            y += gp.titleSize * 7;
+            g2.setColor(Color.white);
             g2.drawString(text, x, y);
             if (commanNum == 0) {
+                g2.setColor(Color.black);
                 g2.drawString(">", x - gp.titleSize * 2 / 3, y);
             }
 
             text = "Load Game";
             x = getXforCenterText(text);
-            y += gp.titleSize;
+            y += gp.titleSize + 10;
+            int width = gp.titleSize;
+            int height = text.length() + 2;
+            g2.setColor(Color.white);
             g2.drawString(text, x, y);
             if (commanNum == 1) {
-                g2.drawString(">", x - gp.titleSize * 2 / 3, y);
+                g2.setColor(new Color(40, 87, 181));
+                g2.fillRect(x-5, y-gp.titleSize/2 - 5, width*3+10, height*3);
+                g2.setColor(Color.black);
+                g2.drawString(text, x, y);
             }
 
             text = "Setting";
             x = getXforCenterText(text);
-            y += gp.titleSize;
+            y += gp.titleSize + 10;
+            g2.setColor(Color.white);
             g2.drawString(text, x, y);
             if (commanNum == 2) {
-                g2.drawString(">", x - gp.titleSize * 2 / 3, y);
+                g2.setColor(Color.red);
+                g2.drawString(text, x+1, y-1);
             }
 
             text = "Quit";
             x = getXforCenterText(text);
-            y += gp.titleSize;
+            y += gp.titleSize + 10;
+            width = text.length()*13;
+            height = 3;
+            g2.setColor(Color.white);
             g2.drawString(text, x, y);
             if (commanNum == 3) {
-                g2.drawString(">", x - gp.titleSize * 2 / 3, y);
+                g2.setColor(Color.black);
+                g2.fillRect(x, y+3, width, height);
             }
+
+            //Create
+            g2.setFont(g2.getFont().deriveFont(12F));
+            g2.setColor(Color.darkGray);
+            text = "Create by Teams17";
+            x = 3;
+            y = gp.screenHeight - gp.titleSize/6;
+            g2.drawString(text, x, y);
+
+            //Version
+            text = "version: 1.0.0";
+            x = gp.screenWidth - gp.titleSize*2;
+            y = gp.screenHeight - gp.titleSize/6;
+            g2.drawString(text, x, y);
+
         }
         else if (titleScreenState == 1) {
 
-            g2.setColor(Color.white);
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 32F));
-
+            //Title name
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
             String text = "Setting";
             int x = getXforCenterText(text);
-            int y = gp.titleSize*3;
+            int y = gp.titleSize*4;
+
+            //Shadow
+            g2.setColor(Color.black);
+            g2.drawString(text, x+3, y+3);
+            //Main
+            g2.setColor(Color.white);
             g2.drawString(text, x, y);
+
+
+            //Menu
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 36F));
 
             text = "Mode";
             x = getXforCenterText(text);
@@ -211,21 +252,21 @@ public class UI {
 
             text = "Music";
             x = getXforCenterText(text);
-            y += gp.titleSize;
+            y += gp.titleSize + 10;
             g2.drawString(text, x, y);
             if (commanNum == 1) {
                 g2.drawString(">", x - gp.titleSize * 2 / 3, y);
             }
             text = "SE";
             x = getXforCenterText(text);
-            y += gp.titleSize;
+            y += gp.titleSize + 10;
             g2.drawString(text, x, y);
             if (commanNum == 2) {
                 g2.drawString(">", x - gp.titleSize * 2 / 3, y);
             }
             text = "Back";
             x = getXforCenterText(text);
-            y += gp.titleSize;
+            y += gp.titleSize + 10;
             g2.drawString(text, x, y);
             if (commanNum == 3) {
                 g2.drawString(">", x - gp.titleSize * 2 / 3, y);
@@ -233,13 +274,20 @@ public class UI {
         }
         else if (titleScreenState == 2) {
 
-            g2.setColor(Color.white);
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 32F));
-
+            //Title name
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
             String text = "Select your mode";
             int x = getXforCenterText(text);
-            int y = gp.titleSize*3;
+            int y = gp.titleSize*4;
+            //Shadow
+            g2.setColor(Color.black);
+            g2.drawString(text, x+3, y+3);
+            //Main
+            g2.setColor(Color.white);
             g2.drawString(text, x, y);
+
+            //Menu
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 36F));
 
             text = "Endless";
             x = getXforCenterText(text);
@@ -250,14 +298,14 @@ public class UI {
             }
             text = "Overcome";
             x = getXforCenterText(text);
-            y += gp.titleSize;
+            y += gp.titleSize + 10;
             g2.drawString(text, x, y);
             if (commanNum == 1) {
                 g2.drawString(">", x - gp.titleSize * 2 / 3, y);
             }
             text = "Back";
             x = getXforCenterText(text);
-            y += gp.titleSize;
+            y += gp.titleSize + 10;
             g2.drawString(text, x, y);
             if (commanNum == 2) {
                 g2.drawString(">", x - gp.titleSize * 2 / 3, y);
@@ -369,11 +417,13 @@ public class UI {
         volumeWidth = 24 * gp.se.volumeScale;
         g2.fillRect(textX, textY, volumeWidth, 24);
 
+        gp.config.saveConfig();
+
     }
 
     public void option_EndGame_Confirmation(int frameX, int frameY) {
 
-        int textX = frameX + gp.titleSize + 20;
+        int textX = frameX + gp.titleSize + 40;
         int textY = frameY = gp.titleSize*6;
 
         currentDialogue = "Quit the game and \nreturn to the title screen";
@@ -403,44 +453,25 @@ public class UI {
         }
     }
 
-//    public void draw(Graphics2D g2) {
-//
-//        if (gameFnished == true) {
-//
-//            g2.setColor(Color.red);
-//            g2.setFont(arial_40);
-//
-//            String text;
-//            int textLength;
-//            int x, y;
-//
-//            text = "You WIN";
-//            textLength = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-//
-//            x = gp.screenWidth/2 - textLength/2;
-//            y = gp.screenHeight/2 - gp.titleSize/3;
-//            g2.drawString(text, x, y);
-//        }
-//        else {
-//            g2.setFont(arial_40);
-//            g2.setColor(Color.WHITE);
-//            g2.drawImage(keyImage, gp.titleSize / 2, gp.titleSize / 2, gp.titleSize, gp.titleSize, null);
-//            g2.drawString("x: " + gp.player.hasKey, 74, 65);
-//
-//            playTime+= (double) 1/60;
-//            g2.drawString("Time: " + decimalFormat.format(playTime), gp.titleSize*16, 65);
-//
-//            if (messageOn == true) {
-//
-//                g2.drawString(message, 100, 100);
-//
-//                messageCounter++;
-//                if (messageCounter > 100) {
-//                    messageCounter = 0;
-//                    messageOn = false;
-//                }
-//            }
-//        }
-//    }
+    public void drawGameOverScreen() {
+
+        g2.setColor(new Color(0, 0, 0, 125));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        int x, y;
+        String text;
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 110F));
+
+        text = "Game Over";
+        //Shadow
+        g2.setColor(Color.black);
+        x = getXforCenterText(text);
+        y = gp.titleSize*6;
+        g2.drawString(text, x, y);
+        //Main
+        g2.setColor(Color.white);
+        g2.drawString(text, x-4, y-4);
+
+    }
 
 }

@@ -132,9 +132,9 @@ public class Player extends Entity {
     public void update() {
 
         //Check Lava
-//        if (gp.collisionChecker.checkLava()) {
-//            gp.player.worldY -= gp.titleSize;
-//        }
+        if (gp.collisionChecker.checkLava()) {
+            gp.player.worldY -= gp.titleSize;
+        }
 
         //Move
         if(keyHandler.upPressed == true || keyHandler.downPressed == true || keyHandler.leftPressed == true || keyHandler.rightPressed == true )
@@ -210,6 +210,13 @@ public class Player extends Entity {
                 }
                 spriteCounter = 0;
             }
+        }
+
+        if (life > maxLife) {
+            life = maxLife;
+        }
+        if (life <= 0) {
+            gp.gameState = gp.gameOverState;
         }
     }
 

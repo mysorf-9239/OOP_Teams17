@@ -21,6 +21,8 @@ public class MainController
                 GamePanel gamePanel = new GamePanel();
                 windown.add(gamePanel);
 
+                gamePanel.config.loadConfig();
+
                 windown.pack();
 
                 windown.setLocationRelativeTo(null);

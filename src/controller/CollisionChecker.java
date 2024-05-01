@@ -145,7 +145,8 @@ public class CollisionChecker {
         int playerRow = gp.player.worldY / gp.titleSize;
 
 
-        if (GamePanel.map[playerCol][playerRow] == 41) {
+        if (GamePanel.map[playerCol][playerRow] >= 41) {
+            gp.player.life -= 1;
             return true;
         }
         else {

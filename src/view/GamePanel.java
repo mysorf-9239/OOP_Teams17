@@ -1,6 +1,7 @@
 package view;
 
 import controller.CollisionChecker;
+import controller.Config;
 import controller.EventHandler;
 import controller.KeyHandler;
 import model.Object.AssetSetter;
@@ -49,7 +50,9 @@ public class GamePanel extends JPanel implements Runnable {
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     public AssetSetter assetSetter = new AssetSetter(this);
     public UI ui = new UI(this);
+    public Config config = new Config(this);
     Thread gameThread;
+
 
     //Entity and Object
     public Player player = new Player(this, keyHandler);
@@ -61,6 +64,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int titleState = 0;
     public final int playState = 1;
     public final int optionState = 2;
+    public final int gameOverState = 3;
 
 
     public GamePanel() {
