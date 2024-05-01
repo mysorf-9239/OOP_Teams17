@@ -123,13 +123,12 @@ public class UI {
             g2.drawImage(heart_full, x, y, null);
             g2.drawImage(heart_full, x + gp.titleSize, y, null);
             g2.drawImage(heart_half, x + gp.titleSize*2, y, null);
-        }else if (life > 5) {
+        }
+        else if (life > 5) {
             g2.drawImage(heart_full, x, y, null);
             g2.drawImage(heart_full, x + gp.titleSize, y, null);
             g2.drawImage(heart_full, x + gp.titleSize*2, y, null);
         }
-
-
     }
 
     public void drawTitleScreen() {
@@ -267,6 +266,8 @@ public class UI {
 
     }
 
+
+    //Auxiliary Method
     public int getXforCenterText(String text) {
 
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
@@ -287,6 +288,8 @@ public class UI {
         g2.drawRoundRect(x+5, y+5, width - 10, height - 10, 25, 25);
     }
 
+
+    //Option state
     private void drawOptionScreen() {
 
         g2.setColor(Color.white);

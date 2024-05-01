@@ -11,6 +11,7 @@ public class KeyHandler implements KeyListener
     GamePanel gp;
     public static boolean upPressed, downPressed, leftPressed, rightPressed;
     public static boolean enterPresses = false;
+    public static boolean esccapePresses = false;
     public static boolean movingKeyPressed = false;
     public Player player;
 
@@ -36,6 +37,7 @@ public class KeyHandler implements KeyListener
 
         //Option state
         if (gp.gameState == gp.optionState) {optionState(code);}
+
     }
 
     @Override
@@ -45,6 +47,7 @@ public class KeyHandler implements KeyListener
 
         if (code == KeyEvent.VK_ESCAPE) {
             gp.gameState = gp.optionState;
+            gp.ui.commanNum = 3;
         }
 
         if (!movingKeyPressed) {
@@ -206,10 +209,6 @@ public class KeyHandler implements KeyListener
     }
 
     private void optionState(int code) {
-        if (code == KeyEvent.VK_SPACE) {
-            gp.gameState = gp.playState;
-        }
-
         if (code == KeyEvent.VK_W) {
             gp.ui.commanNum--;
             gp.playSE(5);
@@ -245,8 +244,6 @@ public class KeyHandler implements KeyListener
                     gp.music.checkVolume();
                     gp.playSE(5);
                 }
-            }
-            if(gp.ui.subState == 0) {
                 if (gp.ui.commanNum == 1 && gp.se.volumeScale > 0) {
                     gp.se.volumeScale--;
                     gp.playSE(5);
@@ -260,8 +257,6 @@ public class KeyHandler implements KeyListener
                     gp.music.checkVolume();
                     gp.playSE(5);
                 }
-            }
-            if(gp.ui.subState == 0) {
                 if (gp.ui.commanNum == 1 && gp.se.volumeScale < 5) {
                     gp.se.volumeScale++;
                     gp.playSE(5);
@@ -282,8 +277,7 @@ public class KeyHandler implements KeyListener
                         gp.ui.commanNum = 0;
                         break;
                 }
-            }
-            if (gp.ui.subState == 1) {
+            } else if (gp.ui.subState == 1) {
                 switch (gp.ui.commanNum) {
                     //Yes
                     case 0:
@@ -292,7 +286,7 @@ public class KeyHandler implements KeyListener
                         break;
                     //No
                     case 1:
-                        gp.ui.subState = 1;
+                        gp.ui.subState = 0;
                         gp.ui.commanNum = 2;
                         break;
                 }
