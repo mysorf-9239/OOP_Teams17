@@ -66,6 +66,13 @@ public class GamePanel extends JPanel implements Runnable {
     public final int optionState = 2;
     public final int gameOverState = 3;
 
+    //Mode
+    public int gameMode;
+    public final int endlessMode = 0;
+    public final int overcomeMode = 1;
+
+
+
 
     public GamePanel() {
 
@@ -113,7 +120,9 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         if (gameState == playState) {
             player.update();
-            poisonMist.update();
+            if (gameMode == 0) {
+                poisonMist.update();
+            }
         }
     }
 
@@ -155,11 +164,14 @@ public class GamePanel extends JPanel implements Runnable {
             //Empty entitiesList
             entitiesList.clear();
 
-            //Lava
-            poisonMist.draw(g2);
+            if (gameMode == 0) {
+                //Lava
+                poisonMist.draw(g2);
 
-            //UI
-            ui.draw(g2);
+                //UI
+                ui.draw(g2);
+            }
+
 
             //Debug
             if (keyHandler.showDebugText == true) {

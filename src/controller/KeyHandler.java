@@ -13,7 +13,6 @@ public class KeyHandler implements KeyListener
     public static boolean enterPresses = false;
     public static boolean esccapePresses = false;
     public static boolean movingKeyPressed = false;
-    public Player player;
 
     //Debug
     public boolean showDebugText = false;
@@ -144,6 +143,42 @@ public class KeyHandler implements KeyListener
                     gp.ui.commanNum = 0;
                 }
             }
+            if (code == KeyEvent.VK_A) {
+                if (gp.ui.commanNum == 0) {
+                    if (gp.gameMode == gp.endlessMode) {
+                        gp.gameMode = gp.overcomeMode;
+                    } else {
+                        gp.gameMode = gp.endlessMode;
+                    }
+                }
+                if (gp.ui.commanNum == 1 && gp.music.volumeScale > 0) {
+                    gp.music.volumeScale--;
+                    gp.music.checkVolume();
+                    gp.playSE(5);
+                }
+                if (gp.ui.commanNum == 2 && gp.se.volumeScale > 0) {
+                    gp.se.volumeScale--;
+                    gp.playSE(5);
+                }
+            }
+            if (code == KeyEvent.VK_D) {
+                if (gp.ui.commanNum == 0) {
+                    if (gp.gameMode == gp.endlessMode) {
+                        gp.gameMode = gp.overcomeMode;
+                    } else {
+                        gp.gameMode = gp.endlessMode;
+                    }
+                }
+                if (gp.ui.commanNum == 1 && gp.music.volumeScale < 5) {
+                        gp.music.volumeScale++;
+                        gp.music.checkVolume();
+                        gp.playSE(5);
+                    }
+                if (gp.ui.commanNum == 2 && gp.se.volumeScale < 5) {
+                        gp.se.volumeScale++;
+                        gp.playSE(5);
+                    }
+            }
             if (code == KeyEvent.VK_ENTER) {
                 gp.playSE(5);
                 switch (gp.ui.commanNum) {
@@ -151,22 +186,6 @@ public class KeyHandler implements KeyListener
                     case 0:
                         //Mode screen
                         gp.ui.titleScreenState = 2;
-                        gp.ui.commanNum = 0;
-                        break;
-                    //Music
-                    case 1:
-                        //Change music
-
-                        //Return title screen 0
-                        gp.ui.titleScreenState = 0;
-                        gp.ui.commanNum = 0;
-                        break;
-                    //SE
-                    case 2:
-                        //Change SE
-
-                        //Return title screen 0
-                        gp.ui.titleScreenState = 0;
                         gp.ui.commanNum = 0;
                         break;
                     //Back
@@ -328,6 +347,10 @@ public class KeyHandler implements KeyListener
                 case 0:
                     gp.gameState = gp.playState;
                     gp.ui.commanNum = 0;
+//                    //Retry()
+//                    retry();
+//                    //Play back sound
+//                    gp.playMusic(0);
                     break;
                 //Quit
                 case 1:
