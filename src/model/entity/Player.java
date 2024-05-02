@@ -146,10 +146,7 @@ public class Player extends Entity {
 
     public void update() {
 
-        //Check Lava
-        if (gp.collisionChecker.checkLava()) {
-            gp.player.worldY -= gp.titleSize;
-        }
+        gp.eventHandler.poisonMistCheck();
 
         //Move
         if(keyHandler.upPressed == true || keyHandler.downPressed == true || keyHandler.leftPressed == true || keyHandler.rightPressed == true )

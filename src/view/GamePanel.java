@@ -12,7 +12,6 @@ import model.tile.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -33,7 +32,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxWorldCol = 40;
     public final int maxWorldRow = 500;
     public final int worldWidth = titleSize * maxWorldCol;
-    public final int worldHeight = titleSize * maxScreenRow;
+    public final int worldHeight = titleSize * maxWorldRow;
 
     //Player is moved
     //public static boolean isMove = false;
@@ -57,7 +56,8 @@ public class GamePanel extends JPanel implements Runnable {
     //Entity and Object
     public Player player = new Player(this, keyHandler);
     public Entity[] obj = new Entity[10];
-    ArrayList<Entity> entitiesList = new ArrayList<>();
+    public ArrayList<Entity> entitiesList = new ArrayList<>();
+    public PoisonMist poisonMist = new PoisonMist(this);
 
     //GAME STATE
     public int gameState;
@@ -113,7 +113,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         if (gameState == playState) {
             player.update();
-            tileManager.updateMap();
+            poisonMist.update();
         }
     }
 
@@ -155,6 +155,10 @@ public class GamePanel extends JPanel implements Runnable {
             //Empty entitiesList
             entitiesList.clear();
 
+            //Lava
+            poisonMist.draw(g2);
+
+            //UI
             ui.draw(g2);
 
             //Debug
@@ -172,10 +176,10 @@ public class GamePanel extends JPanel implements Runnable {
                 g2.drawString("WorldY: " + player.worldY, x, y); y += lineHeight;
                 g2.drawString("Col: " + (player.worldY+player.solidArea.x)/titleSize, x, y); y += lineHeight;
                 g2.drawString("Row: " + (player.worldY+player.solidArea.y)/titleSize, x, y); y += lineHeight;
-                g2.drawString("DrawTime: " + passed, x, y);
+                g2.drawString("DrawTime: " + passed, x, y); y += lineHeight;
+                g2.drawString("PoisonMistY: " + poisonMist.PoisonMistY, x, y);
 
             }
-
 
         }
 

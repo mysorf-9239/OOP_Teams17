@@ -2,13 +2,16 @@ package controller;
 
 import view.GamePanel;
 
-import java.awt.*;
-
 public class EventHandler {
 
     GamePanel gp;
     EventRect eventRect[][];
     int eventRectDefaultX, eventRectDefaultY;
+
+    //Poison damage
+    private long poisonDamageTime = System.currentTimeMillis();
+    private final long DAMAGE_INTERVAL = 1000;
+
 
     public EventHandler(GamePanel gp) {
 
@@ -39,14 +42,6 @@ public class EventHandler {
     public void checkEvent() {
         if (hit(18, 489)) { damagePit(18, 489);}
         if (hit(19, 489)) { damagePit(19, 489);}
-        if (hit(21, 489)) { damagePit(21, 489);}
-        if (hit(22, 489)) { damagePit(22, 489);}
-        if (hit(23, 489)) { damagePit(23, 489);}
-        if (hit(24, 489)) { damagePit(24, 489);}
-        if (hit(25, 489)) { damagePit(25, 489);}
-        if (hit(26, 489)) { damagePit(26, 489);}
-        if (hit(27, 489)) { damagePit(27, 489);}
-        if (hit(28, 489)) { damagePit(28, 489);}
 
     }
 
@@ -78,6 +73,19 @@ public class EventHandler {
         gp.player.life += 1;
         eventRect[col][row].eventDone = true;
     }
+
+
+    public void poisonMistCheck() {
+
+        if (gp.player.worldY > gp.poisonMist.PoisonMistY) {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - poisonDamageTime >= DAMAGE_INTERVAL) {
+                gp.player.life -= 1;
+                poisonDamageTime = currentTime;
+            }
+        }
+    }
+
 }
 
 

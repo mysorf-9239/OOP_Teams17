@@ -14,8 +14,7 @@ import java.io.InputStreamReader;
 public class TileEndlessManager {
     GamePanel gp;
     private int[][] defaultMap;
-    private int defualtLavaY;
-    private int defualtLavaSpeed;
+
 
     public Tile[] tile;
     int[][] map;
@@ -33,11 +32,6 @@ public class TileEndlessManager {
         loadMap(path);
         map = defaultMap;
         GamePanel.map = map;
-
-        defualtLavaY = (gp.maxWorldRow - 1) * gp.titleSize;
-        defualtLavaSpeed = 1;
-        lavaY = defualtLavaY;
-        lavaSpeed = defualtLavaSpeed;
 
         getTileImage();
     }
@@ -85,11 +79,6 @@ public class TileEndlessManager {
         setup(38, "/tiles/road/road06.png", false);
         setup(39, "/tiles/road/road07.png", false);
         setup(40, "/tiles/road/road08.png", false);
-        setup(41, "/tiles/lava/lava10.png", true);
-        setup(42, "/tiles/lava/lava01.png", false);
-        setup(43, "/tiles/lava/lava00.png", false);
-        setup(44, "/tiles/lava/lava02.png", false);
-        setup(45, "/tiles/lava/lava03.png", true);
 
     }
 
@@ -143,41 +132,6 @@ public class TileEndlessManager {
         }
     }
 
-    public void updateMap() {
-
-        lavaY -= lavaSpeed;
-
-        int lavaRow = lavaY/gp.titleSize;
-        int z = gp.maxWorldRow - lavaRow;
-        if (z < 10) {
-            for (int i = 0; i < gp.maxWorldCol; i++) {
-                map[i][lavaRow] = 41;
-            }
-            if (z > 1) {
-                for (int i = 0; i < gp.maxWorldCol; i++) {
-                    map[i][lavaRow + 1] = 45;
-                }
-            }
-
-        }
-        else {
-            if (map[0][lavaRow] != 42) {
-
-                for (int i = 0; i < 10; i++) {
-                    map[i][lavaRow] = 41;
-                    map[i][lavaRow+1] = 45;
-                }
-                for (int i = 10; i < 30; i++) {
-                    map[i][lavaRow] = 42;
-                    map[i][lavaRow+1] = 45;
-                }
-                for (int i = 30; i < gp.maxWorldCol; i++) {
-                    map[i][lavaRow] = 41;
-                    map[i][lavaRow+1] = 45;
-                }
-            }
-        }
-    }
 
     public void draw(Graphics2D g2)
     {
