@@ -13,6 +13,10 @@ import java.io.InputStreamReader;
 
 public class TileEndlessManager {
     GamePanel gp;
+    private int[][] defaultMap;
+    private int defualtLavaY;
+    private int defualtLavaSpeed;
+
     public Tile[] tile;
     int[][] map;
     public static String path;
@@ -24,13 +28,16 @@ public class TileEndlessManager {
         this.gp = gp;
 
         tile = new Tile[100];
-        this.map = new int[gp.maxWorldCol][gp.maxWorldRow];
+        defaultMap = new int[gp.maxWorldCol][gp.maxWorldRow];
 
         loadMap(path);
-        GamePanel.map = this.map;
+        map = defaultMap;
+        GamePanel.map = map;
 
-        lavaY = (gp.maxWorldRow - 1) * gp.titleSize;
-        lavaSpeed = 1;
+        defualtLavaY = (gp.maxWorldRow - 1) * gp.titleSize;
+        defualtLavaSpeed = 1;
+        lavaY = defualtLavaY;
+        lavaSpeed = defualtLavaSpeed;
 
         getTileImage();
     }
@@ -120,7 +127,7 @@ public class TileEndlessManager {
 
                     int num = Integer.parseInt(numbers[col]);
 
-                    map[col][row] = num;
+                    defaultMap[col][row] = num;
                     col++;
                 }
                 if (col == gp.maxWorldCol) {

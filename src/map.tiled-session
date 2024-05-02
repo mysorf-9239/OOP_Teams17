@@ -3,10 +3,10 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "image/Tileset/40px/Map2.1.tmx",
+    "activeFile": "image/Tileset/Map2.tmx",
     "expandedProjectPaths": [
-        "image",
         ".",
+        "image",
         "image/Tileset"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -15,11 +15,11 @@
             "scaleInDock": 1
         },
         "image/Tileset/40px/Map2.1.tmx": {
-            "scale": 0.75,
+            "scale": 0.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 542.6666666666665,
-                "y": 602.6666666666667
+                "x": 824,
+                "y": 842
             }
         },
         "image/Tileset/A.tsx": {
@@ -63,11 +63,11 @@
             }
         },
         "image/Tileset/Map2.tmx": {
-            "scale": 0.0625,
+            "scale": 0.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 2256,
-                "y": 8352
+                "x": 676,
+                "y": 15750
             }
         },
         "image/Tileset/Other.tsx": {
@@ -91,7 +91,8 @@
     "map.renderOrder": null,
     "map.width": 40,
     "openFiles": [
-        "image/Tileset/40px/Map2.1.tmx"
+        "image/Tileset/40px/Map2.1.tmx",
+        "image/Tileset/Map2.tmx"
     ],
     "project": "map.tiled-project",
     "recentFiles": [

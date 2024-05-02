@@ -38,7 +38,7 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
         //Define the start screen's andres
-        worldX = gp.titleSize * 18;
+        worldX = gp.titleSize * 20;
         worldY = gp.titleSize * (gp.maxWorldRow - 11);
         speed = gp.titleSize/5;
         direction = "up";
@@ -46,6 +46,21 @@ public class Player extends Entity {
         //Player life
         maxLife= 6;
         life = maxLife;
+    }
+
+    public void setDefaultPositions() {
+
+        worldX = gp.titleSize * 20;
+        worldY = gp.titleSize * (gp.maxWorldRow - 11);
+        speed = gp.titleSize/5;
+        direction = "up";
+        life = maxLife;
+
+        keyHandler.upPressed = false;
+        keyHandler.downPressed = false;
+        keyHandler.leftPressed = false;
+        keyHandler.rightPressed = false;
+        keyHandler.movingKeyPressed = false;
     }
 
     public void getPlayerImage() {

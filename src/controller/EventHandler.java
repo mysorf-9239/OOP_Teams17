@@ -37,8 +37,17 @@ public class EventHandler {
     }
 
     public void checkEvent() {
-        if (hit(18, 488)) { damagePit(18, 488);}
-        if (hit(19, 489)) { healPit(19, 489);}
+        if (hit(18, 489)) { damagePit(18, 489);}
+        if (hit(19, 489)) { damagePit(19, 489);}
+        if (hit(21, 489)) { damagePit(21, 489);}
+        if (hit(22, 489)) { damagePit(22, 489);}
+        if (hit(23, 489)) { damagePit(23, 489);}
+        if (hit(24, 489)) { damagePit(24, 489);}
+        if (hit(25, 489)) { damagePit(25, 489);}
+        if (hit(26, 489)) { damagePit(26, 489);}
+        if (hit(27, 489)) { damagePit(27, 489);}
+        if (hit(28, 489)) { damagePit(28, 489);}
+
     }
 
     public boolean hit(int col, int row) {

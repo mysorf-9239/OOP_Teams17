@@ -38,6 +38,9 @@ public class KeyHandler implements KeyListener
         //Option state
         if (gp.gameState == gp.optionState) {optionState(code);}
 
+        //Game over state
+        if (gp.gameState == gp.gameOverState) {gameOverState(code);}
+
     }
 
     @Override
@@ -88,17 +91,20 @@ public class KeyHandler implements KeyListener
 
             if (code == KeyEvent.VK_W) {
                 gp.ui.commanNum--;
+                gp.playSE(5);
                 if (gp.ui.commanNum < 0) {
                     gp.ui.commanNum = 3;
                 }
             }
             if (code == KeyEvent.VK_S) {
                 gp.ui.commanNum++;
+                gp.playSE(5);
                 if (gp.ui.commanNum > 3) {
                     gp.ui.commanNum = 0;
                 }
             }
             if (code == KeyEvent.VK_ENTER) {
+                gp.playSE(5);
                 switch (gp.ui.commanNum) {
                     //New game
                     case 0:
@@ -126,17 +132,20 @@ public class KeyHandler implements KeyListener
 
             if (code == KeyEvent.VK_W) {
                 gp.ui.commanNum--;
+                gp.playSE(5);
                 if (gp.ui.commanNum < 0) {
                     gp.ui.commanNum = 3;
                 }
             }
             if (code == KeyEvent.VK_S) {
                 gp.ui.commanNum++;
+                gp.playSE(5);
                 if (gp.ui.commanNum > 3) {
                     gp.ui.commanNum = 0;
                 }
             }
             if (code == KeyEvent.VK_ENTER) {
+                gp.playSE(5);
                 switch (gp.ui.commanNum) {
                     //Mode
                     case 0:
@@ -172,17 +181,20 @@ public class KeyHandler implements KeyListener
         else if (gp.ui.titleScreenState == 2) {
             if (code == KeyEvent.VK_W) {
                 gp.ui.commanNum--;
+                gp.playSE(5);
                 if (gp.ui.commanNum < 0) {
                     gp.ui.commanNum = 2;
                 }
             }
             if (code == KeyEvent.VK_S) {
                 gp.ui.commanNum++;
+                gp.playSE(5);
                 if (gp.ui.commanNum > 2) {
                     gp.ui.commanNum = 0;
                 }
             }
             if (code == KeyEvent.VK_ENTER) {
+                gp.playSE(5);
                 switch (gp.ui.commanNum) {
                     //Endless
                     case 0:
@@ -291,6 +303,39 @@ public class KeyHandler implements KeyListener
                         break;
                 }
             }
+        }
+    }
+
+    private void gameOverState(int code) {
+        if (code == KeyEvent.VK_W) {
+            gp.ui.commanNum--;
+            gp.playSE(5);
+            if (gp.ui.commanNum < 0) {
+                gp.ui.commanNum = 1;
+            }
+        }
+        if (code == KeyEvent.VK_S) {
+            gp.ui.commanNum++;
+            gp.playSE(5);
+            if (gp.ui.commanNum > 1) {
+                gp.ui.commanNum = 0;
+            }
+
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            switch (gp.ui.commanNum) {
+                //Retry
+                case 0:
+                    gp.gameState = gp.playState;
+                    gp.ui.commanNum = 0;
+                    break;
+                //Quit
+                case 1:
+                    gp.gameState = gp.titleState;
+                    gp.ui.commanNum = 0;
+                    break;
+            }
+
         }
     }
 }

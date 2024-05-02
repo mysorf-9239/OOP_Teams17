@@ -455,6 +455,7 @@ public class UI {
 
     public void drawGameOverScreen() {
 
+        //Over
         g2.setColor(new Color(0, 0, 0, 125));
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 
@@ -471,6 +472,30 @@ public class UI {
         //Main
         g2.setColor(Color.white);
         g2.drawString(text, x-4, y-4);
+
+        //Retry
+        g2.setFont(g2.getFont().deriveFont(50F));
+        g2.setColor(Color.white);
+        text = "Retry";
+        x = getXforCenterText(text);
+        y += gp.titleSize*6;
+        g2.drawString(text, x, y);
+        if (commanNum == 0) {
+            g2.setColor(Color.red);
+            g2.drawString(text, x+1, y-1);
+        }
+
+        //Return title screen
+        text = "Quit";
+        x = getXforCenterText(text);
+        y += gp.titleSize*2;
+        g2.setColor(Color.white);
+        g2.drawString(text, x, y);
+        if (commanNum == 1) {
+            g2.setColor(Color.red);
+            g2.drawString(text, x+1, y-1);
+        }
+
 
     }
 
