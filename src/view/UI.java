@@ -300,47 +300,6 @@ public class UI {
 
             gp.config.saveConfig();
         }
-        else if (titleScreenState == 2) {
-
-            //Title name
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
-            String text = "Select your mode";
-            int x = getXforCenterText(text);
-            int y = gp.titleSize*4;
-            //Shadow
-            g2.setColor(Color.black);
-            g2.drawString(text, x+3, y+3);
-            //Main
-            g2.setColor(poison);
-            g2.drawString(text, x, y);
-
-            //Menu
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 42F));
-            g2.setColor(Color.white);
-
-            text = "Endless";
-            x = getXforCenterText(text)  + gp.titleSize*4;
-            y += gp.titleSize*7;
-            g2.drawString(text, x, y);
-            if (commanNum == 0) {
-                drawColection(text, x, y);
-            }
-            text = "Overcome";
-            x = getXforCenterText(text)  + gp.titleSize*4;
-            y += gp.titleSize + 10;
-            g2.drawString(text, x, y);
-            if (commanNum == 1) {
-                drawColection(text, x, y);
-            }
-            text = "Back";
-            x = getXforCenterText(text)  + gp.titleSize*4;
-            y += gp.titleSize + 10;
-            g2.drawString(text, x, y);
-            if (commanNum == 2) {
-                drawColection(text, x, y);
-            }
-        }
-
     }
 
 

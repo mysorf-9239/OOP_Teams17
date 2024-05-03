@@ -28,17 +28,20 @@ public class KeyHandler implements KeyListener
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
-        //Title state
-        if (gp.gameState == gp.titleState) { titleState(code);}
-
-        //Play state
-        if (gp.gameState == gp.playState) { playState(code); }
-
-        //Option state
-        if (gp.gameState == gp.optionState) {optionState(code);}
-
-        //Game over state
-        if (gp.gameState == gp.gameOverState) {gameOverState(code);}
+        switch (gp.gameState) {
+            case 0:
+                titleState(code);
+                break;
+            case 1:
+                playState(code);
+                break;
+            case 2:
+                optionState(code);
+                break;
+            case 3:
+                gameOverState(code);
+                break;
+        }
 
     }
 
@@ -144,94 +147,64 @@ public class KeyHandler implements KeyListener
                 }
             }
             if (code == KeyEvent.VK_A) {
-                if (gp.ui.commanNum == 0) {
-                    if (gp.gameMode == gp.endlessMode) {
-                        gp.gameMode = gp.overcomeMode;
-                    } else {
-                        gp.gameMode = gp.endlessMode;
-                    }
-                }
-                if (gp.ui.commanNum == 1 && gp.music.volumeScale > 0) {
-                    gp.music.volumeScale--;
-                    gp.music.checkVolume();
-                    gp.playSE(5);
-                }
-                if (gp.ui.commanNum == 2 && gp.se.volumeScale > 0) {
-                    gp.se.volumeScale--;
-                    gp.playSE(5);
+                switch (gp.ui.commanNum) {
+                    case 0:
+                        if (gp.gameMode == gp.endlessMode) {
+                            gp.gameMode = gp.overcomeMode;
+                        } else {
+                            gp.gameMode = gp.endlessMode;
+                        }
+                        gp.playSE(5);
+                        break;
+                    case 1:
+                        if (gp.music.volumeScale > 0) {
+                            gp.music.volumeScale--;
+                            gp.music.checkVolume();
+                        }
+                        gp.playSE(5);
+                        break;
+                    case 2:
+                        if (gp.se.volumeScale > 0) {
+                            gp.se.volumeScale--;
+                        }
+                        gp.playSE(5);
+                        break;
+
                 }
             }
             if (code == KeyEvent.VK_D) {
-                if (gp.ui.commanNum == 0) {
-                    if (gp.gameMode == gp.endlessMode) {
-                        gp.gameMode = gp.overcomeMode;
-                    } else {
-                        gp.gameMode = gp.endlessMode;
-                    }
+                switch (gp.ui.commanNum) {
+                    case 0:
+                        if (gp.gameMode == gp.endlessMode) {
+                            gp.gameMode = gp.overcomeMode;
+                        } else {
+                            gp.gameMode = gp.endlessMode;
+                        }
+                        gp.playSE(5);
+                        break;
+                    case 1:
+                        if (gp.music.volumeScale < 5) {
+                            gp.music.volumeScale++;
+                            gp.music.checkVolume();
+                        }
+                        gp.playSE(5);
+                        break;
+                    case 2:
+                        if (gp.se.volumeScale < 5) {
+                            gp.se.volumeScale++;
+                        }
+                        gp.playSE(5);
+                        break;
+
                 }
-                if (gp.ui.commanNum == 1 && gp.music.volumeScale < 5) {
-                        gp.music.volumeScale++;
-                        gp.music.checkVolume();
-                        gp.playSE(5);
-                    }
-                if (gp.ui.commanNum == 2 && gp.se.volumeScale < 5) {
-                        gp.se.volumeScale++;
-                        gp.playSE(5);
-                    }
             }
             if (code == KeyEvent.VK_ENTER) {
                 gp.playSE(5);
                 switch (gp.ui.commanNum) {
-                    //Mode
-                    case 0:
-                        //Mode screen
-                        gp.ui.titleScreenState = 2;
-                        gp.ui.commanNum = 0;
-                        break;
                     //Back
                     case 3:
                         //Return title screen 0
                         gp.ui.titleScreenState = 0;
-                        gp.ui.commanNum = 0;
-                        break;
-                }
-            }
-        }
-        else if (gp.ui.titleScreenState == 2) {
-            if (code == KeyEvent.VK_W) {
-                gp.ui.commanNum--;
-                gp.playSE(5);
-                if (gp.ui.commanNum < 0) {
-                    gp.ui.commanNum = 2;
-                }
-            }
-            if (code == KeyEvent.VK_S) {
-                gp.ui.commanNum++;
-                gp.playSE(5);
-                if (gp.ui.commanNum > 2) {
-                    gp.ui.commanNum = 0;
-                }
-            }
-            if (code == KeyEvent.VK_ENTER) {
-                gp.playSE(5);
-                switch (gp.ui.commanNum) {
-                    //Endless
-                    case 0:
-                        //Choose map
-
-                        //Return title screen 0
-                        gp.ui.titleScreenState = 1;
-                        break;
-                    //Overcome
-                    case 1:
-                        //Choose map
-
-                        //Return title screen 0
-                        gp.ui.titleScreenState = 1;
-                        break;
-                    //Back
-                    case 2:
-                        gp.ui.titleScreenState = 1;
                         gp.ui.commanNum = 0;
                         break;
                 }
