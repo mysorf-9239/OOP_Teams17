@@ -18,14 +18,14 @@ public class PoisonMist {
         this.gp = gp;
 
         setDefaultPoisonMist();
-        PoisonMistY = defaultPoisonMistY;
-        PoisonMistSpeed = defaultPoisonMistSpeed;
     }
 
     public void setDefaultPoisonMist() {
 
-        defaultPoisonMistY = gp.maxWorldRow*gp.titleSize - PoisonMistY + gp.titleSize;
+        defaultPoisonMistY = gp.maxWorldRow*gp.titleSize + gp.titleSize;
         defaultPoisonMistSpeed = 1;
+        PoisonMistY = defaultPoisonMistY;
+        PoisonMistSpeed = defaultPoisonMistSpeed;
     }
 
     public void update() {

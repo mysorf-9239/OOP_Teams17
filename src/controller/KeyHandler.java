@@ -52,6 +52,7 @@ public class KeyHandler implements KeyListener
 
         if (code == KeyEvent.VK_ESCAPE) {
             gp.gameState = gp.optionState;
+            gp.stopMusic();
             gp.ui.commanNum = 3;
         }
 
@@ -278,6 +279,7 @@ public class KeyHandler implements KeyListener
                     //Back
                     case 3:
                         gp.gameState = gp.playState;
+                        gp.playMusic(0);
                         gp.ui.commanNum = 0;
                         break;
                 }
@@ -286,6 +288,7 @@ public class KeyHandler implements KeyListener
                     //Yes
                     case 0:
                         gp.ui.subState = 0;
+                        gp.retry();
                         gp.gameState = gp.titleState;
                         break;
                     //No
@@ -320,13 +323,14 @@ public class KeyHandler implements KeyListener
                 case 0:
                     gp.gameState = gp.playState;
                     gp.ui.commanNum = 0;
-//                    //Retry()
-//                    retry();
-//                    //Play back sound
-//                    gp.playMusic(0);
+                    //Retry()
+                    gp.retry();
+                    //Play back sound
+                    gp.playMusic(0);
                     break;
                 //Quit
                 case 1:
+                    gp.retry();
                     gp.gameState = gp.titleState;
                     gp.ui.commanNum = 0;
                     break;

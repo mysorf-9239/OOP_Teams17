@@ -212,4 +212,10 @@ public class GamePanel extends JPanel implements Runnable {
         se.setFile(i);
         se.play();
     }
+
+    public void retry() {
+
+        player.setDefaultPositions();
+        poisonMist.setDefaultPoisonMist();
+    }
 }
