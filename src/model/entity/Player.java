@@ -73,7 +73,6 @@ public class Player extends Entity {
 
         imageLoader = new ImageLoader(gp, "/player/playerSprites.png", numImage, imageWidth, imageHeight);
         imageLoader.PlayerImageLoader(this);
-
     }
 
     public void update() {

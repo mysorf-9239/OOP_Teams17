@@ -1,6 +1,8 @@
 package controller;
 
 import model.entity.Player;
+import model.tile.Tile;
+import model.tile.TileEndlessManager;
 import view.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -11,11 +13,6 @@ public class ImageLoader {
 
     GamePanel gp;
     BufferedImage bigImage;
-    BufferedImage[] image;
-    BufferedImage[] up = new BufferedImage[20];
-    BufferedImage[] down = new BufferedImage[20];
-    BufferedImage[] left = new BufferedImage[20];
-    BufferedImage[] right = new BufferedImage[20];
     String imagePath;
     int numImages;
     int imageWidth;
@@ -36,8 +33,6 @@ public class ImageLoader {
 
         try {
             BufferedImage bigImage = ImageIO.read(getClass().getResourceAsStream(imagePath));
-
-            image = new BufferedImage[numImages];
 
             int index = 0;
             int up = 0;
@@ -79,6 +74,58 @@ public class ImageLoader {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void TileImageLoader(TileEndlessManager tileEndlessManagers) {
+
+        UtilityTool utilityTool = new UtilityTool();
+        int index = 1;
+
+        try {
+            BufferedImage bigImage = ImageIO.read(getClass().getResourceAsStream(imagePath));
+
+            for (int y = 0; y < bigImage.getHeight(); y += imageHeight) {
+                for (int x = 0; x < bigImage.getWidth(); x += imageWidth) {
+                    // Cắt ảnh con từ ảnh gốc
+                    tileEndlessManagers.tile[index] = new Tile();
+                    BufferedImage subImage = bigImage.getSubimage(x, y, imageWidth, imageHeight);
+                    subImage = utilityTool.scaleImage(subImage, gp.titleSize, gp.titleSize);
+                    tileEndlessManagers.tile[index].image = subImage;
+                    tileEndlessManagers.tile[index].collision = false;
+
+                    switch(index) {
+                        case 5:
+                        case 13:
+                        case 16:
+                        case 17:
+                        case 18:
+                        case 19:
+                        case 20:
+                        case 21:
+                        case 25:
+                        case 26:
+                        case 27:
+                        case 28:
+                        case 29:
+                        case 33:
+                        case 34:
+                        case 35:
+                        case 36:
+                        case 37:
+                            tileEndlessManagers.tile[index].collision = true;
+                            break;
+                    }
+                    index++;
+
+                    if (index >= numImages) {
+                        break;
+                    }
+                }
+            }
+        }
+        catch (IOException e) {
+            e.getStackTrace();
         }
     }
 

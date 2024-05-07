@@ -40,8 +40,7 @@ public class EventHandler {
     }
 
     public void checkEvent() {
-        if (hit(18, 489)) { damagePit(18, 489);}
-        if (hit(19, 489)) { damagePit(19, 489);}
+        //Event
 
     }
 

@@ -23,6 +23,7 @@ public class Entity {
     //STATE
     public int worldX, worldY;
     public String direction = "down";
+    public String lastDirection = "down";
     public int spriteNum = 1;
     public boolean collision = false;
 

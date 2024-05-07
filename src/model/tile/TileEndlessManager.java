@@ -1,5 +1,6 @@
 package model.tile;
 
+import controller.ImageLoader;
 import controller.UtilityTool;
 import view.GamePanel;
 
@@ -17,8 +18,12 @@ public class TileEndlessManager {
     public Tile[] tile;
     int[][] map;
     public static String path;
-    int lavaY;
-    int lavaSpeed;
+
+    ImageLoader imageLoader;
+
+    public final int numImage = 88;
+    public final int imageWidth = 32;
+    public final int imageHeight = 32;
 
     public TileEndlessManager(GamePanel gp)
     {
@@ -30,53 +35,15 @@ public class TileEndlessManager {
         loadMap(path);
         GamePanel.map = map;
 
-        getTileImage();
+        getTileImage(tile);
     }
 
-    public void getTileImage() {
+    public void getTileImage(Tile[] tile) {
 
         setup(0, "/tiles/earth.png", false);
-        setup(1, "/tiles/grass/grass01.png", false);
-        setup(2, "/tiles/grass/grass00.png", false);
-        setup(3, "/tiles/grass/grass01.png", false);
-        setup(4, "/tiles/grass/grass00.png", false);
-        setup(5, "/tiles/other/tree.png", true);
-        setup(6, "/tiles/water/water10.png", false);
-        setup(7, "/tiles/water/water11.png", false);
-        setup(8, "/tiles/other/floor01.png", false);
-        setup(9, "/tiles/grass/grass01.png", false);
-        setup(10, "/tiles/grass/grass00.png", false);
-        setup(11, "/tiles/grass/grass01.png", false);
-        setup(12, "/tiles/grass/grass00.png", false);
-        setup(13, "/tiles/other/tree.png", true);
-        setup(14, "/tiles/water/water12.png", false);
-        setup(15, "/tiles/water/water13.png", false);
-        setup(16, "/tiles/other/wall.png", true);
-        setup(17, "/tiles/water/water02.png", true);
-        setup(18, "/tiles/water/water03.png", true);
-        setup(19, "/tiles/water/water04.png", true);
-        setup(20, "/tiles/water/water10.png", true);
-        setup(21, "/tiles/water/water11.png", true);
-        setup(22, "/tiles/road/road01.png", false);
-        setup(23, "/tiles/road/road02.png", false);
-        setup(24, "/tiles/road/road03.png", false);
-        setup(25, "/tiles/water/water05.png", true);
-        setup(26, "/tiles/water/water00.png", true);
-        setup(27, "/tiles/water/water06.png", true);
-        setup(28, "/tiles/water/water12.png", true);
-        setup(29, "/tiles/water/water13.png", true);
-        setup(30, "/tiles/road/road04.png", false);
-        setup(31, "/tiles/road/road00.png", false);
-        setup(32, "/tiles/road/road05.png", false);
-        setup(33, "/tiles/water/water07.png", true);
-        setup(34, "/tiles/water/water08.png", true);
-        setup(35, "/tiles/water/water09.png", true);
-        setup(36, "/tiles/water/water01.png", true);
-        setup(37, "/tiles/other/hut.png", true);
-        setup(38, "/tiles/road/road06.png", false);
-        setup(39, "/tiles/road/road07.png", false);
-        setup(40, "/tiles/road/road08.png", false);
 
+        imageLoader = new ImageLoader(gp, "/tiles/All.png", numImage, imageWidth, imageHeight);
+        imageLoader.TileImageLoader(this);
     }
 
     public void setup(int index, String imagePath, boolean collision) {
@@ -95,8 +62,6 @@ public class TileEndlessManager {
     }
 
     public void setMapPath() {
-
-
     }
 
     public void loadMap(String filePath) {
