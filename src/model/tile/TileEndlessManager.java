@@ -44,6 +44,10 @@ public class TileEndlessManager {
 
         imageLoader = new ImageLoader(gp, "/tiles/All.png", numImage, imageWidth, imageHeight);
         imageLoader.TileImageLoader(this);
+
+        setup(1, "/tiles/grass10.png", false);
+        setup(2, "/tiles/grass11.png", false);
+        setup(5, "/tiles/grass12.png", true);
     }
 
     public void setup(int index, String imagePath, boolean collision) {

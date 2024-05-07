@@ -138,7 +138,7 @@ public class UI {
 
     public void drawTitleScreen() {
         try {
-            backgorundImage = ImageIO.read(getClass().getResourceAsStream("/Background.jpg"));
+            backgorundImage = ImageIO.read(getClass().getResourceAsStream("/Background.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -151,7 +151,7 @@ public class UI {
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
             String text = "Fugitive";
             int x = getXforCenterText(text);
-            int y = gp.titleSize*4;
+            int y = gp.titleSize*5;
 
             //Shadow
             g2.setColor(Color.black);
@@ -222,7 +222,7 @@ public class UI {
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
             String text = "Setting";
             int x = getXforCenterText(text);
-            int y = gp.titleSize*4;
+            int y = gp.titleSize*5;
 
             //Shadow
             g2.setColor(Color.black);
@@ -255,7 +255,6 @@ public class UI {
                 g2.fillPolygon(xPoints, yPoints, 3);
 
                 //Mode name
-                g2.setColor(poison);
                 g2.setFont(g2.getFont().deriveFont(Font.ITALIC, 36F));
                 if (gp.gameMode == gp.endlessMode) {
                     g2.drawString("Endless", x + gp.titleSize*3+27, y-3);

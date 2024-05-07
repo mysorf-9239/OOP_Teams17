@@ -190,7 +190,6 @@ public class GamePanel extends JPanel implements Runnable {
                 g2.drawString("Row: " + (player.worldY+player.solidArea.y)/titleSize, x, y); y += lineHeight;
                 g2.drawString("DrawTime: " + passed, x, y); y += lineHeight;
                 g2.drawString("PoisonMistY: " + poisonMist.PoisonMistY, x, y);
-
             }
 
         }
