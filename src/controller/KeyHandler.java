@@ -84,7 +84,7 @@ public class KeyHandler implements KeyListener
             }
             //Load map
             if (code == KeyEvent.VK_R) {
-                gp.tileManager.loadMap("/map/Maptest.txt");
+                gp.tileManager.loadMap();
             }
         }
     }

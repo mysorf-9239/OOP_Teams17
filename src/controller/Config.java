@@ -1,5 +1,6 @@
 package controller;
 
+import model.tile.TileEndlessManager;
 import view.GamePanel;
 
 import java.awt.image.BufferedImage;
@@ -28,8 +29,20 @@ public class Config {
             bufferedWriter.write(String.valueOf(gp.se.volumeScale));
             bufferedWriter.newLine();
 
+            //Mode
+            bufferedWriter.write(String.valueOf(gp.gameMode));
+            bufferedWriter.newLine();
+
+            //Map
+            bufferedWriter.write(String.valueOf(TileEndlessManager.pathNum));
+            bufferedWriter.newLine();
+
+            //Character
+
+
             //Close config.txt
             bufferedWriter.close();
+
 
         } catch (IOException e) {
             e.getStackTrace();
@@ -49,8 +62,20 @@ public class Config {
 
             //SE
             s = bufferedReader.readLine();
-
             gp.se.volumeScale = Integer.parseInt(s);
+
+            //Mode
+            s = bufferedReader.readLine();
+            gp.gameMode = Integer.parseInt(s);
+
+            //Map
+            s = bufferedReader.readLine();
+            TileEndlessManager.pathNum = Integer.parseInt(s);
+
+            //Character
+
+
+
 
             //Close Config
             bufferedReader.close();

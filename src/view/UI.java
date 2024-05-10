@@ -388,7 +388,6 @@ public class UI {
         g2.fillRect(textX, textY, volumeWidth, 24);
 
         gp.config.saveConfig();
-
     }
 
     public void option_EndGame_Confirmation(int frameX, int frameY) {

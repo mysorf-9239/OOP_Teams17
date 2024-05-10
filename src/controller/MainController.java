@@ -16,8 +16,6 @@ public class MainController
                 windown.setResizable(false);
                 windown.setTitle("Fugitive");
 
-                TileEndlessManager.path = "/map/Maptest.txt";
-
                 GamePanel gamePanel = new GamePanel();
                 windown.add(gamePanel);
 
