@@ -3,6 +3,7 @@ package model.tile;
 import controller.ImageLoader;
 import controller.UtilityTool;
 import view.GamePanel;
+import controller.Config;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -20,6 +21,7 @@ public class TileEndlessManager {
     int[][] map;
     public static ArrayList<String> pathList = new ArrayList<>();
     public static int pathNum;
+    Config config = new Config(gp);
 
     ImageLoader imageLoader;
 
@@ -36,6 +38,9 @@ public class TileEndlessManager {
         map = new int[gp.maxWorldCol][gp.maxWorldRow];
 
         setMapPath();
+
+        config.getMap();
+
         loadMap();
         GamePanel.map = map;
 
@@ -76,8 +81,6 @@ public class TileEndlessManager {
     }
 
     public void loadMap() {
-
-        System.out.println(pathNum);
 
         try {
             InputStream is = getClass().getResourceAsStream(pathList.get(pathNum));

@@ -1,6 +1,5 @@
 package controller;
 
-import model.tile.TileEndlessManager;
 import view.GamePanel;
 
 import javax.swing.*;
@@ -19,12 +18,12 @@ public class MainController
                 GamePanel gamePanel = new GamePanel();
                 windown.add(gamePanel);
 
-                gamePanel.config.loadConfig();
-
                 windown.pack();
 
                 windown.setLocationRelativeTo(null);
                 windown.setVisible(true);
+
+                gamePanel.config.loadConfig();
 
                 gamePanel.setupObject();
                 gamePanel.StartGameThread();

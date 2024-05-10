@@ -5,10 +5,10 @@
     },
     "activeFile": "image/Tileset/Map2.tmx",
     "expandedProjectPaths": [
-        "image/Tileset",
-        ".",
         "image/Tileset/40px",
-        "image"
+        "image",
+        "image/Tileset",
+        "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -67,8 +67,8 @@
             "scale": 0.75,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 654.6666666666665,
-                "y": 15678.666666666666
+                "x": 650.6666666666665,
+                "y": 3009.333333333333
             }
         },
         "image/Tileset/Other.tsx": {
@@ -96,8 +96,8 @@
     ],
     "project": "map.tiled-project",
     "recentFiles": [
-        "image/Tileset/A.tsx",
         "image/Tileset/Map2.tmx",
+        "image/Tileset/A.tsx",
         "image/Tileset/Map2.json",
         "image/Tileset/40px/Map2.1.tmx",
         "image/Tileset/Map1.tmx",

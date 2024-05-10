@@ -83,6 +83,26 @@ public class Config {
         } catch (IOException e) {
             e.getStackTrace();
         }
+    }
 
+    public void getMap() {
+        try {
+            //Load config.txt
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("config.txt"));
+
+            String s = bufferedReader.readLine();
+            s = bufferedReader.readLine();
+            s = bufferedReader.readLine();
+
+            //Map
+            s = bufferedReader.readLine();
+            TileEndlessManager.pathNum = Integer.parseInt(s);
+
+            //Close Config
+            bufferedReader.close();
+
+        } catch (IOException e) {
+            e.getStackTrace();
+        }
     }
 }
