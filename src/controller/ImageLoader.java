@@ -27,7 +27,7 @@ public class ImageLoader {
         this.imageHeight = imageHeight;
     }
 
-    public void PlayerImageLoader(Player player) {
+    public void PlayerImageLoader(Player player, int startX, int startY) {
 
         UtilityTool utilityTool = new UtilityTool();
 
@@ -35,35 +35,30 @@ public class ImageLoader {
             BufferedImage bigImage = ImageIO.read(getClass().getResourceAsStream(imagePath));
 
             int index = 0;
-            int up = 0;
-            int down = 0;
-            int left = 0;
-            int right = 0;
-            for (int y = 0; y < bigImage.getHeight(); y += imageHeight) {
-                for (int x = 0; x < bigImage.getWidth(); x += imageWidth) {
+            int x, y;
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 3; j++) {
+                    x = startX + j*imageWidth;
+                    y = startY + i*imageHeight;
                     // Cắt ảnh con từ ảnh gốc
                     BufferedImage subImage = bigImage.getSubimage(x, y, imageWidth, imageHeight);
                     subImage = utilityTool.scaleImage(subImage, gp.titleSize, gp.titleSize);
 
-                    if ((index >= 0 && index < 6) || (index >= 24 && index < 36)) {
-                        player.right[right] = subImage;
+                    if (index >= 0 && index < 3) {
+                        player.down[index] = subImage;
                         index++;
-                        right++;
                     }
-                    else if ((index >= 6 && index < 12) || (index >= 36 && index < 48)) {
-                        player.up[up] = subImage;
+                    else if (index >= 3 && index < 6) {
+                        player.left[index-3] = subImage;
                         index++;
-                        up++;
                     }
-                    else if ((index >= 12 && index < 18) || (index >= 48 && index < 60)) {
-                        player.left[left] = subImage;
+                    else if (index >= 6 && index < 9) {
+                        player.right[index-6] = subImage;
                         index++;
-                        left++;
                     }
-                    else if ((index >= 18 && index < 24) || (index >= 60 && index < 72)) {
-                        player.down[down] = subImage;
+                    else if (index >= 9 && index < 12) {
+                        player.up[index-9] = subImage;
                         index++;
-                        down++;
                     }
                     // Kiểm tra nếu đã cắt đủ số ảnh
                     if (index >= numImages) {

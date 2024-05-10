@@ -13,7 +13,7 @@ public class Entity {
     GamePanel gp;
 
     //Image
-    private static final int NUM_FRAMES = 20;
+    private static final int NUM_FRAMES = 4;
     public BufferedImage[] up = new BufferedImage[NUM_FRAMES];
     public BufferedImage[] down = new BufferedImage[NUM_FRAMES];
     public BufferedImage[] left = new BufferedImage[NUM_FRAMES];
@@ -145,7 +145,6 @@ public class Entity {
                 break;
         }
         g2.drawImage(image, screenX, screenY, gp.titleSize, gp.titleSize, null);
-
     }
 
 }

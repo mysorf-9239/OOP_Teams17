@@ -1,5 +1,6 @@
 package controller;
 
+import model.entity.Player;
 import model.tile.TileEndlessManager;
 import view.GamePanel;
 
@@ -38,7 +39,8 @@ public class Config {
             bufferedWriter.newLine();
 
             //Character
-
+            bufferedWriter.write(String.valueOf(Player.characterNum));
+            bufferedWriter.newLine();
 
             //Close config.txt
             bufferedWriter.close();
@@ -73,9 +75,8 @@ public class Config {
             TileEndlessManager.pathNum = Integer.parseInt(s);
 
             //Character
-
-
-
+            s = bufferedReader.readLine();
+            Player.characterNum = Integer.parseInt(s);
 
             //Close Config
             bufferedReader.close();
@@ -104,5 +105,28 @@ public class Config {
         } catch (IOException e) {
             e.getStackTrace();
         }
+    }
+
+    public void getCharacter() {
+        try {
+            //Load config.txt
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("config.txt"));
+
+            String s = bufferedReader.readLine();
+            s = bufferedReader.readLine();
+            s = bufferedReader.readLine();
+            s = bufferedReader.readLine();
+
+            //Map
+            s = bufferedReader.readLine();
+            Player.characterNum = Integer.parseInt(s);
+
+            //Close Config
+            bufferedReader.close();
+
+        } catch (IOException e) {
+            e.getStackTrace();
+        }
+
     }
 }
