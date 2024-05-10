@@ -93,6 +93,22 @@ public class Player extends Entity {
                 imageStartX = 6*imageWidth;
                 imageStartY = 0;
                 break;
+            case 3:
+                imageStartX = 0;
+                imageStartY = 4*imageHeight;
+                break;
+            case 4:
+                imageStartX = 3*imageWidth;
+                imageStartY = 4*imageHeight;
+                break;
+            case 5:
+                imageStartX = 6*imageWidth;
+                imageStartY = 4*imageHeight;
+                break;
+            case 6:
+                imageStartX = 0;
+                imageStartY = 8*imageHeight;
+                break;
         }
 
         imageLoader = new ImageLoader(gp, "/player/manyCharacter01.png", numImage, imageWidth, imageHeight);
