@@ -1,5 +1,6 @@
 package model.entity;
 
+import controller.Config;
 import controller.ImageLoader;
 import controller.KeyHandler;
 import view.GamePanel;
@@ -11,13 +12,18 @@ public class Player extends Entity {
 
     KeyHandler keyHandler;
     ImageLoader imageLoader;
+    Config config = new Config(gp);
 
     public final int screenX;
     public final int screenY;
 
-    public final int numImage = 72;
-    public final int imageWidth = 128;
-    public final int imageHeight = 128;
+    public static int characterNum;
+
+    public final int numImage = 12;
+    public final int imageWidth = 32;
+    public final int imageHeight = 32;
+    public static int imageStartX;
+    public static int imageStartY;
 
     public int hasKey = 0;
 
@@ -39,6 +45,9 @@ public class Player extends Entity {
 
         this.keyHandler = keyHandler;
         setDefaultValues();
+
+        config.getCharacter();
+
         getPlayerImage();
     }
 
@@ -71,8 +80,39 @@ public class Player extends Entity {
 
     public void getPlayerImage() {
 
-        imageLoader = new ImageLoader(gp, "/player/playerSprites.png", numImage, imageWidth, imageHeight);
-        imageLoader.PlayerImageLoader(this);
+        switch (characterNum) {
+            case 0:
+                imageStartX = 0;
+                imageStartY = 0;
+                break;
+            case 1:
+                imageStartX = 3*imageWidth;
+                imageStartY = 0;
+                break;
+            case 2:
+                imageStartX = 6*imageWidth;
+                imageStartY = 0;
+                break;
+            case 3:
+                imageStartX = 0;
+                imageStartY = 4*imageHeight;
+                break;
+            case 4:
+                imageStartX = 3*imageWidth;
+                imageStartY = 4*imageHeight;
+                break;
+            case 5:
+                imageStartX = 6*imageWidth;
+                imageStartY = 4*imageHeight;
+                break;
+            case 6:
+                imageStartX = 0;
+                imageStartY = 8*imageHeight;
+                break;
+        }
+
+        imageLoader = new ImageLoader(gp, "/player/manyCharacter01.png", numImage, imageWidth, imageHeight);
+        imageLoader.PlayerImageLoader(this, imageStartX, imageStartY);
     }
 
     public void update() {
@@ -143,8 +183,8 @@ public class Player extends Entity {
             }
             spriteCounter++;
             int spriteDistance = 0;
-            if (spriteCounter - spriteDistance > 1) {
-                if (spriteNum < 12) {
+            if (spriteCounter - spriteDistance > 4) {
+                if (spriteNum < 3) {
                     spriteNum++;
                     spriteDistance += 1;
                 } else {
@@ -211,40 +251,13 @@ public class Player extends Entity {
             case "up":
                 switch (spriteNum) {
                     case 1:
-                        image = up[6];
+                        image = up[0];
                         break;
                     case 2:
-                        image = up[7];
+                        image = up[1];
                         break;
                     case 3:
-                        image = up[8];
-                        break;
-                    case 4:
-                        image = up[9];
-                        break;
-                    case 5:
-                        image = up[10];
-                        break;
-                    case 6:
-                        image = up[11];
-                        break;
-                    case 7:
-                        image = up[12];
-                        break;
-                    case 8:
-                        image = up[13];
-                        break;
-                    case 9:
-                        image = up[14];
-                        break;
-                    case 10:
-                        image = up[15];
-                        break;
-                    case 11:
-                        image = up[16];
-                        break;
-                    case 12:
-                        image = up[17];
+                        image = up[2];
                         break;
                 }
                 break;
@@ -252,40 +265,13 @@ public class Player extends Entity {
                 switch (spriteNum) {
 
                     case 1:
-                        image = down[6];
+                        image = down[0];
                         break;
                     case 2:
-                        image = down[7];
+                        image = down[1];
                         break;
                     case 3:
-                        image = down[8];
-                        break;
-                    case 4:
-                        image = down[9];
-                        break;
-                    case 5:
-                        image = down[10];
-                        break;
-                    case 6:
-                        image = down[11];
-                        break;
-                    case 7:
-                        image = down[12];
-                        break;
-                    case 8:
-                        image = down[13];
-                        break;
-                    case 9:
-                        image = down[14];
-                        break;
-                    case 10:
-                        image = down[15];
-                        break;
-                    case 11:
-                        image = down[16];
-                        break;
-                    case 12:
-                        image = down[17];
+                        image = down[2];
                         break;
                 }
                 break;
@@ -293,40 +279,13 @@ public class Player extends Entity {
                 switch (spriteNum) {
 
                     case 1:
-                        image = left[6];
+                        image = left[0];
                         break;
                     case 2:
-                        image = left[7];
+                        image = left[1];
                         break;
                     case 3:
-                        image = left[8];
-                        break;
-                    case 4:
-                        image = left[9];
-                        break;
-                    case 5:
-                        image = left[10];
-                        break;
-                    case 6:
-                        image = left[11];
-                        break;
-                    case 7:
-                        image = left[12];
-                        break;
-                    case 8:
-                        image = left[13];
-                        break;
-                    case 9:
-                        image = left[14];
-                        break;
-                    case 10:
-                        image = left[15];
-                        break;
-                    case 11:
-                        image = left[16];
-                        break;
-                    case 12:
-                        image = left[17];
+                        image = left[2];
                         break;
                 }
                 break;
@@ -334,40 +293,13 @@ public class Player extends Entity {
                 switch (spriteNum) {
 
                     case 1:
-                        image = right[6];
+                        image = right[0];
                         break;
                     case 2:
-                        image = right[7];
+                        image = right[1];
                         break;
                     case 3:
-                        image = right[8];
-                        break;
-                    case 4:
-                        image = right[9];
-                        break;
-                    case 5:
-                        image = right[10];
-                        break;
-                    case 6:
-                        image = right[11];
-                        break;
-                    case 7:
-                        image = right[12];
-                        break;
-                    case 8:
-                        image = right[13];
-                        break;
-                    case 9:
-                        image = right[14];
-                        break;
-                    case 10:
-                        image = right[15];
-                        break;
-                    case 11:
-                        image = right[16];
-                        break;
-                    case 12:
-                        image = right[17];
+                        image = right[2];
                         break;
                 }
                 break;

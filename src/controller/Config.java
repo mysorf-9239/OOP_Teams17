@@ -1,5 +1,7 @@
 package controller;
 
+import model.entity.Player;
+import model.tile.TileEndlessManager;
 import view.GamePanel;
 
 import java.awt.image.BufferedImage;
@@ -28,8 +30,21 @@ public class Config {
             bufferedWriter.write(String.valueOf(gp.se.volumeScale));
             bufferedWriter.newLine();
 
+            //Mode
+            bufferedWriter.write(String.valueOf(gp.gameMode));
+            bufferedWriter.newLine();
+
+            //Map
+            bufferedWriter.write(String.valueOf(TileEndlessManager.pathNum));
+            bufferedWriter.newLine();
+
+            //Character
+            bufferedWriter.write(String.valueOf(Player.characterNum));
+            bufferedWriter.newLine();
+
             //Close config.txt
             bufferedWriter.close();
+
 
         } catch (IOException e) {
             e.getStackTrace();
@@ -49,8 +64,62 @@ public class Config {
 
             //SE
             s = bufferedReader.readLine();
-
             gp.se.volumeScale = Integer.parseInt(s);
+
+            //Mode
+            s = bufferedReader.readLine();
+            gp.gameMode = Integer.parseInt(s);
+
+            //Map
+            s = bufferedReader.readLine();
+            TileEndlessManager.pathNum = Integer.parseInt(s);
+
+            //Character
+            s = bufferedReader.readLine();
+            Player.characterNum = Integer.parseInt(s);
+
+            //Close Config
+            bufferedReader.close();
+
+        } catch (IOException e) {
+            e.getStackTrace();
+        }
+    }
+
+    public void getMap() {
+        try {
+            //Load config.txt
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("config.txt"));
+
+            String s = bufferedReader.readLine();
+            s = bufferedReader.readLine();
+            s = bufferedReader.readLine();
+
+            //Map
+            s = bufferedReader.readLine();
+            TileEndlessManager.pathNum = Integer.parseInt(s);
+
+            //Close Config
+            bufferedReader.close();
+
+        } catch (IOException e) {
+            e.getStackTrace();
+        }
+    }
+
+    public void getCharacter() {
+        try {
+            //Load config.txt
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("config.txt"));
+
+            String s = bufferedReader.readLine();
+            s = bufferedReader.readLine();
+            s = bufferedReader.readLine();
+            s = bufferedReader.readLine();
+
+            //Map
+            s = bufferedReader.readLine();
+            Player.characterNum = Integer.parseInt(s);
 
             //Close Config
             bufferedReader.close();

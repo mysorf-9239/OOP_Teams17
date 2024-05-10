@@ -3,6 +3,7 @@ package model.tile;
 import controller.ImageLoader;
 import controller.UtilityTool;
 import view.GamePanel;
+import controller.Config;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -10,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 
 public class TileEndlessManager {
@@ -17,13 +19,16 @@ public class TileEndlessManager {
 
     public Tile[] tile;
     int[][] map;
-    public static String path;
+    public static ArrayList<String> pathList = new ArrayList<>();
+    public static int pathNum;
+    Config config = new Config(gp);
 
     ImageLoader imageLoader;
 
     public final int numImage = 88;
     public final int imageWidth = 32;
     public final int imageHeight = 32;
+
 
     public TileEndlessManager(GamePanel gp)
     {
@@ -32,7 +37,11 @@ public class TileEndlessManager {
         tile = new Tile[100];
         map = new int[gp.maxWorldCol][gp.maxWorldRow];
 
-        loadMap(path);
+        setMapPath();
+
+        config.getMap();
+
+        loadMap();
         GamePanel.map = map;
 
         getTileImage(tile);
@@ -62,12 +71,15 @@ public class TileEndlessManager {
     }
 
     public void setMapPath() {
+
+        pathList.add("/map/Maptest.txt");
+        pathList.add("/map/Map_3.txt");
     }
 
-    public void loadMap(String filePath) {
+    public void loadMap() {
 
         try {
-            InputStream is = getClass().getResourceAsStream(filePath);
+            InputStream is = getClass().getResourceAsStream(pathList.get(pathNum));
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int col = 0;
@@ -100,8 +112,7 @@ public class TileEndlessManager {
     }
 
 
-    public void draw(Graphics2D g2)
-    {
+    public void draw(Graphics2D g2) {
 
         int worldCol = 0;
         int worldRow = 0;
