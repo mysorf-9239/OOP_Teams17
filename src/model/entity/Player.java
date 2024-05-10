@@ -45,10 +45,7 @@ public class Player extends Entity {
 
         this.keyHandler = keyHandler;
         setDefaultValues();
-
         config.getCharacter();
-
-        getPlayerImage();
     }
 
     public void setDefaultValues() {
@@ -79,6 +76,8 @@ public class Player extends Entity {
     }
 
     public void getPlayerImage() {
+
+        System.out.println(characterNum);
 
         switch (characterNum) {
             case 0:

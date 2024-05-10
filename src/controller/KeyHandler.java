@@ -111,6 +111,7 @@ public class KeyHandler implements KeyListener
                 switch (gp.ui.commanNum) {
                     //New game
                     case 0:
+                        gp.player.getPlayerImage();
                         gp.gameState = gp.playState;
                         gp.playMusic(0);
                         gp.ui.commanNum = 0;
@@ -137,13 +138,13 @@ public class KeyHandler implements KeyListener
                 gp.ui.commanNum--;
                 gp.playSE(5);
                 if (gp.ui.commanNum < 0) {
-                    gp.ui.commanNum = 3;
+                    gp.ui.commanNum = 4;
                 }
             }
             if (code == KeyEvent.VK_S) {
                 gp.ui.commanNum++;
                 gp.playSE(5);
-                if (gp.ui.commanNum > 3) {
+                if (gp.ui.commanNum > 4) {
                     gp.ui.commanNum = 0;
                 }
             }
@@ -202,10 +203,72 @@ public class KeyHandler implements KeyListener
             if (code == KeyEvent.VK_ENTER) {
                 gp.playSE(5);
                 switch (gp.ui.commanNum) {
-                    //Back
+                    //Character
                     case 3:
+                        //Return title screen 2
+                        gp.ui.titleScreenState = 2;
+                        gp.ui.commanNum = 0;
+                        break;
+                    //Back
+                    case 4:
                         //Return title screen 0
                         gp.ui.titleScreenState = 0;
+                        gp.ui.commanNum = 0;
+                        break;
+                }
+            }
+        }
+        else if (gp.ui.titleScreenState == 2) {
+
+            if (code == KeyEvent.VK_W) {
+                gp.ui.commanNum--;
+                gp.playSE(5);
+                if (gp.ui.commanNum < 0) {
+                    gp.ui.commanNum = 1;
+                }
+            }
+            if (code == KeyEvent.VK_S) {
+                gp.ui.commanNum++;
+                gp.playSE(5);
+                if (gp.ui.commanNum > 1) {
+                    gp.ui.commanNum = 0;
+                }
+            }
+            if (code == KeyEvent.VK_A) {
+                switch (gp.ui.commanNum) {
+                    case 0:
+                        gp.player.characterNum--;
+                        if (gp.player.characterNum > 6) {
+                            gp.player.characterNum = 0;
+                        }
+                        if (gp.player.characterNum < 0) {
+                            gp.player.characterNum = 6;
+                        }
+                        gp.playSE(5);
+                        break;
+                }
+            }
+            if (code == KeyEvent.VK_D) {
+                switch (gp.ui.commanNum) {
+                    case 0:
+                        gp.player.characterNum++;
+                        if (gp.player.characterNum > 6) {
+                            gp.player.characterNum = 0;
+                        }
+                        if (gp.player.characterNum < 0) {
+                            gp.player.characterNum = 6;
+                        }
+                        gp.playSE(5);
+                        break;
+                }
+            }
+            if (code == KeyEvent.VK_ENTER) {
+                gp.playSE(5);
+                switch (gp.ui.commanNum) {
+                    //Back
+                    case 1:
+                        //Return title screen 0
+                        gp.ui.titleScreenState = 1;
                         gp.ui.commanNum = 0;
                         break;
                 }

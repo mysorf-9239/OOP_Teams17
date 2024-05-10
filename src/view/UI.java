@@ -1,7 +1,10 @@
 package view;
 
+import controller.ImageLoader;
+import controller.UtilityTool;
 import model.Object.Obj_Heart;
 import model.entity.Entity;
+import model.entity.Player;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -16,7 +19,10 @@ public class UI {
     Graphics2D g2;
     Font maruMonica;
     Color poison = new Color(52, 35, 122, 250);
+
+    //Load images
     BufferedImage backgorundImage;
+    BufferedImage[] characterImage = new BufferedImage[7];
 
     //Obj image
     BufferedImage heart_full, heart_half, heart_blank;
@@ -52,6 +58,9 @@ public class UI {
         }  catch (IOException e) {
         e.getStackTrace();
         }
+
+        //Get character images for UI
+        getCharacterImages();
 
         //Create hub object
         Entity heart = new Obj_Heart(gp);
@@ -238,7 +247,7 @@ public class UI {
 
             text = "Mode";
             x = getXforCenterText(text)  + gp.titleSize*4;
-            y += gp.titleSize*7 ;
+            y += gp.titleSize*6 ;
             g2.drawString(text, x, y);
             if (commanNum == 0) {
                 drawColection(text, x, y);
@@ -289,11 +298,68 @@ public class UI {
                 int volumeWidth = 24 * gp.se.volumeScale;
                 g2.fillRect(x + gp.titleSize*9/4+20, y-gp.titleSize*3/5, volumeWidth, 24);
             }
-            text = "Back";
+            text = "Character";
             x = getXforCenterText(text)  + gp.titleSize*4;
             y += gp.titleSize + 10;
             g2.drawString(text, x, y);
             if (commanNum == 3) {
+                drawColection(text, x, y);
+            }
+            text = "Back";
+            x = getXforCenterText(text)  + gp.titleSize*4;
+            y += gp.titleSize + 10;
+            g2.drawString(text, x, y);
+            if (commanNum == 4) {
+                drawColection(text, x, y);
+            }
+
+            gp.config.saveConfig();
+        }
+        else if (titleScreenState == 2) {
+            //Title name
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
+            String text = "Select Your Character";
+            int x = getXforCenterText(text);
+            int y = gp.titleSize*4;
+
+            //Shadow
+            g2.setColor(Color.black);
+            g2.drawString(text, x+3, y+3);
+            //Main
+            g2.setColor(poison);
+            g2.drawString(text, x, y);
+
+            //Menu
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 42F));
+
+            //Character
+            x =  gp.titleSize*9;
+            y += gp.titleSize*3 ;
+            int width = gp.titleSize*3;
+            int height = gp.titleSize*3;
+
+            g2.setColor(new Color(39, 47, 44, 200));
+            g2.fillRect(x-gp.titleSize, y-gp.titleSize, gp.titleSize*5, gp.titleSize*6+10);
+            g2.drawImage(characterImage[gp.player.characterNum], x, y, width, height, null);
+            if (commanNum == 0) {
+                g2.setColor(Color.white);
+                //Triange1
+                int[] xPoints = {x - gp.titleSize*1/2, x - gp.titleSize*1, x - gp.titleSize*1/2};
+                int[] yPoints = {y+gp.titleSize*9/5, y+gp.titleSize*3/2, y+gp.titleSize*6/5};
+                g2.fillPolygon(xPoints, yPoints, 3);
+                //Triange2
+                xPoints[0] = x + gp.titleSize*7/2;
+                xPoints[1] = x + gp.titleSize*4;
+                xPoints[2] = x + gp.titleSize*7/2;
+                g2.fillPolygon(xPoints, yPoints, 3);
+            }
+
+            //Back
+            text = "Back";
+            x = getXforCenterText(text)+gp.titleSize/2;
+            y += gp.titleSize*5;
+            g2.drawString(text, x, y);
+            if (commanNum == 1) {
                 drawColection(text, x, y);
             }
 
@@ -507,5 +573,41 @@ public class UI {
         g2.drawString(text, x-2, y-1);
         g2.setColor(Color.white);
     }
+
+    public void getCharacterImages() {
+
+        UtilityTool utilityTool = new UtilityTool();
+
+        try {
+            BufferedImage bigImage = ImageIO.read(getClass().getResourceAsStream("/player/manyCharacter01.png"));
+
+            int index = 0;
+            int x = 32;
+            int y = 0;
+            for (int i = 0; i < 7; i++) {
+                // Cắt ảnh con từ ảnh gốc
+                BufferedImage subImage = bigImage.getSubimage(x, y, 32, 32);
+                subImage = utilityTool.scaleImage(subImage, 32, 32);
+
+                characterImage[i] = subImage;
+
+                x += 32*3;
+                if (i == 2 || i == 5) {
+                    x = 32;
+                    y += 32*4;
+                }
+
+                // Kiểm tra nếu đã cắt đủ số ảnh
+                if (index >= 7) {
+                    break;
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 }
