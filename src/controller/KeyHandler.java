@@ -84,7 +84,7 @@ public class KeyHandler implements KeyListener
             }
             //Load map
             if (code == KeyEvent.VK_R) {
-                gp.tileManager.loadMap();
+                gp.tileManager.loadMap(gp.currentMap);
             }
         }
     }
@@ -111,9 +111,15 @@ public class KeyHandler implements KeyListener
                 switch (gp.ui.commanNum) {
                     //New game
                     case 0:
-                        gp.player.getPlayerImage();
-                        gp.gameState = gp.playState;
-                        gp.playMusic(0);
+                        if (gp.gameMode == 0) {
+                            gp.currentMap = 0;
+                            gp.player.getPlayerImage();
+                            gp.player.setDefaultValues();
+                            gp.gameState = gp.playState;
+                            gp.playMusic(0);
+                        } else if (gp.gameMode > 0) {
+                            gp.ui.titleScreenState = 3;
+                        }
                         gp.ui.commanNum = 0;
                         break;
                     //Load game
@@ -271,6 +277,34 @@ public class KeyHandler implements KeyListener
                         gp.ui.titleScreenState = 1;
                         gp.ui.commanNum = 0;
                         break;
+                }
+            }
+        } else if (gp.ui.titleScreenState == 3) {
+
+            if (code == KeyEvent.VK_W) {
+                gp.ui.commanNum--;
+                gp.playSE(5);
+                if (gp.ui.commanNum < 0) {
+                    gp.ui.commanNum = 5;
+                }
+            }
+            if (code == KeyEvent.VK_S) {
+                gp.ui.commanNum++;
+                gp.playSE(5);
+                if (gp.ui.commanNum > 5) {
+                    gp.ui.commanNum = 0;
+                }
+            }
+            if (code == KeyEvent.VK_ENTER) {
+                gp.playSE(5);
+                if (gp.ui.commanNum >= 0 && gp.ui.commanNum < 5) {
+                    gp.currentMap = gp.ui.commanNum+1;
+                    gp.player.getPlayerImage();
+                    gp.player.setDefaultValues();
+                    gp.gameState = gp.playState;
+                    gp.playMusic(0);
+                } else if (gp.ui.commanNum == 5) {
+                    gp.ui.titleScreenState = 0;
                 }
             }
         }

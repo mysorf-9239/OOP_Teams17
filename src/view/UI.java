@@ -23,6 +23,7 @@ public class UI {
     //Load images
     BufferedImage backgorundImage;
     BufferedImage[] characterImage = new BufferedImage[7];
+    BufferedImage[] mapImage = new BufferedImage[10];
 
     //Obj image
     BufferedImage heart_full, heart_half, heart_blank;
@@ -365,6 +366,74 @@ public class UI {
 
             gp.config.saveConfig();
         }
+        else if (titleScreenState == 3) {
+            //Title name
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
+            String text = "Select Your Level";
+            int x = getXforCenterText(text);
+            int y = gp.titleSize*4;
+
+            //Shadow
+            g2.setColor(Color.black);
+            g2.drawString(text, x+3, y+3);
+            //Main
+            g2.setColor(poison);
+            g2.drawString(text, x, y);
+
+            //Menu
+            g2.setColor(new Color(39, 47, 44, 200));
+            g2.fillRect(x+gp.titleSize*9/2, y+gp.titleSize*2, gp.titleSize*5, gp.titleSize*9);
+
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 42F));
+            g2.setColor(Color.white);
+            //Map
+            text = "Map1";
+            x = getXforCenterText(text)+gp.titleSize/2;
+            y += gp.titleSize*3 ;
+            g2.drawString(text, x, y);
+            if (commanNum == 0) {
+                drawColection(text, x, y);
+            }
+            text = "Map2";
+            x = getXforCenterText(text)+gp.titleSize/2;
+            y += gp.titleSize + 10;
+            g2.drawString(text, x, y);
+            if (commanNum == 1) {
+                drawColection(text, x, y);
+            }
+            text = "Map3";
+            x = getXforCenterText(text)+gp.titleSize/2;
+            y += gp.titleSize + 10;
+            g2.drawString(text, x, y);
+            if (commanNum == 2) {
+                drawColection(text, x, y);
+            }
+            text = "Map4";
+            x = getXforCenterText(text)+gp.titleSize/2;
+            y += gp.titleSize + 10;
+            g2.drawString(text, x, y);
+            if (commanNum == 3) {
+                drawColection(text, x, y);
+            }
+            text = "Map5";
+            x = getXforCenterText(text)+gp.titleSize/2;
+            y += gp.titleSize + 10;
+            g2.drawString(text, x, y);
+            if (commanNum == 4) {
+                drawColection(text, x, y);
+            }
+
+            //Back
+            text = "Back";
+            x = getXforCenterText(text)+gp.titleSize/2;
+            y += gp.titleSize*2;
+            g2.drawString(text, x, y);
+            if (commanNum == 5) {
+                drawColection(text, x, y);
+            }
+
+            gp.config.saveConfig();
+        }
     }
 
 
@@ -607,7 +676,5 @@ public class UI {
             e.printStackTrace();
         }
     }
-
-
 
 }

@@ -1,10 +1,9 @@
 package controller;
 
 import model.entity.Player;
-import model.tile.TileEndlessManager;
+import model.tile.TileManager;
 import view.GamePanel;
 
-import java.awt.image.BufferedImage;
 import java.io.*;
 
 public class Config {
@@ -35,7 +34,7 @@ public class Config {
             bufferedWriter.newLine();
 
             //Map
-            bufferedWriter.write(String.valueOf(TileEndlessManager.pathNum));
+            bufferedWriter.write(String.valueOf(gp.currentMap));
             bufferedWriter.newLine();
 
             //Character
@@ -52,6 +51,8 @@ public class Config {
     }
 
     public void loadConfig() {
+
+        System.out.println("loadConfig() method");
 
         try {
             //Load config.txt
@@ -72,7 +73,7 @@ public class Config {
 
             //Map
             s = bufferedReader.readLine();
-            TileEndlessManager.pathNum = Integer.parseInt(s);
+            gp.currentMap = Integer.parseInt(s);
 
             //Character
             s = bufferedReader.readLine();
@@ -87,6 +88,9 @@ public class Config {
     }
 
     public void getMap() {
+
+        System.out.println("getMap() method");
+
         try {
             //Load config.txt
             BufferedReader bufferedReader = new BufferedReader(new FileReader("config.txt"));
@@ -97,7 +101,7 @@ public class Config {
 
             //Map
             s = bufferedReader.readLine();
-            TileEndlessManager.pathNum = Integer.parseInt(s);
+            gp.currentMap = Integer.parseInt(s);
 
             //Close Config
             bufferedReader.close();

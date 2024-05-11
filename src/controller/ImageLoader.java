@@ -2,7 +2,7 @@ package controller;
 
 import model.entity.Player;
 import model.tile.Tile;
-import model.tile.TileEndlessManager;
+import model.tile.TileManager;
 import view.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -72,7 +72,7 @@ public class ImageLoader {
         }
     }
 
-    public void TileImageLoader(TileEndlessManager tileEndlessManagers) {
+    public void TileImageLoader(TileManager tileManagers) {
 
         UtilityTool utilityTool = new UtilityTool();
         int index = 1;
@@ -83,11 +83,11 @@ public class ImageLoader {
             for (int y = 0; y < bigImage.getHeight(); y += imageHeight) {
                 for (int x = 0; x < bigImage.getWidth(); x += imageWidth) {
                     // Cắt ảnh con từ ảnh gốc
-                    tileEndlessManagers.tile[index] = new Tile();
+                    tileManagers.tile[index] = new Tile();
                     BufferedImage subImage = bigImage.getSubimage(x, y, imageWidth, imageHeight);
                     subImage = utilityTool.scaleImage(subImage, gp.titleSize, gp.titleSize);
-                    tileEndlessManagers.tile[index].image = subImage;
-                    tileEndlessManagers.tile[index].collision = false;
+                    tileManagers.tile[index].image = subImage;
+                    tileManagers.tile[index].collision = false;
 
                     switch(index) {
                         case 5:
@@ -108,7 +108,7 @@ public class ImageLoader {
                         case 35:
                         case 36:
                         case 37:
-                            tileEndlessManagers.tile[index].collision = true;
+                            tileManagers.tile[index].collision = true;
                             break;
                     }
                     index++;

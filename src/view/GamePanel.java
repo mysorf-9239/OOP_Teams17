@@ -26,13 +26,15 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxScreenRow = 20;
     public final int screenWidth = titleSize * maxScreenCol;           //48*20 = 960px
     public final int screenHeight = titleSize * maxScreenRow;          //48*20 = 960px
-    public static int[][] map;
+    public static int[][][] map;
 
     //World setting
-    public final int maxWorldCol = 40;
-    public final int maxWorldRow = 500;
-    public final int worldWidth = titleSize * maxWorldCol;
-    public final int worldHeight = titleSize * maxWorldRow;
+    public final int maxMap = 50;
+    public static int currentMap = 0;
+    public static final int maxWorldCol = 40;
+    public static final int maxWorldRow = 500;
+    public static int currentWorldCol = maxWorldCol;
+    public static int currentWorldRow = maxWorldRow;
 
     //Player is moved
     //public static boolean isMove = false;
@@ -41,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
 
     //System
-    public TileEndlessManager tileManager = new TileEndlessManager(this);  //"/map/Maptest.txt"
+    public TileManager tileManager = new TileManager(this);
     public KeyHandler keyHandler = new KeyHandler(this);
     public EventHandler eventHandler = new EventHandler(this);
     public Sound music = new Sound();
@@ -167,11 +169,13 @@ public class GamePanel extends JPanel implements Runnable {
             if (gameMode == 0) {
                 //Lava
                 poisonMist.draw(g2);
-
-                //UI
-                ui.draw(g2);
+            } else if (gameMode != 0) {
+                poisonMist.stop();
             }
 
+
+            //UI
+            ui.draw(g2);
 
             //Debug
             if (keyHandler.showDebugText == true) {

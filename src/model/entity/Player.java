@@ -44,14 +44,19 @@ public class Player extends Entity {
         solidArea.height = 27;
 
         this.keyHandler = keyHandler;
-        setDefaultValues();
         config.getCharacter();
     }
 
     public void setDefaultValues() {
         //Define the start screen's andres
-        worldX = gp.titleSize * 20;
-        worldY = gp.titleSize * (gp.maxWorldRow - 11);
+        if (gp.currentMap == 0) {
+            worldX = gp.titleSize * 20;
+            worldY = gp.titleSize * 489;
+        } else if (gp.currentMap > 0) {
+            worldX = gp.titleSize * 20;
+            worldY = gp.titleSize * 29;
+        }
+
         speed = gp.titleSize/5;
         direction = "up";
 
@@ -76,8 +81,6 @@ public class Player extends Entity {
     }
 
     public void getPlayerImage() {
-
-        System.out.println(characterNum);
 
         switch (characterNum) {
             case 0:

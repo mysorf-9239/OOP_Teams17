@@ -14,11 +14,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 
-public class TileEndlessManager {
+public class TileManager {
     GamePanel gp;
 
     public Tile[] tile;
-    int[][] map;
+    int[][][] map;
     public static ArrayList<String> pathList = new ArrayList<>();
     public static int pathNum;
     Config config = new Config(gp);
@@ -30,18 +30,23 @@ public class TileEndlessManager {
     public final int imageHeight = 32;
 
 
-    public TileEndlessManager(GamePanel gp)
+    public TileManager(GamePanel gp)
     {
+        System.out.println("Khai bao TileManager");
+
         this.gp = gp;
 
         tile = new Tile[100];
-        map = new int[gp.maxWorldCol][gp.maxWorldRow];
+        map = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
 
         setMapPath();
 
-        config.getMap();
-
-        loadMap();
+        loadMap(0);
+        loadMap(1);
+        loadMap(2);
+        loadMap(3);
+        loadMap(4);
+        loadMap(5);
         GamePanel.map = map;
 
         getTileImage(tile);
@@ -72,33 +77,46 @@ public class TileEndlessManager {
 
     public void setMapPath() {
 
-        pathList.add("/map/Maptest.txt");
-        pathList.add("/map/Map_3.txt");
+        pathList.add("/map/map0.txt");
+        pathList.add("/map/map1.txt");
+        pathList.add("/map/map2.txt");
+        pathList.add("/map/map3.txt");
+        pathList.add("/map/map4.txt");
+        pathList.add("/map/map5.txt");
     }
 
-    public void loadMap() {
+    public void loadMap(int mapNum) {
+
+        int loadMaxCol = 0, loadMaxRow = 0;
+        if (mapNum == 0) {
+            loadMaxCol = 40;
+            loadMaxRow = 500;
+        } else if (mapNum > 0) {
+            loadMaxCol = 40;
+            loadMaxRow = 40;
+        }
 
         try {
-            InputStream is = getClass().getResourceAsStream(pathList.get(pathNum));
+            InputStream is = getClass().getResourceAsStream(pathList.get(mapNum));
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int col = 0;
             int row = 0;
 
-            while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
+            while (col < loadMaxCol && row < loadMaxRow) {
 
                 String line = br.readLine();
 
-                while (col < gp.maxWorldCol) {
+                while (col < loadMaxCol) {
 
                     String numbers[] = line.split(" ");
 
                     int num = Integer.parseInt(numbers[col]);
 
-                    map[col][row] = num;
+                    map[mapNum][col][row] = num;
                     col++;
                 }
-                if (col == gp.maxWorldCol) {
+                if (col == loadMaxCol) {
                     col = 0;
                     row++;
                 }
@@ -114,13 +132,23 @@ public class TileEndlessManager {
 
     public void draw(Graphics2D g2) {
 
+        g2.setColor(new Color(59, 143, 202));
+        g2.fillRect(0, 0, gp.maxScreenCol*gp.titleSize, gp.maxScreenRow*gp.titleSize);
+
         int worldCol = 0;
         int worldRow = 0;
 
+        if (gp.currentMap == 0) {
+            gp.currentWorldCol = 40;
+            gp.currentWorldRow = 500;
+        } else if (gp.currentMap > 0) {
+            gp.currentWorldCol = 40;
+            gp.currentWorldRow = 40;
+        }
 
-        while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
+        while (worldCol < gp.currentWorldCol && worldRow < gp.currentWorldRow) {
 
-            int tileNum = map[worldCol][worldRow];
+            int tileNum = map[gp.currentMap][worldCol][worldRow];
 
             int worldX = worldCol * gp.titleSize;
             int worldY = worldRow * gp.titleSize;
@@ -134,7 +162,7 @@ public class TileEndlessManager {
             }
             worldCol++;
 
-            if (worldCol == gp.maxWorldCol) {
+            if (worldCol == gp.currentWorldCol) {
                 worldCol = 0;
                 worldRow++;
             }

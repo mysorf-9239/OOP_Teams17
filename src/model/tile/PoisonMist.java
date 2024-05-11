@@ -47,6 +47,11 @@ public class PoisonMist {
         changeSpeed();
     }
 
+    public void stop() {
+
+        PoisonMistSpeed = 0;
+    }
+
     public void draw(Graphics2D g2) {
 
         int drawX = 0;
@@ -60,6 +65,5 @@ public class PoisonMist {
         g2.fillRect(drawX, drawY, PoisonMistWidth, PoisonMistHeight);
         g2.setFont(g2.getFont().deriveFont(26F));
         g2.setColor(Color.white);
-        g2.drawString("drawY: " + drawY, 50, 600);
     }
 }
