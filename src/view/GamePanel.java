@@ -7,6 +7,7 @@ import controller.KeyHandler;
 import model.Object.AssetSetter;
 import model.entity.Entity;
 import model.entity.Player;
+import model.entity.Projectile;
 import model.tile.*;
 
 import javax.swing.*;
@@ -58,8 +59,10 @@ public class GamePanel extends JPanel implements Runnable {
     //Entity and Object
     public Player player = new Player(this, keyHandler);
     public Entity[] obj = new Entity[10];
+    public Entity[] monster = new Entity[10];
     public ArrayList<Entity> entitiesList = new ArrayList<>();
     public PoisonMist poisonMist = new PoisonMist(this);
+    private ArrayList<Projectile> projectiles = new ArrayList<>();
 
     //GAME STATE
     public int gameState;
@@ -87,6 +90,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupObject() {
         assetSetter.setObject();
+        assetSetter.setMonster();
 
         playMusic(0);
         stopMusic();
@@ -124,6 +128,10 @@ public class GamePanel extends JPanel implements Runnable {
             player.update();
             if (gameMode == 0) {
                 poisonMist.update();
+            } else {
+                for (Projectile fireball : projectiles) {
+                    fireball.update();
+                }
             }
         }
     }
@@ -134,7 +142,7 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
 
         long drawStart = System.nanoTime();
-        if (keyHandler.showDebugText == true) {
+        if (keyHandler.showDebugText) {
             drawStart = System.nanoTime();
         }
 
@@ -150,13 +158,15 @@ public class GamePanel extends JPanel implements Runnable {
             for (int i = 0; i < obj.length; i++) {
                 if (obj[i] != null) { entitiesList.add(obj[i]);}
             }
+            for (int i = 0; i < monster.length; i++) {
+                if (monster[i] != null) { entitiesList.add(monster[i]);}
+            }
 
             //Sort
             Collections.sort(entitiesList, new Comparator<Entity>() {
                 @Override
                 public int compare(Entity e1, Entity e2) {
-                    int result = Integer.compare(e1.worldY, e2.worldY);
-                    return result;
+                    return Integer.compare(e1.worldY, e2.worldY);
                 }
             });
 
@@ -166,11 +176,16 @@ public class GamePanel extends JPanel implements Runnable {
             //Empty entitiesList
             entitiesList.clear();
 
+            //Draw poison
             if (gameMode == 0) {
-                //Lava
                 poisonMist.draw(g2);
             } else if (gameMode != 0) {
                 poisonMist.stop();
+            }
+
+            //Draw Projectile
+            for (Projectile fireball : projectiles) {
+                fireball.draw(g2);
             }
 
 
@@ -178,7 +193,7 @@ public class GamePanel extends JPanel implements Runnable {
             ui.draw(g2);
 
             //Debug
-            if (keyHandler.showDebugText == true) {
+            if (keyHandler.showDebugText) {
                 long drawEnd = System.nanoTime();
                 long passed = drawEnd - drawStart;
 
@@ -215,6 +230,14 @@ public class GamePanel extends JPanel implements Runnable {
     public void playSE(int i) {
         se.setFile(i);
         se.play();
+    }
+
+    public void addProjectile(Projectile fireball) {
+        projectiles.add(fireball);
+    }
+
+    public void removeProjectile(Projectile fireball) {
+        projectiles.remove(fireball);
     }
 
     public void retry() {

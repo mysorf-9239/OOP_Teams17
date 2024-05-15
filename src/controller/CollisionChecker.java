@@ -131,7 +131,6 @@ public class CollisionChecker {
                 entity.solidArea.y = entity.solidAreaDefaultY;
                 gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;
                 gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
-
             }
 
         }
@@ -139,4 +138,49 @@ public class CollisionChecker {
         return index;
     }
 
+    public void CheckMonster(Entity entity) {
+        for (int i = 0; i < gp.monster.length; i++) {
+            if (gp.monster[i] != null) {
+                // Lưu tọa độ ban đầu của solidArea
+                int entityOriginalX = entity.solidArea.x;
+                int entityOriginalY = entity.solidArea.y;
+                int monsterOriginalX = gp.monster[i].solidArea.x;
+                int monsterOriginalY = gp.monster[i].solidArea.y;
+
+                // Cập nhật tọa độ của solidArea cho kiểm tra va chạm
+                entity.solidArea.x = entity.worldX + entity.solidArea.x;
+                entity.solidArea.y = entity.worldY + entity.solidArea.y;
+                gp.monster[i].solidArea.x = gp.monster[i].worldX + gp.monster[i].solidArea.x;
+                gp.monster[i].solidArea.y = gp.monster[i].worldY + gp.monster[i].solidArea.y;
+
+                // Kiểm tra va chạm theo hướng di chuyển của thực thể
+                switch (entity.direction) {
+                    case "up":
+                        entity.solidArea.y -= entity.speed;
+                        break;
+                    case "down":
+                        entity.solidArea.y += entity.speed;
+                        break;
+                    case "left":
+                        entity.solidArea.x -= entity.speed;
+                        break;
+                    case "right":
+                        entity.solidArea.x += entity.speed;
+                        break;
+                }
+
+                if (entity.solidArea.intersects(gp.monster[i].solidArea)) {
+                    if (gp.monster[i].collision) {
+                        entity.collidisionOn = true;
+                    }
+                }
+
+                // Khôi phục tọa độ ban đầu của solidArea
+                entity.solidArea.x = entityOriginalX;
+                entity.solidArea.y = entityOriginalY;
+                gp.monster[i].solidArea.x = monsterOriginalX;
+                gp.monster[i].solidArea.y = monsterOriginalY;
+            }
+        }
+    }
 }

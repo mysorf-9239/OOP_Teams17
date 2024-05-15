@@ -23,6 +23,7 @@ public class Entity {
     //STATE
     public int worldX, worldY;
     public String direction = "down";
+    public int distance;
     public String lastDirection = "down";
     public int spriteNum = 1;
     public boolean collision = false;
@@ -44,6 +45,14 @@ public class Entity {
     public Entity (GamePanel gp) {
 
         this.gp = gp;
+
+        solidArea = new Rectangle();
+        solidArea.x = 0;
+        solidArea.y = 5;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+        solidArea.width = 48;
+        solidArea.height = 22;
     }
 
     public BufferedImage setup(String imageName) {
@@ -69,6 +78,7 @@ public class Entity {
         collidisionOn = false;
         gp.collisionChecker.CheckTile(this);
         gp.collisionChecker.CheckObject(this, false);
+        gp.collisionChecker.CheckMonster(this);
 
         //IF COLLISION IS FALSE -> MOVE
         if (collidisionOn == false) {

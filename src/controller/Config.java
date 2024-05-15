@@ -34,7 +34,7 @@ public class Config {
             bufferedWriter.newLine();
 
             //Map
-            bufferedWriter.write(String.valueOf(gp.currentMap));
+            bufferedWriter.write(String.valueOf(GamePanel.currentMap));
             bufferedWriter.newLine();
 
             //Character
@@ -73,7 +73,7 @@ public class Config {
 
             //Map
             s = bufferedReader.readLine();
-            gp.currentMap = Integer.parseInt(s);
+            GamePanel.currentMap = Integer.parseInt(s);
 
             //Character
             s = bufferedReader.readLine();
@@ -101,7 +101,7 @@ public class Config {
 
             //Map
             s = bufferedReader.readLine();
-            gp.currentMap = Integer.parseInt(s);
+            GamePanel.currentMap = Integer.parseInt(s);
 
             //Close Config
             bufferedReader.close();

@@ -146,6 +146,9 @@ public class Player extends Entity {
             int objIndex = gp.collisionChecker.CheckObject(this, true);
             pickUpObject(objIndex);
 
+            //Check Monster
+            gp.collisionChecker.CheckMonster(this);
+
             //CHECK EVENT
             gp.eventHandler.checkEvent();
 
