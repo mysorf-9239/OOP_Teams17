@@ -129,6 +129,11 @@ public class GamePanel extends JPanel implements Runnable {
             if (gameMode == 0) {
                 poisonMist.update();
             } else {
+                for (Entity entity : monster) {
+                    if (entity != null) {
+                        entity.update();
+                    }
+                }
                 for (Projectile fireball : projectiles) {
                     fireball.update();
                 }
@@ -155,23 +160,25 @@ public class GamePanel extends JPanel implements Runnable {
 
             //Add Entity (Player, object)
             entitiesList.add(player);
-            for (int i = 0; i < obj.length; i++) {
-                if (obj[i] != null) { entitiesList.add(obj[i]);}
+            for (Entity entity : obj) {
+                if (entity != null) {
+                    entitiesList.add(entity);
+                }
             }
-            for (int i = 0; i < monster.length; i++) {
-                if (monster[i] != null) { entitiesList.add(monster[i]);}
+            for (Entity entity : monster) {
+                if (entity != null) {
+                    entitiesList.add(entity);
+                }
             }
 
             //Sort
-            Collections.sort(entitiesList, new Comparator<Entity>() {
-                @Override
-                public int compare(Entity e1, Entity e2) {
-                    return Integer.compare(e1.worldY, e2.worldY);
-                }
-            });
+            entitiesList.sort((e1, e2) -> Integer.compare(e1.worldY, e2.worldY));
+
 
             //Draw
-            for (int i = 0; i < entitiesList.size(); i++) { entitiesList.get(i).draw(g2);}
+            for (Entity entity : entitiesList) {
+                entity.draw(g2);
+            }
 
             //Empty entitiesList
             entitiesList.clear();
@@ -181,13 +188,11 @@ public class GamePanel extends JPanel implements Runnable {
                 poisonMist.draw(g2);
             } else if (gameMode != 0) {
                 poisonMist.stop();
+                //Draw Projectile
+                for (Projectile fireball : projectiles) {
+                    fireball.draw(g2);
+                }
             }
-
-            //Draw Projectile
-            for (Projectile fireball : projectiles) {
-                fireball.draw(g2);
-            }
-
 
             //UI
             ui.draw(g2);

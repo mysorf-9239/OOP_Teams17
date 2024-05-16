@@ -5,7 +5,7 @@ import view.GamePanel;
 public class Monster extends Entity {
 
     private long lastFireTime;
-    private long fireInterval = 3000;
+    private long fireInterval = 3000; // Thời gian giữa các lần phun lửa (ms)
 
     public Monster(GamePanel gp) {
         super(gp);
@@ -18,9 +18,9 @@ public class Monster extends Entity {
         up[1] = setup("/monster/monster02");
         right[1] = setup("/monster/monster03");
 
+        // Initialize last fire time
         lastFireTime = System.currentTimeMillis();
     }
-
 
     @Override
     public void update() {
