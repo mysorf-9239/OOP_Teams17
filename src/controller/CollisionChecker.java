@@ -133,7 +133,6 @@ public class CollisionChecker {
                 gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
 
             }
-
         }
 
         return index;

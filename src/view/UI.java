@@ -107,6 +107,10 @@ public class UI {
         if (gp.gameState == gp.gameOverState) {
             drawGameOverScreen();
         }
+
+        if (gp.gameState == gp.winState) {
+            drawWinScreen();
+        }
     }
 
     public void drawTopBar() {
@@ -674,6 +678,59 @@ public class UI {
         g2.setColor(Color.white);
         g2.drawString(text, x, y);
         if (commanNum == 1) {
+            drawColection(text, x, y);
+        }
+    }
+
+    public void drawWinScreen() {
+
+        //Over
+        g2.setColor(new Color(0, 0, 0, 125));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        int x, y;
+        String text;
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 110F));
+
+        text = "You Win";
+        //Shadow
+        g2.setColor(Color.black);
+        x = getXforCenterText(text);
+        y = gp.titleSize*6;
+        g2.drawString(text, x, y);
+        //Main
+        g2.setColor(Color.white);
+        g2.drawString(text, x-4, y-4);
+
+        //Next Map
+        g2.setFont(g2.getFont().deriveFont(50F));
+        g2.setColor(Color.white);
+        text = "Next Map";
+        x = getXforCenterText(text);
+        y += gp.titleSize*6;
+        g2.drawString(text, x, y);
+        if (commanNum == 0) {
+            drawColection(text, x, y);
+        }
+
+        //Retry
+        g2.setFont(g2.getFont().deriveFont(50F));
+        g2.setColor(Color.white);
+        text = "Retry";
+        x = getXforCenterText(text);
+        y += gp.titleSize*2;
+        g2.drawString(text, x, y);
+        if (commanNum == 1) {
+            drawColection(text, x, y);
+        }
+
+        //Return title screen
+        text = "Quit";
+        x = getXforCenterText(text);
+        y += gp.titleSize*2;
+        g2.setColor(Color.white);
+        g2.drawString(text, x, y);
+        if (commanNum == 2) {
             drawColection(text, x, y);
         }
     }

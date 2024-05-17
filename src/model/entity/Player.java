@@ -204,6 +204,7 @@ public class Player extends Entity {
             }
         }
 
+        //Life and Die
         if (life > maxLife) {
             life = maxLife;
         }
@@ -229,14 +230,9 @@ public class Player extends Entity {
                     gp.ui.showMess("You got a key");
                     break;
                 case "Door":
-                    if (hasKey > 0) {
-                        gp.playSE(3);
-                        hasKey--;
-                        gp.obj[i] = null;
-                        gp.ui.showMess("You opened the door");
-                    } else {
-                        gp.ui.showMess("You need a key to unlock!");
-                    }
+                    gp.playSE(3);
+                    gp.ui.commanNum = -1;
+                    gp.gameState = gp.winState;
                     break;
                 case "Boots":
                     gp.playSE(2);

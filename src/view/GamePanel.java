@@ -67,6 +67,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int playState = 1;
     public final int optionState = 2;
     public final int gameOverState = 3;
+    public final int winState = 4;
 
     //Mode
     public int gameMode;
@@ -90,10 +91,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupObject() {
         assetSetter.setObject();
+    }
 
-        playMusic(0);
-        stopMusic();
-        gameState = titleState;
+    public void deletedObject() {
+        for (int i = 0; i < obj.length; i++) {
+            obj[i] = null;
+        }
     }
 
     public void StartGameThread() {

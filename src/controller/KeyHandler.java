@@ -39,6 +39,9 @@ public class KeyHandler implements KeyListener
             case 3:
                 gameOverState(code);
                 break;
+            case 4:
+                winState(code);
+                break;
         }
 
     }
@@ -415,6 +418,8 @@ public class KeyHandler implements KeyListener
                         }
                         gp.gameState = gp.playState;
                         gp.ui.commanNum = 0;
+                        //Play back sound
+                        gp.playMusic(0);
                         break;
                     //Back
                     case 4:
@@ -469,6 +474,62 @@ public class KeyHandler implements KeyListener
                     break;
                 //Quit
                 case 1:
+                    gp.gameState = gp.titleState;
+                    gp.ui.commanNum = 0;
+                    break;
+            }
+        }
+    }
+
+    private void winState(int code) {
+        if (code == KeyEvent.VK_W) {
+            gp.ui.commanNum--;
+            gp.playSE(5);
+            if (gp.ui.commanNum < 0) {
+                gp.ui.commanNum = 2;
+            }
+        }
+        if (code == KeyEvent.VK_S) {
+            gp.ui.commanNum++;
+            gp.playSE(5);
+            if (gp.ui.commanNum > 2) {
+                gp.ui.commanNum = 0;
+            }
+
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            switch (gp.ui.commanNum) {
+                //Next Map
+                case 0:
+                    if (gp.currentMap > 0 && gp.currentMap < 6) {
+                        gp.currentMap += 1;
+                        gp.player.hasAxe = 1;
+                        gp.tileManager.loadMap(gp.currentMap);
+                        gp.player.setDefaultValues();
+                        gp.setupObject();
+                    }
+                    gp.gameState = gp.playState;
+                    gp.ui.commanNum = 0;
+                    //Play back sound
+                    gp.playMusic(0);
+                    break;
+                //Retry
+                case 1:
+                    if (gp.currentMap > 0 && gp.currentMap < 6) {
+                        gp.player.hasAxe = 1;
+                        gp.tileManager.loadMap(gp.currentMap);
+                        gp.player.setDefaultValues();
+                        gp.deletedObject();
+                        gp.setupObject();
+                    }
+                    gp.gameState = gp.playState;
+                    gp.ui.commanNum = 0;
+                    //Play back sound
+                    gp.playMusic(0);
+                    break;
+
+                //Quit
+                case 2:
                     gp.gameState = gp.titleState;
                     gp.ui.commanNum = 0;
                     break;
