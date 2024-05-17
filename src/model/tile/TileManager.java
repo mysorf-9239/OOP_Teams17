@@ -150,7 +150,9 @@ public class TileManager {
 
         if (tileCol >= 0 && tileCol <= gp.maxWorldCol && tileRow >= 0 && tileCol <= gp.maxWorldRow) {
 
-            tileAddress = tileRow*gp.maxWorldRow + tileCol;
+            if (map[gp.currentMap][tileCol][tileRow] == 5 || map[gp.currentMap][tileCol][tileRow] == 13) {
+                tileAddress = tileRow * gp.maxWorldRow + tileCol;
+            }
         }
 
         return tileAddress;

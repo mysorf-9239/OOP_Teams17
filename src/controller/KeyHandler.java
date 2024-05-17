@@ -10,8 +10,6 @@ public class KeyHandler implements KeyListener
 {
     GamePanel gp;
     public static boolean upPressed, downPressed, leftPressed, rightPressed;
-    public static boolean enterPresses = false;
-    public static boolean esccapePresses = false;
     public static boolean movingKeyPressed = false;
 
     //Debug
@@ -53,7 +51,7 @@ public class KeyHandler implements KeyListener
         if (code == KeyEvent.VK_ESCAPE) {
             gp.gameState = gp.optionState;
             gp.stopMusic();
-            gp.ui.commanNum = 3;
+            gp.ui.commanNum = 4;
         }
 
         if (!movingKeyPressed) {
@@ -347,7 +345,7 @@ public class KeyHandler implements KeyListener
             gp.playSE(5);
             if (gp.ui.subState == 0) {
                 if (gp.ui.commanNum < 0) {
-                    gp.ui.commanNum = 3;
+                    gp.ui.commanNum = 4;
                 }
             }
             if (gp.ui.subState == 1) {
@@ -360,7 +358,7 @@ public class KeyHandler implements KeyListener
             gp.ui.commanNum++;
             gp.playSE(5);
             if (gp.ui.subState == 0) {
-                if (gp.ui.commanNum > 3) {
+                if (gp.ui.commanNum > 4) {
                     gp.ui.commanNum = 0;
                 }
             }
@@ -404,8 +402,22 @@ public class KeyHandler implements KeyListener
                         gp.ui.subState = 1;
                         gp.ui.commanNum = 0;
                         break;
-                    //Back
+                    //Retry
                     case 3:
+                        if (gp.currentMap == 0) {
+                            gp.player.setDefaultValues();
+                            gp.newGame();
+                        } else if (gp.currentMap > 0) {
+                            gp.player.hasAxe = 1;
+                            gp.tileManager.loadMap(gp.currentMap);
+                            gp.player.setDefaultValues();
+                            gp.setupObject();
+                        }
+                        gp.gameState = gp.playState;
+                        gp.ui.commanNum = 0;
+                        break;
+                    //Back
+                    case 4:
                         gp.gameState = gp.playState;
                         gp.playMusic(0);
                         gp.ui.commanNum = 0;

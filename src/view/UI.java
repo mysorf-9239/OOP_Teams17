@@ -567,12 +567,21 @@ public class UI {
             drawColection(text, textX, textY);
         }
 
+        //Retry
+        text = "Retry";
+        textX = frameX + gp.titleSize;
+        textY += gp.titleSize*2;
+        g2.drawString(text, textX, textY);
+        if (commanNum == 3) {
+            drawColection(text, textX, textY);
+        }
+
         //Back
         text = "Back";
         textX = frameX + gp.titleSize;
-        textY += gp.titleSize*4;
+        textY += gp.titleSize*2;
         g2.drawString(text, textX, textY);
-        if (commanNum == 3) {
+        if (commanNum == 4) {
             drawColection(text, textX, textY);
         }
 
