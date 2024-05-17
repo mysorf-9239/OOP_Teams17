@@ -39,12 +39,10 @@ public class TileManager {
 
         setMapPath();
 
-        loadMap(0);
-        loadMap(1);
-        loadMap(2);
-        loadMap(3);
-        loadMap(4);
-        loadMap(5);
+        for (int i = 0; i < 21; i++) {
+            loadMap(i);
+        }
+
         GamePanel.map = map;
 
         getTileImage(tile);
@@ -81,6 +79,21 @@ public class TileManager {
         pathList.add("/map/map3.txt");
         pathList.add("/map/map4.txt");
         pathList.add("/map/map5.txt");
+        pathList.add("/map/map6.txt");
+        pathList.add("/map/map7.txt");
+        pathList.add("/map/map8.txt");
+        pathList.add("/map/map9.txt");
+        pathList.add("/map/map10.txt");
+        pathList.add("/map/map11.txt");
+        pathList.add("/map/map12.txt");
+        pathList.add("/map/map13.txt");
+        pathList.add("/map/map14.txt");
+        pathList.add("/map/map15.txt");
+        pathList.add("/map/map16.txt");
+        pathList.add("/map/map17.txt");
+        pathList.add("/map/map18.txt");
+        pathList.add("/map/map19.txt");
+        pathList.add("/map/map20.txt");
     }
 
     public void loadMap(int mapNum) {

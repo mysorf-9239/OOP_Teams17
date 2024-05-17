@@ -27,8 +27,6 @@ public class UI {
     //Obj image
     BufferedImage heart_full, heart_half, heart_blank;
 
-
-
     //Message
     public boolean messageOn = false;
     public String message = "";
@@ -40,6 +38,7 @@ public class UI {
     double playTime;
     DecimalFormat decimalFormat = new DecimalFormat("#0.00");
     String currentDialogue = "";
+    public static int selectMap = 1;
 
     public int titleScreenState = 0;
     public int subState = 0;
@@ -454,53 +453,51 @@ public class UI {
 
             //Menu
             g2.setColor(new Color(39, 47, 44, 200));
-            g2.fillRect(x+gp.titleSize*9/2, y+gp.titleSize*2, gp.titleSize*5, gp.titleSize*9);
+            g2.fillRect(x+gp.titleSize*5/2, y+gp.titleSize*2, gp.titleSize*9, gp.titleSize*9);
 
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 42F));
-            g2.setColor(Color.white);
+
             //Map
-            text = "Map1";
-            x = getXforCenterText(text)+gp.titleSize/2;
+            x =  gp.titleSize*9;
             y += gp.titleSize*3 ;
+            int width = gp.titleSize*3;
+            int height = gp.titleSize*3;
+
+            //Map image
+//            g2.setColor(new Color(39, 47, 44, 200));
+//            g2.fillRect(x-gp.titleSize, y-gp.titleSize, gp.titleSize*5, gp.titleSize*6+10);
+//            g2.drawImage(characterImage[gp.player.characterNum], x, y, width, height, null);
+
+            //Map num
+            x = gp.titleSize*19/2 - 10;
+            y += gp.titleSize * 5;
+            g2.setColor(Color.white);
+            if (selectMap < 10) {
+                text = "Map 0" + selectMap;
+            } else {
+                text = "Map " + selectMap;
+            }
             g2.drawString(text, x, y);
+            //Arrows
             if (commanNum == 0) {
-                drawColection(text, x, y);
-            }
-            text = "Map2";
-            x = getXforCenterText(text)+gp.titleSize/2;
-            y += gp.titleSize + 10;
-            g2.drawString(text, x, y);
-            if (commanNum == 1) {
-                drawColection(text, x, y);
-            }
-            text = "Map3";
-            x = getXforCenterText(text)+gp.titleSize/2;
-            y += gp.titleSize + 10;
-            g2.drawString(text, x, y);
-            if (commanNum == 2) {
-                drawColection(text, x, y);
-            }
-            text = "Map4";
-            x = getXforCenterText(text)+gp.titleSize/2;
-            y += gp.titleSize + 10;
-            g2.drawString(text, x, y);
-            if (commanNum == 3) {
-                drawColection(text, x, y);
-            }
-            text = "Map5";
-            x = getXforCenterText(text)+gp.titleSize/2;
-            y += gp.titleSize + 10;
-            g2.drawString(text, x, y);
-            if (commanNum == 4) {
-                drawColection(text, x, y);
+                g2.setColor(Color.white);
+                //Triange1
+                int[] xPoints = {x - gp.titleSize*1/2 - 6, x - gp.titleSize - 6, x - gp.titleSize*1/2 - 6};
+                int[] yPoints = {y+gp.titleSize*3/10 - 16, y - 16, y-gp.titleSize*3/10 - 16};
+                g2.fillPolygon(xPoints, yPoints, 3);
+                //Triange2
+                xPoints[0] = x + gp.titleSize*3 + 10;
+                xPoints[1] = x + gp.titleSize*7/2 + 10;
+                xPoints[2] = x + gp.titleSize*3 + 10;
+                g2.fillPolygon(xPoints, yPoints, 3);
             }
 
             //Back
             text = "Back";
             x = getXforCenterText(text)+gp.titleSize/2;
-            y += gp.titleSize*2;
+            y += gp.titleSize*3-5;
             g2.drawString(text, x, y);
-            if (commanNum == 5) {
+            if (commanNum == 1) {
                 drawColection(text, x, y);
             }
 
@@ -759,12 +756,6 @@ public class UI {
     }
 
     public void drawColection(String text, int x, int y) {
-
-        if (gp.gameState == gp.titleState) {
-            //Border
-            g2.setColor(new Color(0, 0, 0, 52));
-            g2.fillRect(x - 5, y - gp.titleSize + 5, gp.screenWidth/2, gp.titleSize);
-        }
 
         //Shadow
         g2.setColor(Color.black);
