@@ -74,6 +74,26 @@ public class KeyHandler implements KeyListener
                 movingKeyPressed = true;
             }
 
+            //Cut down the tree
+            if (code == KeyEvent.VK_C) {
+
+                int plCol = (gp.player.worldX + gp.player.solidArea.x)/gp.titleSize;
+                int plRow  = (gp.player.worldY + gp.player.solidArea.y)/gp.titleSize;
+
+                int tileAddress = gp.tileManager.checkTile(plCol, plRow);
+                int tileCol = 0;
+                int tileRow = 0;
+
+                if (tileAddress >= 0 && gp.player.hasAxe > 0) {
+
+                    tileCol = tileAddress % gp.maxWorldRow;
+                    tileRow = tileAddress / gp.maxWorldRow;
+
+                    gp.player.hasAxe -= 1;
+                    gp.tileManager.cutTree(tileCol, tileRow);
+                }
+            }
+
             //DeBug
             if (code == KeyEvent.VK_T) {
                 if (showDebugText == false) {
@@ -115,6 +135,7 @@ public class KeyHandler implements KeyListener
                             gp.currentMap = 0;
                             gp.player.getPlayerImage();
                             gp.player.setDefaultValues();
+                            gp.newGame();
                             gp.gameState = gp.playState;
                             gp.playMusic(0);
                         } else if (gp.gameMode > 0) {
@@ -124,6 +145,15 @@ public class KeyHandler implements KeyListener
                         break;
                     //Load game
                     case 1:
+                        if (gp.gameMode == 0) {
+                            gp.currentMap = 0;
+                            gp.loadGame();
+                            gp.gameState = gp.playState;
+                            gp.playMusic(0);
+                        } else if (gp.gameMode > 0) {
+                            gp.ui.titleScreenState = 3;
+                        }
+                        gp.ui.commanNum = 0;
                         break;
                     //Setting
                     case 2:
@@ -301,6 +331,7 @@ public class KeyHandler implements KeyListener
                     gp.currentMap = gp.ui.commanNum+1;
                     gp.player.getPlayerImage();
                     gp.player.setDefaultValues();
+                    gp.setupObject();
                     gp.gameState = gp.playState;
                     gp.playMusic(0);
                 } else if (gp.ui.commanNum == 5) {
@@ -385,7 +416,7 @@ public class KeyHandler implements KeyListener
                     //Yes
                     case 0:
                         gp.ui.subState = 0;
-                        gp.retry();
+                        gp.newGame();
                         gp.gameState = gp.titleState;
                         break;
                     //No
@@ -418,21 +449,18 @@ public class KeyHandler implements KeyListener
             switch (gp.ui.commanNum) {
                 //Retry
                 case 0:
+                    gp.newGame();
                     gp.gameState = gp.playState;
                     gp.ui.commanNum = 0;
-                    //Retry()
-                    gp.retry();
                     //Play back sound
                     gp.playMusic(0);
                     break;
                 //Quit
                 case 1:
-                    gp.retry();
                     gp.gameState = gp.titleState;
                     gp.ui.commanNum = 0;
                     break;
             }
-
         }
     }
 }

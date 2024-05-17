@@ -14,7 +14,7 @@ public class Obj_Door extends Entity {
     public Obj_Door(GamePanel gp) {
         super(gp);
         name = "Door";
-        down[1] = setup("/objects/Door.png");
+        down[1] = setup("/objects/Door");
         collision = true;
     }
 

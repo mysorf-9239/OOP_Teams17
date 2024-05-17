@@ -1,4 +1,4 @@
-package controller;
+package controller.tool;
 
 import model.entity.Player;
 import model.tile.Tile;
@@ -66,7 +66,6 @@ public class ImageLoader {
                     }
                 }
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }

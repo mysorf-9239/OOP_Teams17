@@ -1,7 +1,7 @@
 package model.tile;
 
-import controller.ImageLoader;
-import controller.UtilityTool;
+import controller.tool.ImageLoader;
+import controller.tool.UtilityTool;
 import view.GamePanel;
 import controller.Config;
 
@@ -30,9 +30,7 @@ public class TileManager {
     public final int imageHeight = 32;
 
 
-    public TileManager(GamePanel gp)
-    {
-        System.out.println("Khai bao TileManager");
+    public TileManager(GamePanel gp) {
 
         this.gp = gp;
 
@@ -54,7 +52,7 @@ public class TileManager {
 
     public void getTileImage(Tile[] tile) {
 
-        setup(0, "/tiles/earth.png", false);
+        setup(0, "/tiles/trunk.png", false);
 
         imageLoader = new ImageLoader(gp, "/tiles/All.png", numImage, imageWidth, imageHeight);
         imageLoader.TileImageLoader(this);
@@ -127,6 +125,40 @@ public class TileManager {
         catch(IOException e) {
             e.getStackTrace();
         }
+    }
+
+    public int checkTile(int playerCol, int playerRow) {
+
+        int tileAddress = -1;
+        int tileCol = playerCol;
+        int tileRow = playerRow;
+
+        switch (gp.player.direction) {
+            case "up":
+                tileRow -= 1;
+                break;
+            case "left":
+                tileCol -= 1;
+                break;
+            case "down":
+                tileRow += 1;
+                break;
+            case "right":
+                tileCol += 1;
+                break;
+        }
+
+        if (tileCol >= 0 && tileCol <= gp.maxWorldCol && tileRow >= 0 && tileCol <= gp.maxWorldRow) {
+
+            tileAddress = tileRow*gp.maxWorldRow + tileCol;
+        }
+
+        return tileAddress;
+    }
+
+    public void cutTree(int Col, int Row) {
+
+        map[gp.currentMap][Col][Row] = 0;
     }
 
 

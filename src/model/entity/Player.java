@@ -1,7 +1,7 @@
 package model.entity;
 
 import controller.Config;
-import controller.ImageLoader;
+import controller.tool.ImageLoader;
 import controller.KeyHandler;
 import view.GamePanel;
 
@@ -23,12 +23,14 @@ public class Player extends Entity {
     public final int imageWidth = 32;
     public final int imageHeight = 32;
     public static int imageStartX;
-    public static int imageStartY;
+    public static int imageStartY = 500;
+
+    public static int furthestY;
 
     public int hasKey = 0;
+    public int hasAxe = 1;
 
-    public Player(GamePanel gp, KeyHandler keyHandler)
-    {
+    public Player(GamePanel gp, KeyHandler keyHandler) {
         super(gp);
 
         //Main default andres
@@ -52,6 +54,7 @@ public class Player extends Entity {
         if (gp.currentMap == 0) {
             worldX = gp.titleSize * 20;
             worldY = gp.titleSize * 489;
+            furthestY = worldY;
         } else if (gp.currentMap > 0) {
             worldX = gp.titleSize * 20;
             worldY = gp.titleSize * 29;
@@ -195,6 +198,10 @@ public class Player extends Entity {
                 }
                 spriteCounter = 0;
             }
+
+            if (worldY < furthestY) {
+                furthestY = worldY;
+            }
         }
 
         if (life > maxLife) {
@@ -212,37 +219,43 @@ public class Player extends Entity {
     public void pickUpObject(int i) {
 
         if (i != 999) {
-//            String objectName = gp.obj[i].name;
-//
-//            switch (objectName) {
-//                case "Key":
-//                    gp.playSE(1);
-//                    hasKey++;
-//                    gp.obj[i] = null;
-//                    gp.ui.showMess("You got a key");
-//                    break;
-//                case "Door":
-//                    if (hasKey > 0) {
-//                        gp.playSE(3);
-//                        hasKey--;
-//                        gp.obj[i] = null;
-//                        gp.ui.showMess("You opened the door");
-//                    } else {
-//                        gp.ui.showMess("You need a key to unlock!");
-//                    }
-//                    break;
-//                case "Boots":
-//                    gp.playSE(2);
-//                    speed += 2;
-//                    gp.obj[i] = null;
-//                    gp.ui.showMess("Speed up");
-//                    break;
-//                case "Chest"://
-//                    gp.ui.gameFnished = true;
-//                    gp.stopMusic();
-//                    gp.playSE(4);
-//                    break;
+            String objectName = gp.obj[i].name;
+
+            switch (objectName) {
+                case "Key":
+                    gp.playSE(1);
+                    hasKey++;
+                    gp.obj[i] = null;
+                    gp.ui.showMess("You got a key");
+                    break;
+                case "Door":
+                    if (hasKey > 0) {
+                        gp.playSE(3);
+                        hasKey--;
+                        gp.obj[i] = null;
+                        gp.ui.showMess("You opened the door");
+                    } else {
+                        gp.ui.showMess("You need a key to unlock!");
+                    }
+                    break;
+                case "Boots":
+                    gp.playSE(2);
+                    speed += 2;
+                    gp.obj[i] = null;
+                    gp.ui.showMess("Speed up");
+                    break;
+                case "Chest":
+                    gp.ui.gameFnished = true;
+                    gp.stopMusic();
+                    gp.playSE(4);
+                    break;
+                case "Axe":
+                    hasAxe++;
+                    gp.obj[i] = null;
+                    gp.ui.showMess("You got a axe");
+                    break;
             }
+        }
     }
 
     public void draw(Graphics2D g2) {

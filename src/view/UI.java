@@ -1,10 +1,9 @@
 package view;
 
-import controller.ImageLoader;
-import controller.UtilityTool;
+import controller.tool.UtilityTool;
+import model.Object.Obj_Axe;
 import model.Object.Obj_Heart;
 import model.entity.Entity;
-import model.entity.Player;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -23,10 +22,12 @@ public class UI {
     //Load images
     BufferedImage backgorundImage;
     BufferedImage[] characterImage = new BufferedImage[7];
-    BufferedImage[] mapImage = new BufferedImage[10];
+    BufferedImage axeImage;
 
     //Obj image
     BufferedImage heart_full, heart_half, heart_blank;
+
+
 
     //Message
     public boolean messageOn = false;
@@ -42,7 +43,6 @@ public class UI {
 
     public int titleScreenState = 0;
     public int subState = 0;
-
 
 
     public UI (GamePanel gp) {
@@ -88,7 +88,16 @@ public class UI {
         }
         //Play State
         if (gp.gameState == gp.playState) {
-            drawPlayerLife();
+            if (gp.gameMode == 0) {
+                drawTopBar();
+                drawPlayerLife();
+                drawScore();
+                drawAxe();
+            } else {
+                drawTopBar();
+                drawMap();
+                drawAxe();
+            }
         }
         //Option screen
         if (gp.gameState == gp.optionState) {
@@ -100,10 +109,24 @@ public class UI {
         }
     }
 
+    public void drawTopBar() {
+
+        g2.setColor(new Color(86, 85, 85, 150));
+        g2.fillRect(0, 0, gp.screenWidth, gp.titleSize);
+
+        float strokeWidth = 2.0f;
+        g2.setStroke(new BasicStroke(strokeWidth));
+        g2.setColor(new Color(86, 85, 85, 200));
+        g2.drawLine(0, gp.titleSize-4, gp.screenWidth, gp.titleSize-4);
+
+        g2.setColor(new Color(86, 85, 85, 250));
+        g2.drawLine(0, gp.titleSize-2, gp.screenWidth, gp.titleSize-2);
+    }
+
     public void drawPlayerLife() {
 
         int x = gp.titleSize/2;
-        int y = gp.titleSize/2;
+        int y = 0;
 
         int i = 0;
 
@@ -116,7 +139,7 @@ public class UI {
 
         //Reset x, y
         x = gp.titleSize/2;
-        y = gp.titleSize/2;
+        y = 0;
         int life = gp.player.life;
 
         //Draw current life
@@ -144,6 +167,51 @@ public class UI {
             g2.drawImage(heart_full, x + gp.titleSize, y, null);
             g2.drawImage(heart_full, x + gp.titleSize*2, y, null);
         }
+    }
+
+    public void drawScore() {
+
+        int disScore = (gp.maxWorldRow - 11 - gp.player.furthestY/gp.titleSize)*gp.DISTANCE_REWARD;
+        int Score = gp.totalScore + disScore;
+
+        String text = "Score: " + Score;
+        int scoreX = getXforCenterText(text);
+        int scoreY = gp.titleSize;
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 32F));
+        g2.setColor(Color.white);
+        g2.drawString(text, scoreX - 32, scoreY*2/3);
+    }
+
+    public void drawMap() {
+
+        String text = "Map: " + gp.currentMap;
+        int scoreX = getXforCenterText(text);
+        int scoreY = gp.titleSize;
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 32F));
+        g2.setColor(Color.white);
+        g2.drawString(text, scoreX - 32, scoreY*2/3);
+    }
+
+    public void drawAxe() {
+
+        UtilityTool utilityTool = new UtilityTool();
+
+        try {
+            axeImage = ImageIO.read(getClass().getResourceAsStream("/objects/Axe.png"));
+            axeImage = utilityTool.scaleImage(axeImage, 32, 32);
+        } catch (IOException e) {
+            e.getStackTrace();
+        }
+
+        int axeX = gp.screenWidth - gp.titleSize*2;
+        int axeY = 0;
+
+        g2.drawImage(axeImage, axeX, axeY, gp.titleSize-5, gp.titleSize-5, null);
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(32F));
+        g2.drawString("x" + gp.player.hasAxe, axeX+gp.titleSize, gp.titleSize*2/3);
     }
 
     public void drawTitleScreen() {

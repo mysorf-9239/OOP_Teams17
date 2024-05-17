@@ -73,7 +73,10 @@ public class GamePanel extends JPanel implements Runnable {
     public final int endlessMode = 0;
     public final int overcomeMode = 1;
 
-
+    //Score
+    public static int totalScore = 0;
+    public static final int TIME_REWARD = 1;
+    public static final int DISTANCE_REWARD = 10;
 
 
     public GamePanel() {
@@ -169,6 +172,10 @@ public class GamePanel extends JPanel implements Runnable {
             if (gameMode == 0) {
                 //Lava
                 poisonMist.draw(g2);
+                if (gameState == playState) {
+                    //Score up
+                    totalScore += TIME_REWARD;
+                }
             } else if (gameMode != 0) {
                 poisonMist.stop();
             }
@@ -190,11 +197,12 @@ public class GamePanel extends JPanel implements Runnable {
 
                 g2.drawString("WorldX: " + player.worldX, x, y); y += lineHeight;
                 g2.drawString("WorldY: " + player.worldY, x, y); y += lineHeight;
-                g2.drawString("Col: " + (player.worldY+player.solidArea.x)/titleSize, x, y); y += lineHeight;
+                g2.drawString("Col: " + (player.worldX+player.solidArea.x)/titleSize, x, y); y += lineHeight;
                 g2.drawString("Row: " + (player.worldY+player.solidArea.y)/titleSize, x, y); y += lineHeight;
                 g2.drawString("DrawTime: " + passed, x, y); y += lineHeight;
                 g2.drawString("PoisonMistY: " + poisonMist.PoisonMistY, x, y); y += lineHeight;
-                g2.drawString("PoisonSpeed: " + poisonMist.PoisonMistSpeed, x, y);
+                g2.drawString("PoisonSpeed: " + poisonMist.PoisonMistSpeed, x, y); y += lineHeight;
+                g2.drawString("FurthestY: " + player.furthestY, x, y);
             }
 
         }
@@ -217,9 +225,39 @@ public class GamePanel extends JPanel implements Runnable {
         se.play();
     }
 
-    public void retry() {
+    public void newGame() {
 
+        //Player
         player.setDefaultPositions();
+        player.furthestY = player.worldY;
+        totalScore = 0;
+        player.hasAxe = 1;
+
+        //Tile
+        tileManager.loadMap(currentMap);
+
+        //Object
+        setupObject();
+
+        //PoisonMist
+        poisonMist.setDefaultPoisonMist();
+    }
+
+    public void loadGame() {
+
+        //Player
+        player.setDefaultPositions();
+        player.furthestY = player.worldY;
+        totalScore = 0;
+        player.hasAxe = 1;
+
+        //Tile
+        tileManager.loadMap(currentMap);
+
+        //Object
+        setupObject();
+
+        //PoisonMist
         poisonMist.setDefaultPoisonMist();
     }
 }

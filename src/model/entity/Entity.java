@@ -1,6 +1,6 @@
 package model.entity;
 
-import controller.UtilityTool;
+import controller.tool.UtilityTool;
 import view.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -44,6 +44,15 @@ public class Entity {
     public Entity (GamePanel gp) {
 
         this.gp = gp;
+
+        solidArea = new Rectangle();
+        solidArea.x = 0;
+        solidArea.y = 5;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+        solidArea.width = 48;
+        solidArea.height = 22;
+
     }
 
     public BufferedImage setup(String imageName) {

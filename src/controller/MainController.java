@@ -25,7 +25,6 @@ public class MainController
 
                 gamePanel.config.loadConfig();
 
-                gamePanel.setupObject();
                 gamePanel.StartGameThread();
             }
         });
