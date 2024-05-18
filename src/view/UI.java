@@ -470,7 +470,7 @@ public class UI {
 
             //Map num
             x = gp.titleSize*19/2 - 10;
-            y += gp.titleSize * 5;
+            y += gp.titleSize * 6;
             g2.setColor(Color.white);
             if (selectMap < 10) {
                 text = "Map 0" + selectMap;
@@ -495,7 +495,7 @@ public class UI {
             //Back
             text = "Back";
             x = getXforCenterText(text)+gp.titleSize/2;
-            y += gp.titleSize*3-5;
+            y += gp.titleSize*2-5;
             g2.drawString(text, x, y);
             if (commanNum == 1) {
                 drawColection(text, x, y);
@@ -525,6 +525,9 @@ public class UI {
             case 1:
                 option_EndGame_Confirmation(frameX, frameY);
                 break;
+            case 2:
+                options_control(frameX, frameY);
+                break;
         }
     }
 
@@ -544,7 +547,7 @@ public class UI {
         //Music
         text = "Music";
         textX = frameX + gp.titleSize;
-        textY += gp.titleSize*2;
+        textY += gp.titleSize*3/2;
         g2.drawString(text, textX, textY);
         if (commanNum == 0) {
             drawColection(text, textX, textY);
@@ -553,54 +556,109 @@ public class UI {
         //SE
         text = "SE";
         textX = frameX + gp.titleSize;
-        textY += gp.titleSize*2;
+        textY += gp.titleSize*3/2;
         g2.drawString(text, textX, textY);
         if (commanNum == 1) {
+            drawColection(text, textX, textY);
+        }
+
+        //Control
+        text = "Control";
+        textX = frameX + gp.titleSize;
+        textY += gp.titleSize*3/2;
+        g2.drawString(text, textX, textY);
+        if (commanNum == 2) {
             drawColection(text, textX, textY);
         }
 
         //EndGame
         text = "EndGame";
         textX = frameX + gp.titleSize;
-        textY += gp.titleSize*2;
+        textY += gp.titleSize*5/2;
         g2.drawString(text, textX, textY);
-        if (commanNum == 2) {
+        if (commanNum == 3) {
             drawColection(text, textX, textY);
         }
 
         //Retry
         text = "Retry";
         textX = frameX + gp.titleSize;
-        textY += gp.titleSize*2;
+        textY += gp.titleSize*3/2;
         g2.drawString(text, textX, textY);
-        if (commanNum == 3) {
+        if (commanNum == 4) {
             drawColection(text, textX, textY);
         }
 
         //Back
         text = "Back";
         textX = frameX + gp.titleSize;
-        textY += gp.titleSize*2;
+        textY += gp.titleSize*3/2;
         g2.drawString(text, textX, textY);
-        if (commanNum == 4) {
+        if (commanNum == 5) {
             drawColection(text, textX, textY);
         }
 
         //Music bar
         textX = frameX + gp.titleSize*4 + 5;
-        textY = frameY + gp.titleSize*2 + 24;
+        textY = frameY + gp.titleSize*3/2 + 24;
         g2.setStroke(new BasicStroke(3));
         g2.drawRect(textX, textY, 120, 24);
         int volumeWidth = 24 * gp.music.volumeScale;
         g2.fillRect(textX, textY, volumeWidth, 24);
 
         //SE bar
-        textY += gp.titleSize*2;
+        textY += gp.titleSize*3/2;
         g2.drawRect(textX, textY, 120, 24);
         volumeWidth = 24 * gp.se.volumeScale;
         g2.fillRect(textX, textY, volumeWidth, 24);
 
         gp.config.saveConfig();
+    }
+
+    public void options_control(int frameX, int frameY) {
+
+        g2.setFont(g2.getFont().deriveFont(Font.ITALIC));
+
+        int textX;
+        int textY;
+
+        //TITLE
+        String text = "Control";
+        textX = getXforCenterText(text);
+        textY = frameY + gp.titleSize;
+        g2.drawString(text, textX,textY);
+
+        //Menu control
+        textX = frameX + gp.titleSize;
+        textY += gp.titleSize*3/2;
+
+        g2.drawString("Move", textX, textY); textY += gp.titleSize*3/2;
+            textX += gp.titleSize;
+        g2.drawString("Up", textX, textY); textY += gp.titleSize*3/2;
+        g2.drawString("Left", textX, textY); textY += gp.titleSize*3/2;
+        g2.drawString("Down", textX, textY); textY += gp.titleSize*3/2;
+        g2.drawString("Right", textX, textY); textY += gp.titleSize*3/2;
+            textX -= gp.titleSize;
+        g2.drawString("Felling Tree", textX, textY); textX += gp.titleSize*3/2;
+
+        //Control
+        textX = frameX + gp.titleSize*6;
+        textY = frameY + gp.titleSize*4;
+
+        g2.drawString("W", textX, textY); textY += gp.titleSize*3/2;
+        g2.drawString("A", textX, textY); textY += gp.titleSize*3/2;
+        g2.drawString("S", textX, textY); textY += gp.titleSize*3/2;
+        g2.drawString("D", textX, textY); textY += gp.titleSize*3/2;
+        g2.drawString("C", textX, textY); textX += gp.titleSize*3/2;
+
+        //Back
+        textX = frameX + gp.titleSize;
+        textY = frameY + gp.titleSize*23/2;
+        g2.drawString("Back", textX, textY);
+        if (commanNum == 0) {
+            drawColection("Back", textX, textY);
+        }
+
     }
 
     public void option_EndGame_Confirmation(int frameX, int frameY) {
