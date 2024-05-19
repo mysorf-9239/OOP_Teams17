@@ -76,7 +76,7 @@ public class SaveLoad {
                 }
             }
 
-            //MGP
+            //GP
             dataStorage.currentMap = GamePanel.currentMap;
             dataStorage.totalScore = GamePanel.totalScore;
 

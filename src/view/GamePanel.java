@@ -61,7 +61,7 @@ public class GamePanel extends JPanel implements Runnable {
     //Entity and Object
     public final int maxObject = 20;
     public Player player = new Player(this, keyHandler);
-    public Entity[][] obj;
+    public Entity[][] obj = new Entity[maxMap][maxObject];
     public ArrayList<Entity> entitiesList = new ArrayList<>();
     public PoisonMist poisonMist = new PoisonMist(this);
 

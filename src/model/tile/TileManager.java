@@ -29,7 +29,6 @@ public class TileManager {
     public final int imageWidth = 32;
     public final int imageHeight = 32;
 
-
     public TileManager(GamePanel gp) {
 
         this.gp = gp;

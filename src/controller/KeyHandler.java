@@ -146,10 +146,24 @@ public class KeyHandler implements KeyListener
                         break;
                     //Load game
                     case 1:
-                        gp.currentMap = 0;
-                        gp.saveLoad.load();
-                        gp.gameState = gp.playState;
-                        gp.playMusic(0);
+                        if (gp.gameMode == 0) {
+                            gp.currentMap = 0;
+                            gp.player.setDefaultValues();
+                            gp.newGame();
+                            gp.saveLoad.load();
+                            gp.player.getPlayerImage();
+                            gp.gameState = gp.playState;
+                            gp.playMusic(0);
+                        } else if (gp.gameMode != 0) {
+                            gp.player.getPlayerImage();
+                            gp.player.setDefaultValues();
+                            gp.tileManager.loadMap(gp.currentMap);
+                            gp.setupObject();
+                            gp.saveLoad.load();
+                            gp.player.getPlayerImage();
+                            gp.gameState = gp.playState;
+                            gp.playMusic(0);
+                        }
                         gp.ui.commanNum = 0;
                         break;
                     //Setting
@@ -365,8 +379,8 @@ public class KeyHandler implements KeyListener
                             gp.playMusic(0);
                         } else {
                             gp.ui.titleScreenState = 4;
-                            gp.ui.commanNum = 0;
                         }
+                        gp.ui.commanNum = 0;
                         break;
                     //Back
                     case 1:
@@ -489,7 +503,7 @@ public class KeyHandler implements KeyListener
                     //Yes
                     case 0:
                         gp.saveLoad.save();
-                        gp.ui.subState = 0;
+                        gp.ui.titleScreenState = 0;
                         gp.newGame();
                         gp.gameState = gp.titleState;
                         break;

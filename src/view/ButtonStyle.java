@@ -16,6 +16,4 @@ public class ButtonStyle extends JButton
         setBorder(null);
         setFont(buttonFont);
     }
-
-
 }
