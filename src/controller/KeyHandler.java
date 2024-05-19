@@ -146,14 +146,10 @@ public class KeyHandler implements KeyListener
                         break;
                     //Load game
                     case 1:
-                        if (gp.gameMode == 0) {
-                            gp.currentMap = 0;
-                            gp.loadGame();
-                            gp.gameState = gp.playState;
-                            gp.playMusic(0);
-                        } else if (gp.gameMode > 0) {
-                            gp.ui.titleScreenState = 3;
-                        }
+                        gp.currentMap = 0;
+                        gp.saveLoad.load();
+                        gp.gameState = gp.playState;
+                        gp.playMusic(0);
                         gp.ui.commanNum = 0;
                         break;
                     //Setting
@@ -359,12 +355,18 @@ public class KeyHandler implements KeyListener
                 switch (gp.ui.commanNum) {
                     //Select Map
                     case 0:
-                        gp.currentMap = gp.ui.selectMap;
-                        gp.player.getPlayerImage();
-                        gp.player.setDefaultValues();
-                        gp.setupObject();
-                        gp.gameState = gp.playState;
-                        gp.playMusic(0);
+                        if (gp.ui.selectMap <= gp.highestMap) {
+                            gp.currentMap = gp.ui.selectMap;
+                            gp.player.getPlayerImage();
+                            gp.player.setDefaultValues();
+                            gp.tileManager.loadMap(gp.currentMap);
+                            gp.setupObject();
+                            gp.gameState = gp.playState;
+                            gp.playMusic(0);
+                        } else {
+                            gp.ui.titleScreenState = 4;
+                            gp.ui.commanNum = 0;
+                        }
                         break;
                     //Back
                     case 1:
@@ -373,6 +375,14 @@ public class KeyHandler implements KeyListener
                         gp.ui.commanNum = 0;
                         break;
                 }
+            }
+        } else if (gp.ui.titleScreenState == 4) {
+
+            if (code == KeyEvent.VK_ENTER) {
+                //Back
+                gp.ui.titleScreenState = 3;
+                gp.ui.commanNum = 0;
+                gp.playSE(5);
             }
         }
     }
@@ -478,6 +488,7 @@ public class KeyHandler implements KeyListener
                 switch (gp.ui.commanNum) {
                     //Yes
                     case 0:
+                        gp.saveLoad.save();
                         gp.ui.subState = 0;
                         gp.newGame();
                         gp.gameState = gp.titleState;
@@ -562,9 +573,13 @@ public class KeyHandler implements KeyListener
                         gp.tileManager.loadMap(gp.currentMap);
                         gp.player.setDefaultValues();
                         gp.setupObject();
+                        if (gp.currentMap > gp.highestMap) {
+                            gp.highestMap = gp.currentMap;
+                        }
                     }
                     gp.gameState = gp.playState;
                     gp.ui.commanNum = 0;
+                    gp.config.saveConfig();
                     //Play back sound
                     gp.playMusic(0);
                     break;

@@ -15,7 +15,7 @@ public class Obj_Chest extends Entity {
         super(gp);
         name = "Chest";
         down[1] = setup("/objects/Chess");
-
+        collision = true;
     }
 
 

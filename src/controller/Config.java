@@ -41,6 +41,10 @@ public class Config {
             bufferedWriter.write(String.valueOf(Player.characterNum));
             bufferedWriter.newLine();
 
+            //Highest Map
+            bufferedWriter.write(String.valueOf(gp.highestMap));
+            bufferedWriter.newLine();
+
             //Close config.txt
             bufferedWriter.close();
 
@@ -51,8 +55,6 @@ public class Config {
     }
 
     public void loadConfig() {
-
-        System.out.println("loadConfig() method");
 
         try {
             //Load config.txt
@@ -79,6 +81,10 @@ public class Config {
             s = bufferedReader.readLine();
             Player.characterNum = Integer.parseInt(s);
 
+            //Highest Map
+            s = bufferedReader.readLine();
+            gp.highestMap = Integer.parseInt(s);
+
             //Close Config
             bufferedReader.close();
 
@@ -88,8 +94,6 @@ public class Config {
     }
 
     public void getMap() {
-
-        System.out.println("getMap() method");
 
         try {
             //Load config.txt
@@ -131,6 +135,29 @@ public class Config {
         } catch (IOException e) {
             e.getStackTrace();
         }
+    }
 
+    public void getHighestMap() {
+
+        try {
+            //Load config.txt
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("config.txt"));
+
+            String s = bufferedReader.readLine();
+            s = bufferedReader.readLine();
+            s = bufferedReader.readLine();
+            s = bufferedReader.readLine();
+            s = bufferedReader.readLine();
+
+            //Map
+            s = bufferedReader.readLine();
+            gp.highestMap = Integer.parseInt(s);
+
+            //Close Config
+            bufferedReader.close();
+
+        } catch (IOException e) {
+            e.getStackTrace();
+        }
     }
 }

@@ -220,13 +220,13 @@ public class Player extends Entity {
     public void pickUpObject(int i) {
 
         if (i != 999) {
-            String objectName = gp.obj[i].name;
+            String objectName = gp.obj[gp.currentMap][i].name;
 
             switch (objectName) {
                 case "Key":
                     gp.playSE(1);
                     hasKey++;
-                    gp.obj[i] = null;
+                    gp.obj[gp.currentMap][i] = null;
                     gp.ui.showMess("You got a key");
                     break;
                 case "Door":
@@ -237,18 +237,29 @@ public class Player extends Entity {
                 case "Boots":
                     gp.playSE(2);
                     speed += 2;
-                    gp.obj[i] = null;
+                    gp.obj[gp.currentMap][i] = null;
                     gp.ui.showMess("Speed up");
                     break;
                 case "Chest":
-                    gp.ui.gameFnished = true;
-                    gp.stopMusic();
-                    gp.playSE(4);
+                    if (hasKey > 0) {
+                        gp.totalScore += 500;
+                        gp.obj[gp.currentMap][i].collision = false;
+                        hasKey--;
+                        gp.obj[gp.currentMap][i] = null;
+                        gp.ui.showMess("You received some score");
+                    }
                     break;
                 case "Axe":
                     hasAxe++;
-                    gp.obj[i] = null;
+                    gp.obj[gp.currentMap][i] = null;
                     gp.ui.showMess("You got a axe");
+                    break;
+                case "Spidernet":
+                    if (speed > 2) {
+                        speed -= 2;
+                    }
+                    gp.obj[gp.currentMap][i] = null;
+                    gp.ui.showMess("Speed down");
                     break;
             }
         }

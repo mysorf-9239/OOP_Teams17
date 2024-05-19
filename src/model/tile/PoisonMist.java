@@ -20,9 +20,6 @@ public class PoisonMist {
     public PoisonMist(GamePanel gp) {
 
         this.gp = gp;
-
-        setDefaultPoisonMist();
-
     }
 
     public void setDefaultPoisonMist() {
@@ -31,12 +28,12 @@ public class PoisonMist {
         defaultPoisonMistSpeed = 1;
         PoisonMistY = defaultPoisonMistY;
         PoisonMistSpeed = defaultPoisonMistSpeed;
-
     }
+
     public void changeSpeed(){
         long currentTime = System.currentTimeMillis();
 
-        if (PoisonMistSpeed < 10 && currentTime - poisonSpeedTime >= SPEED_INTERVAL) {
+        if (PoisonMistSpeed < 6 && currentTime - poisonSpeedTime >= SPEED_INTERVAL) {
             PoisonMistSpeed += 1;
             poisonSpeedTime = currentTime;
         }

@@ -30,7 +30,6 @@ public class UI {
     //Message
     public boolean messageOn = false;
     public String message = "";
-    int messageCounter = 0;
     public int commanNum = 0;
 
     //Other
@@ -495,13 +494,16 @@ public class UI {
             //Back
             text = "Back";
             x = getXforCenterText(text)+gp.titleSize/2;
-            y += gp.titleSize*2-5;
+            y += gp.titleSize*2-15;
             g2.drawString(text, x, y);
             if (commanNum == 1) {
                 drawColection(text, x, y);
             }
 
             gp.config.saveConfig();
+        }
+        else if (titleScreenState == 4) {
+            drawMapNotReady();
         }
     }
 
@@ -790,7 +792,37 @@ public class UI {
         }
     }
 
+    public void drawMapNotReady() {
 
+        //Draw background
+        int frameX = gp.titleSize*6;
+        int frameY = gp.titleSize*6;
+        int frameWidth = gp.titleSize*9;
+        int frameHeight = gp.titleSize*7;
+        drawSubWindown(frameX, frameY, frameWidth, frameHeight);
+
+        //Draw Message
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(32F));
+        g2.setFont(g2.getFont().deriveFont(Font.ITALIC));
+
+        int textX = frameX + gp.titleSize - 21;
+        int textY = frameY + gp.titleSize + 15;
+
+        currentDialogue = "You must complete the \nprevious maps to \nunlock this map. \nPlease select another map.";
+
+        for (String line: currentDialogue.split("\n")) {
+            textX = getXforCenterText(line) + 18;
+            g2.drawString(line, textX, textY);
+            textY += gp.titleSize;
+        }
+
+        //Back
+        String text = "Back";
+        textX = getXforCenterText(text) + 20;
+        textY += gp.titleSize;
+        g2.drawString(text, textX, textY);
+    }
 
     //Auxiliary Method
     public int getXforCenterText(String text) {

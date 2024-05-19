@@ -4,6 +4,7 @@ import controller.CollisionChecker;
 import controller.Config;
 import controller.EventHandler;
 import controller.KeyHandler;
+import data.SaveLoad;
 import model.Object.AssetSetter;
 import model.entity.Entity;
 import model.entity.Player;
@@ -31,6 +32,7 @@ public class GamePanel extends JPanel implements Runnable {
     //World setting
     public final int maxMap = 50;
     public static int currentMap = 0;
+    public static int highestMap = 1;
     public static final int maxWorldCol = 40;
     public static final int maxWorldRow = 500;
     public static int currentWorldCol = maxWorldCol;
@@ -52,12 +54,14 @@ public class GamePanel extends JPanel implements Runnable {
     public AssetSetter assetSetter = new AssetSetter(this);
     public UI ui = new UI(this);
     public Config config = new Config(this);
+    public SaveLoad saveLoad = new SaveLoad(this);
     Thread gameThread;
 
 
     //Entity and Object
+    public final int maxObject = 20;
     public Player player = new Player(this, keyHandler);
-    public Entity[] obj = new Entity[10];
+    public Entity[][] obj;
     public ArrayList<Entity> entitiesList = new ArrayList<>();
     public PoisonMist poisonMist = new PoisonMist(this);
 
@@ -90,6 +94,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setupObject() {
+        obj = new Entity[maxMap][maxObject];
         assetSetter.setObject();
     }
 
@@ -153,8 +158,8 @@ public class GamePanel extends JPanel implements Runnable {
 
             //Add Entity (Player, object)
             entitiesList.add(player);
-            for (int i = 0; i < obj.length; i++) {
-                if (obj[i] != null) { entitiesList.add(obj[i]);}
+            for (int i = 0; i < obj[currentMap].length; i++) {
+                if (obj[currentMap][i] != null) { entitiesList.add(obj[currentMap][i]);}
             }
 
             //Sort
@@ -246,21 +251,4 @@ public class GamePanel extends JPanel implements Runnable {
         poisonMist.setDefaultPoisonMist();
     }
 
-    public void loadGame() {
-
-        //Player
-        player.setDefaultPositions();
-        player.furthestY = player.worldY;
-        totalScore = 0;
-        player.hasAxe = 1;
-
-        //Tile
-        tileManager.loadMap(currentMap);
-
-        //Object
-        setupObject();
-
-        //PoisonMist
-        poisonMist.setDefaultPoisonMist();
-    }
 }

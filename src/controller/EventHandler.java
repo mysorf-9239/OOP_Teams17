@@ -76,15 +76,16 @@ public class EventHandler {
 
     public void poisonMistCheck() {
 
-        if (gp.player.worldY > gp.poisonMist.PoisonMistY) {
-            long currentTime = System.currentTimeMillis();
-            if (currentTime - poisonDamageTime >= DAMAGE_INTERVAL) {
-                gp.player.life -= 1;
-                poisonDamageTime = currentTime;
+        if (gp.currentMap == 0) {
+            if (gp.player.worldY > gp.poisonMist.PoisonMistY) {
+                long currentTime = System.currentTimeMillis();
+                if (currentTime - poisonDamageTime >= DAMAGE_INTERVAL) {
+                    gp.player.life -= 1;
+                    poisonDamageTime = currentTime;
+                }
             }
         }
     }
-
 }
 
 
