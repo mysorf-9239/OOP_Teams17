@@ -108,7 +108,7 @@ public class SaveLoad {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("save.dat")));
 
             // Read the DataStorage object
-            DataStorage dataStorage = (DataStorage) ois.readObject();
+            DataStorage dataStorage = (DataStorage)ois.readObject();
 
             // Player
             gp.player.worldX = dataStorage.worldX;

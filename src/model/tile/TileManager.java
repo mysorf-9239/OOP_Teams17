@@ -25,7 +25,7 @@ public class TileManager {
 
     ImageLoader imageLoader;
 
-    public final int numImage = 88;
+    public final int numImage = 96;
     public final int imageWidth = 32;
     public final int imageHeight = 32;
 

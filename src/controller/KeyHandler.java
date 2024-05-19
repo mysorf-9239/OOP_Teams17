@@ -42,6 +42,9 @@ public class KeyHandler implements KeyListener
             case 4:
                 winState(code);
                 break;
+            case 5:
+                guideState(code);
+                break;
         }
 
     }
@@ -117,13 +120,13 @@ public class KeyHandler implements KeyListener
                 gp.ui.commanNum--;
                 gp.playSE(5);
                 if (gp.ui.commanNum < 0) {
-                    gp.ui.commanNum = 3;
+                    gp.ui.commanNum = 4;
                 }
             }
             if (code == KeyEvent.VK_S) {
                 gp.ui.commanNum++;
                 gp.playSE(5);
-                if (gp.ui.commanNum > 3) {
+                if (gp.ui.commanNum > 4) {
                     gp.ui.commanNum = 0;
                 }
             }
@@ -171,8 +174,13 @@ public class KeyHandler implements KeyListener
                         gp.ui.titleScreenState = 1;
                         gp.ui.commanNum = 0;
                         break;
-                    //Quit
+                    //Guide
                     case 3:
+                        gp.gameState = gp.guideState;
+                        gp.ui.commanNum = 0;
+                        break;
+                    //Quit
+                    case 4:
                         System.exit(0);
                         break;
                 }
@@ -320,7 +328,8 @@ public class KeyHandler implements KeyListener
                         break;
                 }
             }
-        } else if (gp.ui.titleScreenState == 3) {
+        }
+        else if (gp.ui.titleScreenState == 3) {
 
             if (code == KeyEvent.VK_W) {
                 gp.ui.commanNum--;
@@ -390,7 +399,8 @@ public class KeyHandler implements KeyListener
                         break;
                 }
             }
-        } else if (gp.ui.titleScreenState == 4) {
+        }
+        else if (gp.ui.titleScreenState == 4) {
 
             if (code == KeyEvent.VK_ENTER) {
                 //Back
@@ -618,6 +628,39 @@ public class KeyHandler implements KeyListener
                     gp.ui.commanNum = 0;
                     break;
             }
+        }
+    }
+
+    private void guideState(int code) {
+        if (code == KeyEvent.VK_W) {
+            gp.ui.commanNum--;
+            gp.playSE(5);
+            if (gp.ui.guideState == 0) {
+                if (gp.ui.commanNum != 0) {
+                    gp.ui.commanNum = 0;
+                }
+            }
+        }
+        if (code == KeyEvent.VK_S) {
+            gp.ui.commanNum++;
+            gp.playSE(5);
+            if (gp.ui.guideState == 0) {
+                if (gp.ui.commanNum != 0) {
+                    gp.ui.commanNum = 0;
+                }
+            }
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            if (gp.ui.guideState == 0) {
+                switch (gp.ui.commanNum) {
+                    //Back
+                    case 0:
+                        gp.gameState = gp.titleState;
+                        gp.ui.commanNum = 0;
+                        break;
+                }
+            }
+            gp.playSE(5);
         }
     }
 }

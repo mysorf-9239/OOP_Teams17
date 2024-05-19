@@ -41,6 +41,7 @@ public class UI {
 
     public int titleScreenState = 0;
     public int subState = 0;
+    public int guideState = 0;
 
 
     public UI (GamePanel gp) {
@@ -105,9 +106,13 @@ public class UI {
         if (gp.gameState == gp.gameOverState) {
             drawGameOverScreen();
         }
-
+        //Win map screen
         if (gp.gameState == gp.winState) {
             drawWinScreen();
+        }
+        //GuideScreen
+        if (gp.gameState == gp.guideState) {
+            drawGuideScreen();
         }
     }
 
@@ -271,13 +276,21 @@ public class UI {
                 drawColection(text, x, y);
             }
 
+            text = "Guide";
+            x = getXforCenterText(text) + gp.titleSize*4;
+            y += gp.titleSize + 10;
+            g2.drawString(text, x, y);
+            if (commanNum == 3) {
+                drawColection(text, x, y);
+            }
+
             text = "Quit";
             x = getXforCenterText(text) + gp.titleSize*4;
             y += gp.titleSize + 10;
             width = text.length()*13;
             height = 3;
             g2.drawString(text, x, y);
-            if (commanNum == 3) {
+            if (commanNum == 4) {
                 drawColection(text, x, y);
             }
 
@@ -668,7 +681,7 @@ public class UI {
         int textX = frameX + gp.titleSize + 40;
         int textY = frameY = gp.titleSize*6;
 
-        currentDialogue = "Quit the game and \nreturn to the title screen";
+        currentDialogue = "Save the game and \nreturn to the title screen";
 
         g2.setFont(g2.getFont().deriveFont(Font.ITALIC));
         for (String line: currentDialogue.split("\n")) {
@@ -822,6 +835,82 @@ public class UI {
         textX = getXforCenterText(text) + 20;
         textY += gp.titleSize;
         g2.drawString(text, textX, textY);
+    }
+
+    public void drawGuideScreen() {
+
+        try {
+            backgorundImage = ImageIO.read(getClass().getResourceAsStream("/Background.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //Background
+        g2.drawImage(backgorundImage, 0, 0, gp.screenWidth, gp.screenHeight, null);
+
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(32F));
+
+        int frameX = gp.titleSize*6;
+        int frameY = gp.titleSize*3;
+        int frameWidth = gp.titleSize*8;
+        int frameHeight = gp.titleSize*12;
+        drawSubWindown(frameX, frameY, frameWidth, frameHeight);
+
+        switch (guideState) {
+            case 0:
+                guide_top(frameX, frameY);
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    public void guide_top(int frameX, int frameY) {
+
+        g2.setFont(g2.getFont().deriveFont(Font.ITALIC));
+
+        int textX;
+        int textY;
+
+        //TITLE
+        String text = "Guide";
+        textX = getXforCenterText(text);
+        textY = frameY + gp.titleSize;
+        g2.drawString(text, textX,textY);
+
+        //Menu control
+        textX = frameX + gp.titleSize;
+        textY += gp.titleSize*3/2;
+
+        g2.drawString("Move", textX, textY); textY += gp.titleSize*3/2;
+        textX += gp.titleSize;
+        g2.drawString("Up", textX, textY); textY += gp.titleSize*3/2;
+        g2.drawString("Left", textX, textY); textY += gp.titleSize*3/2;
+        g2.drawString("Down", textX, textY); textY += gp.titleSize*3/2;
+        g2.drawString("Right", textX, textY); textY += gp.titleSize*3/2;
+        textX -= gp.titleSize;
+        g2.drawString("Felling Tree", textX, textY); textX += gp.titleSize*3/2;
+
+        //Control
+        textX = frameX + gp.titleSize*6;
+        textY = frameY + gp.titleSize*4;
+
+        g2.drawString("W", textX, textY); textY += gp.titleSize*3/2;
+        g2.drawString("A", textX, textY); textY += gp.titleSize*3/2;
+        g2.drawString("S", textX, textY); textY += gp.titleSize*3/2;
+        g2.drawString("D", textX, textY); textY += gp.titleSize*3/2;
+        g2.drawString("C", textX, textY); textX += gp.titleSize*3/2;
+
+        //Back
+        textX = frameX + gp.titleSize;
+        textY = frameY + gp.titleSize*23/2;
+        g2.drawString("Back", textX, textY);
+        if (commanNum == 0) {
+            drawColection("Back", textX, textY);
+        }
+
     }
 
     //Auxiliary Method
