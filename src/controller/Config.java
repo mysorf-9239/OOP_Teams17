@@ -34,7 +34,7 @@ public class Config {
             bufferedWriter.newLine();
 
             //Map
-            bufferedWriter.write(String.valueOf(gp.currentMap));
+            bufferedWriter.write(String.valueOf(GamePanel.currentMap));
             bufferedWriter.newLine();
 
             //Character
@@ -42,8 +42,21 @@ public class Config {
             bufferedWriter.newLine();
 
             //Highest Map
-            bufferedWriter.write(String.valueOf(gp.highestMap));
+            bufferedWriter.write(String.valueOf(GamePanel.highestMap));
             bufferedWriter.newLine();
+
+            //Highest Score
+
+            int disScore = (GamePanel.maxWorldRow - 11 - Player.furthestY /gp.titleSize)* GamePanel.DISTANCE_REWARD;
+            int Score = GamePanel.totalScore + disScore;
+
+            if (Score > GamePanel.highestScore) {
+                bufferedWriter.write(String.valueOf(Score));
+                bufferedWriter.newLine();
+            } else {
+                bufferedWriter.write(String.valueOf(GamePanel.highestScore));
+                bufferedWriter.newLine();
+            }
 
             //Close config.txt
             bufferedWriter.close();
@@ -75,7 +88,7 @@ public class Config {
 
             //Map
             s = bufferedReader.readLine();
-            gp.currentMap = Integer.parseInt(s);
+            GamePanel.currentMap = Integer.parseInt(s);
 
             //Character
             s = bufferedReader.readLine();
@@ -83,7 +96,11 @@ public class Config {
 
             //Highest Map
             s = bufferedReader.readLine();
-            gp.highestMap = Integer.parseInt(s);
+            GamePanel.highestMap = Integer.parseInt(s);
+
+            //Highest Score
+            s = bufferedReader.readLine();
+            GamePanel.highestScore = Integer.parseInt(s);
 
             //Close Config
             bufferedReader.close();

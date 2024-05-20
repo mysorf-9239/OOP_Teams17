@@ -57,7 +57,6 @@ public class GamePanel extends JPanel implements Runnable {
     public SaveLoad saveLoad = new SaveLoad(this);
     Thread gameThread;
 
-
     //Entity and Object
     public final int maxObject = 20;
     public Player player = new Player(this, keyHandler);
@@ -81,6 +80,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     //Score
     public static int totalScore = 0;
+    public static int highestScore = 0;
     public static final int TIME_REWARD = 1;
     public static final int DISTANCE_REWARD = 10;
 
@@ -211,9 +211,9 @@ public class GamePanel extends JPanel implements Runnable {
                 g2.drawString("DrawTime: " + passed, x, y); y += lineHeight;
                 g2.drawString("PoisonMistY: " + poisonMist.PoisonMistY, x, y); y += lineHeight;
                 g2.drawString("PoisonSpeed: " + poisonMist.PoisonMistSpeed, x, y); y += lineHeight;
-                g2.drawString("FurthestY: " + player.furthestY, x, y);
+                g2.drawString("FurthestY: " + Player.furthestY, x, y); y += lineHeight; y += lineHeight;
+                g2.drawString("HighestScore: " + highestScore, x, y);
             }
-
         }
 
         g2.dispose();

@@ -6,7 +6,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainController {
+
+    private static ImageIcon logo;
+
     public static void main(String[] args) {
+
+        logo = new ImageIcon(MainController.class.getClassLoader().getResource("Fugitive.jpg"));
+
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -14,6 +20,7 @@ public class MainController {
                     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     window.setResizable(false);
                     window.setTitle("Fugitive");
+                    window.setIconImage(logo.getImage());
 
                     GamePanel gamePanel = new GamePanel();
                     window.add(gamePanel);

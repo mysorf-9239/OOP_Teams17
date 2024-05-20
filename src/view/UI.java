@@ -4,6 +4,7 @@ import controller.tool.UtilityTool;
 import model.Object.Obj_Axe;
 import model.Object.Obj_Heart;
 import model.entity.Entity;
+import model.entity.Player;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -178,8 +179,8 @@ public class UI {
 
     public void drawScore() {
 
-        int disScore = (gp.maxWorldRow - 11 - gp.player.furthestY/gp.titleSize)*gp.DISTANCE_REWARD;
-        int Score = gp.totalScore + disScore;
+        int disScore = (GamePanel.maxWorldRow - 11 - Player.furthestY /gp.titleSize)* GamePanel.DISTANCE_REWARD;
+        int Score = GamePanel.totalScore + disScore;
 
         String text = "Score: " + Score;
         int scoreX = getXforCenterText(text);
@@ -192,7 +193,7 @@ public class UI {
 
     public void drawMap() {
 
-        String text = "Map: " + gp.currentMap;
+        String text = "Map: " + GamePanel.currentMap;
         int scoreX = getXforCenterText(text);
         int scoreY = gp.titleSize;
 
@@ -724,18 +725,45 @@ public class UI {
         //Shadow
         g2.setColor(Color.black);
         x = getXforCenterText(text);
-        y = gp.titleSize*6;
+        y = gp.titleSize*5;
         g2.drawString(text, x, y);
         //Main
-        g2.setColor(Color.white);
+        g2.setColor(Color.RED);
         g2.drawString(text, x-4, y-4);
 
-        //Retry
+        //BXH
         g2.setFont(g2.getFont().deriveFont(50F));
         g2.setColor(Color.white);
+
+        int disScore = (GamePanel.maxWorldRow - 11 - Player.furthestY /gp.titleSize)* GamePanel.DISTANCE_REWARD;
+        int Score = GamePanel.totalScore + disScore;
+
+        if (Score < GamePanel.highestScore) {
+            text = "Highest Socre: " + GamePanel.highestScore;
+            x = getXforCenterText(text);
+            y += gp.titleSize * 4;
+            g2.drawString(text, x, y);
+
+            text = "Your Score: " + Score;
+            x = getXforCenterText(text);
+            y += gp.titleSize * 2;
+            g2.drawString(text, x, y);
+        } else {
+            text = "New Record";
+            x = getXforCenterText(text);
+            y += gp.titleSize * 4;
+            g2.drawString(text, x, y);
+
+            text = "Score: " + Score;
+            x = getXforCenterText(text);
+            y += gp.titleSize * 2;
+            g2.drawString(text, x, y);
+        }
+
+        //Retry
         text = "Retry";
         x = getXforCenterText(text);
-        y += gp.titleSize*6;
+        y += gp.titleSize*4;
         g2.drawString(text, x, y);
         if (commanNum == 0) {
             drawColection(text, x, y);
@@ -750,6 +778,8 @@ public class UI {
         if (commanNum == 1) {
             drawColection(text, x, y);
         }
+
+        gp.config.saveConfig();
     }
 
     public void drawWinScreen() {

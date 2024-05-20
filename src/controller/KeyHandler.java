@@ -553,6 +553,13 @@ public class KeyHandler implements KeyListener
 
         }
         if (code == KeyEvent.VK_ENTER) {
+
+            int disScore = (GamePanel.maxWorldRow - 11 - Player.furthestY /gp.titleSize)* GamePanel.DISTANCE_REWARD;
+            int Score = GamePanel.totalScore + disScore;
+
+            if (Score > GamePanel.highestScore) {
+                GamePanel.highestScore = Score;
+            }
             switch (gp.ui.commanNum) {
                 //Retry
                 case 0:
