@@ -24,7 +24,7 @@ public class PoisonMist {
 
     public void setDefaultPoisonMist() {
 
-        defaultPoisonMistY = gp.maxWorldRow*gp.titleSize + gp.titleSize;
+        defaultPoisonMistY = (gp.maxWorldRow + 20)*gp.titleSize + gp.titleSize;
         defaultPoisonMistSpeed = 1;
         PoisonMistY = defaultPoisonMistY;
         PoisonMistSpeed = defaultPoisonMistSpeed;

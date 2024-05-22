@@ -204,7 +204,9 @@ public class TileManager {
             //Han che ve frame
             if (worldX > gp.player.worldX - gp.player.screenX - gp.titleSize && worldX < gp.player.worldX + gp.player.screenX + gp.titleSize &&
                     worldY > gp.player.worldY - gp.player.screenY - gp.titleSize && worldY < gp.player.worldY + gp.player.screenY + gp.titleSize) {
-                g2.drawImage(tile[tileNum].image, screenX, screenY, null);
+                if (tile[tileNum] != null) {
+                    g2.drawImage(tile[tileNum].image, screenX, screenY, null);
+                }
             }
             worldCol++;
 

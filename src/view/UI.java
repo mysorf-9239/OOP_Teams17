@@ -23,6 +23,7 @@ public class UI {
     //Load images
     BufferedImage backgorundImage;
     BufferedImage[] characterImage = new BufferedImage[7];
+    BufferedImage[] objectImage = new BufferedImage[7];
     BufferedImage axeImage;
 
     //Obj image
@@ -62,6 +63,7 @@ public class UI {
 
         //Get character images for UI
         getCharacterImages();
+        getObjectImages();
 
         //Create hub object
         Entity heart = new Obj_Heart(gp);
@@ -889,12 +891,55 @@ public class UI {
 
         switch (guideState) {
             case 0:
+                guide_selection(frameX, frameY);
+                break;
+            case 1:
                 guide_top(frameX, frameY);
+                break;
+            case 2:
+                guide_object(frameX, frameY);
                 break;
             default:
                 break;
         }
 
+    }
+
+    public void guide_selection(int frameX, int frameY) {
+
+        g2.setFont(g2.getFont().deriveFont(Font.ITALIC));
+
+        int textX;
+        int textY;
+
+        //TITLE
+        String text = "Guide";
+        textX = getXforCenterText(text);
+        textY = frameY + gp.titleSize;
+        g2.drawString(text, textX,textY);
+
+        //Menu
+        textX = frameX + gp.titleSize;
+        textY += gp.titleSize*2;
+        g2.drawString("Controls", textX, textY);
+        if (commanNum == 0) {
+            drawColection("Controls", textX, textY);
+        }
+
+        textX = frameX + gp.titleSize;
+        textY += gp.titleSize*2;
+        g2.drawString("Objects", textX, textY);
+        if (commanNum == 1) {
+            drawColection("Objects", textX, textY);
+        }
+
+        //Back
+        textX = frameX + gp.titleSize;
+        textY = frameY + gp.titleSize*23/2;
+        g2.drawString("Back", textX, textY);
+        if (commanNum == 2) {
+            drawColection("Back", textX, textY);
+        }
     }
 
     public void guide_top(int frameX, int frameY) {
@@ -905,7 +950,7 @@ public class UI {
         int textY;
 
         //TITLE
-        String text = "Guide";
+        String text = "Controls";
         textX = getXforCenterText(text);
         textY = frameY + gp.titleSize;
         g2.drawString(text, textX,textY);
@@ -932,6 +977,72 @@ public class UI {
         g2.drawString("S", textX, textY); textY += gp.titleSize*3/2;
         g2.drawString("D", textX, textY); textY += gp.titleSize*3/2;
         g2.drawString("C", textX, textY); textX += gp.titleSize*3/2;
+
+        //Back
+        textX = frameX + gp.titleSize;
+        textY = frameY + gp.titleSize*23/2;
+        g2.drawString("Back", textX, textY);
+        if (commanNum == 0) {
+            drawColection("Back", textX, textY);
+        }
+
+    }
+
+    public void guide_object(int frameX, int frameY) {
+
+        g2.setFont(g2.getFont().deriveFont(Font.ITALIC));
+
+        int textX;
+        int textY;
+
+        //TITLE
+        String text = "Object";
+        textX = getXforCenterText(text);
+        textY = frameY + gp.titleSize;
+        g2.drawString(text, textX,textY);
+
+        //Images
+        int imageX = frameX + gp.titleSize;
+        int imageY = frameY + gp.titleSize*2;
+        text = "Axe: Cut tree";
+        textX = frameX + gp.titleSize*5/2;
+        textY += gp.titleSize*7/4;
+        g2.drawImage(objectImage[0], imageX, imageY, gp.titleSize, gp.titleSize, null);
+        g2.drawString(text, textX, textY);
+
+        imageY += gp.titleSize*3/2;
+        text = "Boots: Speed up";
+        textY += gp.titleSize*3/2;
+        g2.drawImage(objectImage[1], imageX, imageY, gp.titleSize, gp.titleSize, null);
+        g2.drawString(text, textX, textY);
+
+        imageY += gp.titleSize*3/2;
+        text = "Chest: Score up";
+        textY += gp.titleSize*3/2;
+        g2.drawImage(objectImage[2], imageX, imageY, gp.titleSize, gp.titleSize, null);
+        g2.drawString(text, textX, textY);
+
+        imageY += gp.titleSize*3/2;
+        text = "Door: Next map";
+        textY += gp.titleSize*3/2;
+        g2.drawImage(objectImage[3], imageX, imageY, gp.titleSize, gp.titleSize, null);
+        g2.drawString(text, textX, textY);
+
+//        imageY += gp.titleSize*3/2;
+//        text = "Key: ";
+//        textY += gp.titleSize*3/2;
+//        g2.drawImage(objectImage[4], imageX, imageY, gp.titleSize, gp.titleSize, null);
+//        g2.drawString(text, textX, textY);
+
+        imageY += gp.titleSize*3/2;
+        text = "Spidernet: ";
+        textY += gp.titleSize*3/2;
+        g2.drawImage(objectImage[5], imageX, imageY, gp.titleSize, gp.titleSize, null);
+        g2.drawString(text, textX, textY);
+        text = "Speed down";
+        textX += gp.titleSize;
+        textY += gp.titleSize;
+        g2.drawString(text, textX, textY);
 
         //Back
         textX = frameX + gp.titleSize;
@@ -1005,6 +1116,35 @@ public class UI {
                     break;
                 }
             }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getObjectImages() {
+
+
+        UtilityTool utilityTool = new UtilityTool();
+
+        try {
+            objectImage[0] = ImageIO.read(getClass().getResourceAsStream("/objects/Axe.png"));
+            objectImage[0] = utilityTool.scaleImage(objectImage[0], 32, 32);
+
+            objectImage[1] = ImageIO.read(getClass().getResourceAsStream("/objects/Boots.png"));
+            objectImage[1] = utilityTool.scaleImage(objectImage[1], 32, 32);
+
+            objectImage[2] = ImageIO.read(getClass().getResourceAsStream("/objects/Chess.png"));
+            objectImage[2] = utilityTool.scaleImage(objectImage[2], 32, 32);
+
+            objectImage[3] = ImageIO.read(getClass().getResourceAsStream("/objects/Door.png"));
+            objectImage[3] = utilityTool.scaleImage(objectImage[3], 32, 32);
+
+            objectImage[4] = ImageIO.read(getClass().getResourceAsStream("/objects/Key.png"));
+            objectImage[4] = utilityTool.scaleImage(objectImage[4], 32, 32);
+
+            objectImage[5] = ImageIO.read(getClass().getResourceAsStream("/objects/Spidernet.png"));
+            objectImage[5] = utilityTool.scaleImage(objectImage[5], 32, 32);
 
         } catch (IOException e) {
             e.printStackTrace();

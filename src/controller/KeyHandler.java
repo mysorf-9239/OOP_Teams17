@@ -268,7 +268,7 @@ public class KeyHandler implements KeyListener
                     case 4:
                         //Return title screen 0
                         gp.ui.titleScreenState = 0;
-                        gp.ui.commanNum = 0;
+                        gp.ui.commanNum = 2;
                         break;
                 }
             }
@@ -324,7 +324,7 @@ public class KeyHandler implements KeyListener
                     case 1:
                         //Return title screen 0
                         gp.ui.titleScreenState = 1;
-                        gp.ui.commanNum = 0;
+                        gp.ui.commanNum = 3;
                         break;
                 }
             }
@@ -643,6 +643,14 @@ public class KeyHandler implements KeyListener
             gp.ui.commanNum--;
             gp.playSE(5);
             if (gp.ui.guideState == 0) {
+                if (gp.ui.commanNum < 0) {
+                    gp.ui.commanNum = 2;
+                }
+            } else if (gp.ui.guideState == 1) {
+                if (gp.ui.commanNum != 0) {
+                    gp.ui.commanNum = 0;
+                }
+            } else if (gp.ui.guideState == 2) {
                 if (gp.ui.commanNum != 0) {
                     gp.ui.commanNum = 0;
                 }
@@ -650,8 +658,15 @@ public class KeyHandler implements KeyListener
         }
         if (code == KeyEvent.VK_S) {
             gp.ui.commanNum++;
-            gp.playSE(5);
-            if (gp.ui.guideState == 0) {
+            gp.playSE(5);if (gp.ui.guideState == 0) {
+                if (gp.ui.commanNum > 2) {
+                gp.ui.commanNum = 0;
+                }
+            } else if (gp.ui.guideState == 1) {
+                if (gp.ui.commanNum != 0) {
+                    gp.ui.commanNum = 0;
+                }
+            } else if (gp.ui.guideState == 2) {
                 if (gp.ui.commanNum != 0) {
                     gp.ui.commanNum = 0;
                 }
@@ -660,10 +675,36 @@ public class KeyHandler implements KeyListener
         if (code == KeyEvent.VK_ENTER) {
             if (gp.ui.guideState == 0) {
                 switch (gp.ui.commanNum) {
+                    //Controls
+                    case 0:
+                        gp.ui.guideState = 1;
+                        gp.ui.commanNum = 0;
+                        break;
+                    //Objects
+                    case 1:
+                        gp.ui.guideState = 2;
+                        gp.ui.commanNum = 0;
+                        break;
+                    //Back
+                    case 2:
+                        gp.gameState = gp.titleState;
+                        gp.ui.commanNum = 3;
+                        break;
+                }
+            } else if (gp.ui.guideState == 1) {
+                switch (gp.ui.commanNum) {
                     //Back
                     case 0:
-                        gp.gameState = gp.titleState;
-                        gp.ui.commanNum = 0;
+                        gp.ui.guideState = 0;
+                        gp.ui.commanNum = 2;
+                        break;
+                }
+            } else if (gp.ui.guideState == 2) {
+                switch (gp.ui.commanNum) {
+                    //Back
+                    case 0:
+                        gp.ui.guideState = 0;
+                        gp.ui.commanNum = 2;
                         break;
                 }
             }
