@@ -11,7 +11,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -21,6 +20,8 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
+        java-package: 'jdk'
+    - name: List Repository Contents
+      run: ls -R
     - name: Build with Ant
       run: ant -noinput -buildfile build.xml
-
