@@ -1023,7 +1023,7 @@ public class UI {
         g2.drawString(text, textX, textY);
 
         imageY += gp.titleSize*3/2;
-        text = "Door: Next map";
+        text = "Portal: Next map";
         textY += gp.titleSize*3/2;
         g2.drawImage(objectImage[3], imageX, imageY, gp.titleSize, gp.titleSize, null);
         g2.drawString(text, textX, textY);
@@ -1137,7 +1137,7 @@ public class UI {
             objectImage[2] = ImageIO.read(getClass().getResourceAsStream("/objects/Chess.png"));
             objectImage[2] = utilityTool.scaleImage(objectImage[2], 32, 32);
 
-            objectImage[3] = ImageIO.read(getClass().getResourceAsStream("/objects/Door.png"));
+            objectImage[3] = ImageIO.read(getClass().getResourceAsStream("/objects/portal.png"));
             objectImage[3] = utilityTool.scaleImage(objectImage[3], 32, 32);
 
             objectImage[4] = ImageIO.read(getClass().getResourceAsStream("/objects/Key.png"));

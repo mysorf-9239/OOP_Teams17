@@ -257,6 +257,8 @@ public class Player extends Entity {
                 case "Spidernet":
                     if (speed > 2) {
                         speed -= 2;
+                    } else {
+                        speed = 1;
                     }
                     gp.obj[gp.currentMap][i] = null;
                     gp.ui.showMess("Speed down");
