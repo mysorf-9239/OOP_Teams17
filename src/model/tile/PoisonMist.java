@@ -38,6 +38,7 @@ public class PoisonMist {
             poisonSpeedTime = currentTime;
         }
     }
+
     public void update() {
 
         PoisonMistY -= PoisonMistSpeed;

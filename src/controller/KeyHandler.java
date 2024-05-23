@@ -513,6 +513,7 @@ public class KeyHandler implements KeyListener
                     //Yes
                     case 0:
                         gp.saveLoad.save();
+                        gp.ui.subState = 0;
                         gp.ui.titleScreenState = 0;
                         gp.newGame();
                         gp.gameState = gp.titleState;

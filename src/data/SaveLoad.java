@@ -76,9 +76,10 @@ public class SaveLoad {
                 }
             }
 
-            //GP
+            //GPFis
             dataStorage.currentMap = GamePanel.currentMap;
             dataStorage.totalScore = GamePanel.totalScore;
+            dataStorage.currentMode = gp.gameMode;
 
             //Poison
             dataStorage.poisonMistY = gp.poisonMist.PoisonMistY;
@@ -147,6 +148,7 @@ public class SaveLoad {
             // GP
             GamePanel.currentMap = dataStorage.currentMap;
             GamePanel.totalScore = dataStorage.totalScore;
+            gp.gameMode = dataStorage.currentMode;
 
             //Poison
             gp.poisonMist.PoisonMistY = dataStorage.poisonMistY;

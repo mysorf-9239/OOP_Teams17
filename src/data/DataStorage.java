@@ -19,6 +19,7 @@ public class DataStorage implements Serializable {
     //Game Panel
     int currentMap;
     int totalScore;
+    int currentMode;
 
     //Object
     int[] objectLength;
