@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="FugitiveFromLava:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/FugitiveFromLava_jar</output-path>
+    <root id="archive" name="FugitiveFromLava.jar">
+      <element id="module-output" name="FugitiveFromLava" />
+    </root>
+  </artifact>
+</component>

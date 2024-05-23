@@ -3,11 +3,11 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "image/Tileset/Map.json",
     "expandedProjectPaths": [
-        "image/Tileset",
         "image",
         "image/Tileset/40px",
+        "image/Tileset",
         "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -35,6 +35,10 @@
             "scaleInDock": 0.75,
             "scaleInEditor": 2
         },
+        "image/Tileset/All.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "image/Tileset/Any.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
@@ -46,6 +50,14 @@
         "image/Tileset/Grass.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
+        },
+        "image/Tileset/Map.json": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 916,
+                "y": 15508
+            }
         },
         "image/Tileset/Map1.json": {
             "scale": 0.5,
@@ -100,17 +112,20 @@
             }
         }
     },
-    "last.exportedFilePath": "E:/Danh/Wailieu/Eclipse/FugitiveFromLava/src/image/Tileset",
-    "last.imagePath": "E:/Danh/Wailieu/Eclipse/FugitiveFromLava/res/tiles",
-    "map.height": 500,
+    "last.exportedFilePath": "C:/Users/Ha Giang/Desktop",
+    "last.imagePath": "E:/Danh/Wailieu/Pixel_art",
+    "map.height": 40,
     "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
     "map.lastUsedFormat": "json",
     "map.renderOrder": null,
     "map.width": 40,
     "openFiles": [
+        "image/Tileset/Map.json"
     ],
     "project": "map.tiled-project",
     "recentFiles": [
+        "image/Tileset/Map.json",
+        "image/Tileset/All.tsx",
         "image/Tileset/Any.tsx",
         "image/Tileset/A.tsx",
         "image/Tileset/Map2.tmx",
@@ -120,9 +135,7 @@
         "image/Tileset/40px/Map2.1.tmx",
         "C:/Users/Ha Giang/Desktop/Map2.1.tmj",
         "image/Tileset/Desert.tsx",
-        "image/Tileset/Other.tsx",
-        "image/Tileset/Water.tsx",
-        "image/Tileset/Grass.tsx"
+        "image/Tileset/Other.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.margin": 0,
