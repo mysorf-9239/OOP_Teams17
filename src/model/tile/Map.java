@@ -65,39 +65,56 @@ public class Map extends TileManager {
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 
         // Draw Map
-        int width = gp.screenHeight/2;
-        int height = gp.screenHeight/2;
-        int x = gp.screenWidth / 2 - width / 2;
+        int width = gp.screenHeight / 2; // Chiều rộng của bản đồ hiển thị
+        int height = gp.screenHeight / 2; // Chiều cao của bản đồ hiển thị
+        int x = gp.screenWidth / 2 - width / 2; // Vị trí x để căn giữa bản đồ
         int y;
 
+        int sy1 = 0;
         if (GamePanel.currentMap == 0) {
 
             int playerWorldX = gp.player.worldX;
             int playerWorldY = gp.player.worldY;
 
             int sx1 = 0;
-            int sy1 = Math.max(playerWorldY - gp.screenHeight, 0);
-            int sx2 = 1920;
-            int sy2 = Math.min(sy1 + gp.screenHeight*2, worldMap[GamePanel.currentMap].getHeight());
+            sy1 = Math.max(playerWorldY - gp.screenHeight, 0);
+            int sx2 = 1920; // Giả sử chiều rộng của bản đồ nguồn là 1920
+            int sy2 = Math.min(sy1 + gp.screenHeight * 2, worldMap[GamePanel.currentMap].getHeight());
 
             if (sy2 == worldMap[GamePanel.currentMap].getHeight()) {
-                sy1 = sy2 - gp.screenHeight*2;
+                sy1 = sy2 - gp.screenHeight * 2;
             }
 
-            y = gp.screenHeight/4;
+            y = gp.screenHeight / 4;
 
             g2.drawImage(worldMap[GamePanel.currentMap], x, y, x + width, y + height, sx1, sy1, sx2, sy2, null);
 
         } else {
-            y = gp.screenHeight/4;
+            y = gp.screenHeight / 4;
             g2.drawImage(worldMap[GamePanel.currentMap], x, y, width, height, null);
         }
 
+        // Player
+        double scale = (double) worldMap[GamePanel.currentMap].getWidth() / width;
+        int playerX = (int) (x + gp.player.worldX / scale);
+        int playerY = (int) (y + (gp.player.worldY - sy1) / scale);
+        int playerSize = (int) (gp.titleSize / scale);
+        g2.drawImage(gp.player.down[1], playerX, playerY, playerSize, playerSize, null);
+
+        // Title and hint
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
+        g2.setColor(Color.white);
+        String text = "Overview";
+        int textX = gp.ui.getXforCenterText(text) - gp.titleSize;
+        int textY = gp.screenHeight / 5;
+        g2.drawString(text, textX, textY);
+
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 32F));
         g2.setColor(new Color(52, 35, 122, 250));
-        String text = "Press M to return";
-        int textX = gp.titleSize*15/2;
-        int textY = gp.screenHeight*4/5;
+        text = "Press M to close";
+        textX = gp.ui.getXforCenterText(text) - gp.titleSize / 3;
+        textY = gp.screenHeight * 4 / 5;
         g2.drawString(text, textX, textY);
     }
+
 }
