@@ -3,12 +3,12 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "image/Tileset/Map2.tmx",
+    "activeFile": "image/Tileset/thg4.tmj",
     "expandedProjectPaths": [
+        "image/Tileset",
         "image",
-        "image/Tileset/40px",
         ".",
-        "image/Tileset"
+        "image/Tileset/40px"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -33,7 +33,7 @@
         },
         "image/Tileset/A.tsx": {
             "scaleInDock": 0.75,
-            "scaleInEditor": 2
+            "scaleInEditor": 1.5
         },
         "image/Tileset/All.tsx": {
             "scaleInDock": 1,
@@ -46,6 +46,26 @@
         "image/Tileset/Desert.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 2
+        },
+        "image/Tileset/FInalmap2.tsx": {
+            "scaleInDock": 0.125,
+            "scaleInEditor": 0.5
+        },
+        "image/Tileset/FinalMap1.tsx": {
+            "scaleInDock": 0.125,
+            "scaleInEditor": 0.5
+        },
+        "image/Tileset/FinalMap3.tsx": {
+            "scaleInDock": 0.25,
+            "scaleInEditor": 2
+        },
+        "image/Tileset/FinalMap4.tsx": {
+            "scaleInDock": 0.25,
+            "scaleInEditor": 0.33
+        },
+        "image/Tileset/FinalMap5.tsx": {
+            "scaleInDock": 0.125,
+            "scaleInEditor": 1
         },
         "image/Tileset/Grass.tsx": {
             "scaleInDock": 1,
@@ -84,11 +104,11 @@
             }
         },
         "image/Tileset/Map2.tmx": {
-            "scale": 0.5,
+            "scale": 0.25,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 678,
-                "y": 13094
+                "x": 8092,
+                "y": 13168
             }
         },
         "image/Tileset/Other.tsx": {
@@ -98,6 +118,22 @@
         "image/Tileset/Road_Nature.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 5.5
+        },
+        "image/Tileset/Thg1.tmj": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 586.3636363636363,
+                "y": 684.848484848485
+            }
+        },
+        "image/Tileset/Thg5.tmj": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 585,
+                "y": 730
+            }
         },
         "image/Tileset/Water.tsx": {
             "scaleInDock": 1,
@@ -110,32 +146,56 @@
                 "x": 694.6666666666665,
                 "y": 631.9999999999999
             }
+        },
+        "image/Tileset/thg2.tmj": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 541,
+                "y": 656
+            }
+        },
+        "image/Tileset/thg3.tmj": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 727,
+                "y": 594
+            }
+        },
+        "image/Tileset/thg4.tmj": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 687.3333333333333,
+                "y": 790.6666666666667
+            }
         }
     },
     "last.exportedFilePath": "C:/Users/Ha Giang/Desktop",
-    "last.imagePath": "E:/Danh/Wailieu/Eclipse/FugitiveFromLava/res/tiles",
+    "last.imagePath": "E:/Danh/Wailieu/Eclipse/FugitiveFromLava/res/map",
     "map.height": 40,
     "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
     "map.lastUsedFormat": "json",
     "map.renderOrder": null,
     "map.width": 40,
     "openFiles": [
-        "image/Tileset/Map2.tmx"
+        "image/Tileset/thg4.tmj"
     ],
     "project": "map.tiled-project",
     "recentFiles": [
-        "image/Tileset/Map2.tmx",
-        "image/Tileset/All.tsx",
-        "image/Tileset/Map.json",
-        "image/Tileset/Any.tsx",
+        "image/Tileset/thg4.tmj",
+        "image/Tileset/FinalMap4.tsx",
+        "image/Tileset/Thg5.tmj",
+        "image/Tileset/thg3.tmj",
+        "image/Tileset/thg2.tmj",
+        "image/Tileset/Thg1.tmj",
+        "image/Tileset/FInalmap2.tsx",
         "image/Tileset/A.tsx",
-        "image/Tileset/Map2.json",
-        "image/Tileset/Map1.tmx",
-        "image/Tileset/Map1.json",
-        "image/Tileset/40px/Map2.1.tmx",
-        "C:/Users/Ha Giang/Desktop/Map2.1.tmj",
-        "image/Tileset/Desert.tsx",
-        "image/Tileset/Other.tsx"
+        "image/Tileset/FinalMap1.tsx",
+        "image/Tileset/FinalMap5.tsx",
+        "image/Tileset/FinalMap3.tsx",
+        "image/Tileset/Map2.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.margin": 0,

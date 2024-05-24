@@ -466,11 +466,11 @@ public class UI {
             //Map
             x =  gp.titleSize*9;
             y += gp.titleSize*3 ;
-            int width = gp.titleSize*3;
-            int height = gp.titleSize*3;
+            int width = gp.titleSize*5;
+            int height = gp.titleSize*5;
 
             //Map image
-            g2.drawImage(mapImage[selectMap], x, y, width, height, null);
+            g2.drawImage(mapImage[selectMap], x - gp.titleSize+2, y - gp.titleSize+10, width, height, null);
 
             //Map num
             x = gp.titleSize*19/2 - 10;
@@ -1150,28 +1150,34 @@ public class UI {
 
         try {
             mapImage[0] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map0.png")));
-            mapImage[0] = utilityTool.scaleImage(mapImage[0], 32, 32);
+            mapImage[0] = utilityTool.scaleImage(mapImage[0], 240, 240);
 
-            mapImage[1] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/boots.png")));
-            mapImage[1] = utilityTool.scaleImage(mapImage[1], 32, 32);
+            mapImage[1] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map1.png")));
+            mapImage[1] = utilityTool.scaleImage(mapImage[1], 240, 240);
 
-            mapImage[2] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/chest.png")));
-            mapImage[2] = utilityTool.scaleImage(mapImage[2], 32, 32);
+            mapImage[2] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map2.png")));
+            mapImage[2] = utilityTool.scaleImage(mapImage[2], 240, 240);
 
-            mapImage[3] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/portal.png")));
-            mapImage[3] = utilityTool.scaleImage(mapImage[3], 32, 32);
+            mapImage[3] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map3.png")));
+            mapImage[3] = utilityTool.scaleImage(mapImage[3], 240, 240);
 
-            mapImage[4] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/key.png")));
-            mapImage[4] = utilityTool.scaleImage(mapImage[4], 32, 32);
+            mapImage[4] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map4.png")));
+            mapImage[4] = utilityTool.scaleImage(mapImage[4], 240, 240);
 
-            mapImage[5] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/spidernet.png")));
-            mapImage[5] = utilityTool.scaleImage(mapImage[5], 32, 32);
+            mapImage[5] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map5.png")));
+            mapImage[5] = utilityTool.scaleImage(mapImage[5], 240, 240);
 
-            mapImage[6] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/hole.png")));
-            mapImage[6] = utilityTool.scaleImage(mapImage[6], 32, 32);
+            mapImage[6] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map6.png")));
+            mapImage[6] = utilityTool.scaleImage(mapImage[6], 240, 240);
 
-            mapImage[7] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/HP.png")));
-            mapImage[7] = utilityTool.scaleImage(mapImage[7], 32, 32);
+            mapImage[7] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map7.png")));
+            mapImage[7] = utilityTool.scaleImage(mapImage[7], 240, 240);
+
+            mapImage[8] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map8.png")));
+            mapImage[8] = utilityTool.scaleImage(mapImage[8], 240, 240);
+
+            mapImage[9] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/HP.png")));
+            mapImage[9] = utilityTool.scaleImage(mapImage[9], 240, 240);
 
         } catch (IOException e) {
             e.printStackTrace();

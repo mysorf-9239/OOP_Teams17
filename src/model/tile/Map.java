@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 public class Map extends TileManager {
 
     GamePanel gp;
-    BufferedImage worldMap[];
+    BufferedImage[] worldMap;
 
     public Map(GamePanel gp) {
         super(gp);
@@ -36,7 +36,7 @@ public class Map extends TileManager {
             int worldMapHeight = gp.titleSize*maxRow;
 
             worldMap[i] = new BufferedImage(worldMapWidth, worldMapHeight, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g2 = (Graphics2D)worldMap[i].createGraphics();
+            Graphics2D g2 = worldMap[i].createGraphics();
 
             int worldCol = 0;
             int worldRow = 0;
@@ -65,20 +65,19 @@ public class Map extends TileManager {
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 
         // Draw Map
-        int width = gp.screenHeight / 2; // Chiều rộng của bản đồ hiển thị
-        int height = gp.screenHeight / 2; // Chiều cao của bản đồ hiển thị
-        int x = gp.screenWidth / 2 - width / 2; // Vị trí x để căn giữa bản đồ
+        int width = gp.screenHeight / 2;
+        int height = gp.screenHeight / 2;
+        int x = gp.screenWidth / 2 - width / 2;
         int y;
 
         int sy1 = 0;
         if (GamePanel.currentMap == 0) {
 
-            int playerWorldX = gp.player.worldX;
             int playerWorldY = gp.player.worldY;
 
             int sx1 = 0;
             sy1 = Math.max(playerWorldY - gp.screenHeight, 0);
-            int sx2 = 1920; // Giả sử chiều rộng của bản đồ nguồn là 1920
+            int sx2 = 1920;
             int sy2 = Math.min(sy1 + gp.screenHeight * 2, worldMap[GamePanel.currentMap].getHeight());
 
             if (sy2 == worldMap[GamePanel.currentMap].getHeight()) {

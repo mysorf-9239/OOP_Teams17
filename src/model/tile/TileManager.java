@@ -23,7 +23,7 @@ public class TileManager {
 
     ImageLoader imageLoader;
 
-    public final int numImage = 100;
+    public final int numImage = 144;
     public final int imageWidth = 32;
     public final int imageHeight = 32;
 
@@ -50,6 +50,12 @@ public class TileManager {
 
         imageLoader = new ImageLoader(gp, "/tiles/All.png", numImage, imageWidth, imageHeight);
         imageLoader.TileImageLoader(this);
+
+        for (int i = 1; i < tile.length; i++) {
+            if (tile[i] == null) {
+                setup(i, "/tiles/trunk.png", false);
+            }
+        }
     }
 
     public void setup(int index, String imagePath, boolean collision) {
