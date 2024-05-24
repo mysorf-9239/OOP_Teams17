@@ -8,11 +8,11 @@ import view.GamePanel;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class ImageLoader {
 
     GamePanel gp;
-    BufferedImage bigImage;
     String imagePath;
     int numImages;
     int imageWidth;
@@ -32,7 +32,7 @@ public class ImageLoader {
         UtilityTool utilityTool = new UtilityTool();
 
         try {
-            BufferedImage bigImage = ImageIO.read(getClass().getResourceAsStream(imagePath));
+            BufferedImage bigImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
 
             int index = 0;
             int x, y;
@@ -68,7 +68,7 @@ public class ImageLoader {
         int index = 1;
 
         try {
-            BufferedImage bigImage = ImageIO.read(getClass().getResourceAsStream(imagePath));
+            BufferedImage bigImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
 
             for (int y = 0; y < bigImage.getHeight(); y += imageHeight) {
                 for (int x = 0; x < bigImage.getWidth(); x += imageWidth) {
@@ -85,9 +85,9 @@ public class ImageLoader {
                 }
             }
 
-            for (int i = 0; i < collisionTile.length; i++) {
-                if (collisionTile[i] < tileManagers.tile.length && tileManagers.tile[collisionTile[i]] != null) {
-                    tileManagers.tile[collisionTile[i]].collision = true;
+            for (int j : collisionTile) {
+                if (j < tileManagers.tile.length && tileManagers.tile[j] != null) {
+                    tileManagers.tile[j].collision = true;
                 }
             }
 

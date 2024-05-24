@@ -2,6 +2,7 @@ package controller;
 
 import model.entity.Player;
 import view.GamePanel;
+import view.UI;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -85,13 +86,11 @@ public class KeyHandler implements KeyListener
                 int plRow  = (gp.player.worldY + gp.player.solidArea.y)/gp.titleSize;
 
                 int tileAddress = gp.tileManager.checkTile(plCol, plRow);
-                int tileCol = 0;
-                int tileRow = 0;
 
                 if (tileAddress >= 0 && gp.player.hasAxe > 0) {
 
-                    tileCol = tileAddress % gp.maxWorldRow;
-                    tileRow = tileAddress / gp.maxWorldRow;
+                    int tileCol = tileAddress % GamePanel.maxWorldRow;
+                    int tileRow = tileAddress / GamePanel.maxWorldRow;
 
                     gp.player.hasAxe -= 1;
                     gp.tileManager.cutTree(tileCol, tileRow);
@@ -100,15 +99,11 @@ public class KeyHandler implements KeyListener
 
             //DeBug
             if (code == KeyEvent.VK_T) {
-                if (showDebugText == false) {
-                    showDebugText = true;
-                } else if (showDebugText == true) {
-                    showDebugText =false;
-                }
+                showDebugText = !showDebugText;
             }
             //Load map
             if (code == KeyEvent.VK_R) {
-                gp.tileManager.loadMap(gp.currentMap);
+                gp.tileManager.loadMap(GamePanel.currentMap);
             }
         }
     }
@@ -136,7 +131,7 @@ public class KeyHandler implements KeyListener
                     //New game
                     case 0:
                         if (gp.gameMode == 0) {
-                            gp.currentMap = 0;
+                            GamePanel.currentMap = 0;
                             gp.player.getPlayerImage();
                             gp.player.setDefaultValues();
                             gp.newGame();
@@ -150,23 +145,19 @@ public class KeyHandler implements KeyListener
                     //Load game
                     case 1:
                         if (gp.gameMode == 0) {
-                            gp.currentMap = 0;
+                            GamePanel.currentMap = 0;
                             gp.player.setDefaultValues();
                             gp.newGame();
-                            gp.saveLoad.load();
-                            gp.player.getPlayerImage();
-                            gp.gameState = gp.playState;
-                            gp.playMusic(0);
-                        } else if (gp.gameMode != 0) {
+                        } else {
                             gp.player.getPlayerImage();
                             gp.player.setDefaultValues();
-                            gp.tileManager.loadMap(gp.currentMap);
+                            gp.tileManager.loadMap(GamePanel.currentMap);
                             gp.setupObject();
-                            gp.saveLoad.load();
-                            gp.player.getPlayerImage();
-                            gp.gameState = gp.playState;
-                            gp.playMusic(0);
                         }
+                        gp.saveLoad.load();
+                        gp.player.getPlayerImage();
+                        gp.gameState = gp.playState;
+                        gp.playMusic(0);
                         gp.ui.commanNum = 0;
                         break;
                     //Setting
@@ -290,42 +281,36 @@ public class KeyHandler implements KeyListener
                 }
             }
             if (code == KeyEvent.VK_A) {
-                switch (gp.ui.commanNum) {
-                    case 0:
-                        gp.player.characterNum--;
-                        if (gp.player.characterNum > 6) {
-                            gp.player.characterNum = 0;
-                        }
-                        if (gp.player.characterNum < 0) {
-                            gp.player.characterNum = 6;
-                        }
-                        gp.playSE(5);
-                        break;
+                if (gp.ui.commanNum == 0) {
+                    Player.characterNum--;
+                    if (Player.characterNum > 6) {
+                        Player.characterNum = 0;
+                    }
+                    if (Player.characterNum < 0) {
+                        Player.characterNum = 6;
+                    }
+                    gp.playSE(5);
                 }
             }
             if (code == KeyEvent.VK_D) {
-                switch (gp.ui.commanNum) {
-                    case 0:
-                        gp.player.characterNum++;
-                        if (gp.player.characterNum > 6) {
-                            gp.player.characterNum = 0;
-                        }
-                        if (gp.player.characterNum < 0) {
-                            gp.player.characterNum = 6;
-                        }
-                        gp.playSE(5);
-                        break;
+                if (gp.ui.commanNum == 0) {
+                    Player.characterNum++;
+                    if (Player.characterNum > 6) {
+                        Player.characterNum = 0;
+                    }
+                    if (Player.characterNum < 0) {
+                        Player.characterNum = 6;
+                    }
+                    gp.playSE(5);
                 }
             }
             if (code == KeyEvent.VK_ENTER) {
                 gp.playSE(5);
-                switch (gp.ui.commanNum) {
-                    //Back
-                    case 1:
-                        //Return title screen 0
-                        gp.ui.titleScreenState = 1;
-                        gp.ui.commanNum = 3;
-                        break;
+                //Back
+                if (gp.ui.commanNum == 1) {
+                    //Return title screen 0
+                    gp.ui.titleScreenState = 1;
+                    gp.ui.commanNum = 3;
                 }
             }
         }
@@ -346,31 +331,27 @@ public class KeyHandler implements KeyListener
                 }
             }
             if (code == KeyEvent.VK_A) {
-                switch (gp.ui.commanNum) {
-                    case 0:
-                        gp.ui.selectMap--;
-                        if (gp.ui.selectMap > 20) {
-                            gp.ui.selectMap = 1;
-                        }
-                        if (gp.ui.selectMap < 1) {
-                            gp.ui.selectMap = 20;
-                        }
-                        gp.playSE(5);
-                        break;
+                if (gp.ui.commanNum == 0) {
+                    UI.selectMap--;
+                    if (UI.selectMap > 20) {
+                        UI.selectMap = 1;
+                    }
+                    if (UI.selectMap < 1) {
+                        UI.selectMap = 20;
+                    }
+                    gp.playSE(5);
                 }
             }
             if (code == KeyEvent.VK_D) {
-                switch (gp.ui.commanNum) {
-                    case 0:
-                        gp.ui.selectMap++;
-                        if (gp.ui.selectMap > 20) {
-                            gp.ui.selectMap = 1;
-                        }
-                        if (gp.ui.selectMap < 1) {
-                            gp.ui.selectMap = 20;
-                        }
-                        gp.playSE(5);
-                        break;
+                if (gp.ui.commanNum == 0) {
+                    UI.selectMap++;
+                    if (UI.selectMap > 20) {
+                        UI.selectMap = 1;
+                    }
+                    if (UI.selectMap < 1) {
+                        UI.selectMap = 20;
+                    }
+                    gp.playSE(5);
                 }
             }
             if (code == KeyEvent.VK_ENTER) {
@@ -378,11 +359,11 @@ public class KeyHandler implements KeyListener
                 switch (gp.ui.commanNum) {
                     //Select Map
                     case 0:
-                        if (gp.ui.selectMap <= gp.highestMap) {
-                            gp.currentMap = gp.ui.selectMap;
+                        if (UI.selectMap <= GamePanel.highestMap) {
+                            GamePanel.currentMap = UI.selectMap;
                             gp.player.getPlayerImage();
                             gp.player.setDefaultValues();
-                            gp.tileManager.loadMap(gp.currentMap);
+                            gp.tileManager.loadMap(GamePanel.currentMap);
                             gp.setupObject();
                             gp.gameState = gp.playState;
                             gp.playMusic(0);
@@ -487,12 +468,12 @@ public class KeyHandler implements KeyListener
                         break;
                     //Retry
                     case 4:
-                        if (gp.currentMap == 0) {
+                        if (GamePanel.currentMap == 0) {
                             gp.player.setDefaultValues();
                             gp.newGame();
-                        } else if (gp.currentMap > 0) {
+                        } else if (GamePanel.currentMap > 0) {
                             gp.player.hasAxe = 1;
-                            gp.tileManager.loadMap(gp.currentMap);
+                            gp.tileManager.loadMap(GamePanel.currentMap);
                             gp.player.setDefaultValues();
                             gp.setupObject();
                         }
@@ -525,12 +506,9 @@ public class KeyHandler implements KeyListener
                         break;
                 }
             } else if (gp.ui.subState == 2) {
-                switch (gp.ui.commanNum) {
-                    //Back
-                    case 0:
-                        gp.ui.subState = 0;
-                        gp.ui.commanNum = 0;
-                        break;
+                //Back
+                if (gp.ui.commanNum == 0) {
+                    gp.ui.subState = 0;
                 }
             }
             gp.playSE(5);
@@ -599,14 +577,14 @@ public class KeyHandler implements KeyListener
             switch (gp.ui.commanNum) {
                 //Next Map
                 case 0:
-                    if (gp.currentMap > 0 && gp.currentMap < 6) {
-                        gp.currentMap += 1;
+                    if (GamePanel.currentMap > 0 && GamePanel.currentMap < 6) {
+                        GamePanel.currentMap += 1;
                         gp.player.hasAxe = 1;
-                        gp.tileManager.loadMap(gp.currentMap);
+                        gp.tileManager.loadMap(GamePanel.currentMap);
                         gp.player.setDefaultValues();
                         gp.setupObject();
-                        if (gp.currentMap > gp.highestMap) {
-                            gp.highestMap = gp.currentMap;
+                        if (GamePanel.currentMap > GamePanel.highestMap) {
+                            GamePanel.highestMap = GamePanel.currentMap;
                         }
                     }
                     gp.gameState = gp.playState;
@@ -617,9 +595,9 @@ public class KeyHandler implements KeyListener
                     break;
                 //Retry
                 case 1:
-                    if (gp.currentMap > 0 && gp.currentMap < 6) {
+                    if (GamePanel.currentMap > 0 && GamePanel.currentMap < 6) {
                         gp.player.hasAxe = 1;
-                        gp.tileManager.loadMap(gp.currentMap);
+                        gp.tileManager.loadMap(GamePanel.currentMap);
                         gp.player.setDefaultValues();
                         gp.deletedObject();
                         gp.setupObject();
@@ -679,7 +657,6 @@ public class KeyHandler implements KeyListener
                     //Controls
                     case 0:
                         gp.ui.guideState = 1;
-                        gp.ui.commanNum = 0;
                         break;
                     //Objects
                     case 1:
@@ -693,20 +670,16 @@ public class KeyHandler implements KeyListener
                         break;
                 }
             } else if (gp.ui.guideState == 1) {
-                switch (gp.ui.commanNum) {
-                    //Back
-                    case 0:
-                        gp.ui.guideState = 0;
-                        gp.ui.commanNum = 2;
-                        break;
+                //Back
+                if (gp.ui.commanNum == 0) {
+                    gp.ui.guideState = 0;
+                    gp.ui.commanNum = 2;
                 }
             } else if (gp.ui.guideState == 2) {
-                switch (gp.ui.commanNum) {
-                    //Back
-                    case 0:
-                        gp.ui.guideState = 0;
-                        gp.ui.commanNum = 2;
-                        break;
+                //Back
+                if (gp.ui.commanNum == 0) {
+                    gp.ui.guideState = 0;
+                    gp.ui.commanNum = 2;
                 }
             }
             gp.playSE(5);

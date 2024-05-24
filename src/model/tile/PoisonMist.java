@@ -11,7 +11,6 @@ public class PoisonMist {
     public int PoisonMistY;
     public int PoisonMistSpeed;
     private int defaultPoisonMistY;
-    private int defaultPoisonMistSpeed;
 
     private static long poisonSpeedTime = System.currentTimeMillis();
     private static final long SPEED_INTERVAL = 10000;
@@ -24,8 +23,8 @@ public class PoisonMist {
 
     public void setDefaultPoisonMist() {
 
-        defaultPoisonMistY = (gp.maxWorldRow + 20)*gp.titleSize + gp.titleSize;
-        defaultPoisonMistSpeed = 1;
+        defaultPoisonMistY = (GamePanel.maxWorldRow + 20)*gp.titleSize + gp.titleSize;
+        int defaultPoisonMistSpeed = 1;
         PoisonMistY = defaultPoisonMistY;
         PoisonMistSpeed = defaultPoisonMistSpeed;
     }

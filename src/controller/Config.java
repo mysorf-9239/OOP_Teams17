@@ -1,7 +1,6 @@
 package controller;
 
 import model.entity.Player;
-import model.tile.TileManager;
 import view.GamePanel;
 
 import java.io.*;
@@ -110,28 +109,6 @@ public class Config {
         }
     }
 
-    public void getMap() {
-
-        try {
-            //Load config.txt
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("config.txt"));
-
-            String s = bufferedReader.readLine();
-            s = bufferedReader.readLine();
-            s = bufferedReader.readLine();
-
-            //Map
-            s = bufferedReader.readLine();
-            gp.currentMap = Integer.parseInt(s);
-
-            //Close Config
-            bufferedReader.close();
-
-        } catch (IOException e) {
-            e.getStackTrace();
-        }
-    }
-
     public void getCharacter() {
         try {
             //Load config.txt
@@ -145,30 +122,6 @@ public class Config {
             //Map
             s = bufferedReader.readLine();
             Player.characterNum = Integer.parseInt(s);
-
-            //Close Config
-            bufferedReader.close();
-
-        } catch (IOException e) {
-            e.getStackTrace();
-        }
-    }
-
-    public void getHighestMap() {
-
-        try {
-            //Load config.txt
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("config.txt"));
-
-            String s = bufferedReader.readLine();
-            s = bufferedReader.readLine();
-            s = bufferedReader.readLine();
-            s = bufferedReader.readLine();
-            s = bufferedReader.readLine();
-
-            //Map
-            s = bufferedReader.readLine();
-            gp.highestMap = Integer.parseInt(s);
 
             //Close Config
             bufferedReader.close();

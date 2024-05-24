@@ -4,6 +4,7 @@ import view.GamePanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class MainController {
 
@@ -11,34 +12,28 @@ public class MainController {
 
     public static void main(String[] args) {
 
-        logo = new ImageIcon(MainController.class.getClassLoader().getResource("Fugitive.jpg"));
+        logo = new ImageIcon(Objects.requireNonNull(MainController.class.getClassLoader().getResource("Fugitive.jpg")));
 
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    JFrame window = new JFrame();
-                    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    window.setResizable(false);
-                    window.setTitle("Fugitive");
-                    window.setIconImage(logo.getImage());
+        EventQueue.invokeLater(() -> {
+            try {
+                JFrame window = new JFrame();
+                window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                window.setResizable(false);
+                window.setTitle("Fugitive");
+                window.setIconImage(logo.getImage());
 
-                    GamePanel gamePanel = new GamePanel();
-                    window.add(gamePanel);
+                GamePanel gamePanel = new GamePanel();
+                window.add(gamePanel);
 
-                    window.pack();
-                    window.setLocationRelativeTo(null);
-                    window.setVisible(true);
+                window.pack();
+                window.setLocationRelativeTo(null);
+                window.setVisible(true);
 
-                    if (gamePanel != null) {
-                        gamePanel.config.loadConfig();
-                        gamePanel.StartGameThread();
-                    } else {
-                        System.err.println("GamePanel initialization failed.");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
+                gamePanel.config.loadConfig();
+                gamePanel.StartGameThread();
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
     }

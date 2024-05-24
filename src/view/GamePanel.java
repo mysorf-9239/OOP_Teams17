@@ -13,7 +13,7 @@ import model.tile.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -100,9 +100,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void deletedObject() {
-        for (int i = 0; i < obj.length; i++) {
-            obj[i] = null;
-        }
+        Arrays.fill(obj, null);
     }
 
     public void StartGameThread() {
@@ -111,7 +109,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void run() {
-        double drawInterval = 1000000000 / FPS;
+        double drawInterval = (double) 1000000000 / FPS;
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
@@ -146,7 +144,7 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
 
         long drawStart = System.nanoTime();
-        if (keyHandler.showDebugText == true) {
+        if (keyHandler.showDebugText) {
             drawStart = System.nanoTime();
         }
 
@@ -164,16 +162,10 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
             //Sort
-            Collections.sort(entitiesList, new Comparator<Entity>() {
-                @Override
-                public int compare(Entity e1, Entity e2) {
-                    int result = Integer.compare(e1.worldY, e2.worldY);
-                    return result;
-                }
-            });
+            entitiesList.sort(Comparator.comparingInt(e -> e.worldY));
 
             //Draw
-            for (int i = 0; i < entitiesList.size(); i++) { entitiesList.get(i).draw(g2);}
+            for (Entity entity : entitiesList) { entity.draw(g2); }
 
             //Empty entitiesList
             entitiesList.clear();
@@ -185,7 +177,7 @@ public class GamePanel extends JPanel implements Runnable {
                     //Score up
                     totalScore += TIME_REWARD;
                 }
-            } else if (gameMode != 0) {
+            } else {
                 poisonMist.stop();
             }
 
@@ -194,7 +186,7 @@ public class GamePanel extends JPanel implements Runnable {
             ui.draw(g2);
 
             //Debug
-            if (keyHandler.showDebugText == true) {
+            if (keyHandler.showDebugText) {
                 long drawEnd = System.nanoTime();
                 long passed = drawEnd - drawStart;
 
@@ -238,7 +230,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         //Player
         player.setDefaultPositions();
-        player.furthestY = player.worldY;
+        Player.furthestY = player.worldY;
         totalScore = 0;
         player.hasAxe = 1;
 

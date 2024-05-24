@@ -1,7 +1,5 @@
 package data;
 
-import model.entity.Entity;
-
 import java.io.Serializable;
 
 public class DataStorage implements Serializable {

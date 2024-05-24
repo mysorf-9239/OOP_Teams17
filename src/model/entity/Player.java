@@ -51,11 +51,11 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
         //Define the start screen's andres
-        if (gp.currentMap == 0) {
+        if (GamePanel.currentMap == 0) {
             worldX = gp.titleSize * 20;
             worldY = gp.titleSize * 489;
             furthestY = worldY;
-        } else if (gp.currentMap > 0) {
+        } else if (GamePanel.currentMap > 0) {
             worldX = gp.titleSize * 20;
             worldY = gp.titleSize * 29;
         }
@@ -71,16 +71,16 @@ public class Player extends Entity {
     public void setDefaultPositions() {
 
         worldX = gp.titleSize * 20;
-        worldY = gp.titleSize * (gp.maxWorldRow - 11);
+        worldY = gp.titleSize * (GamePanel.maxWorldRow - 11);
         speed = gp.titleSize/5;
         direction = "up";
         life = maxLife;
 
-        keyHandler.upPressed = false;
-        keyHandler.downPressed = false;
-        keyHandler.leftPressed = false;
-        keyHandler.rightPressed = false;
-        keyHandler.movingKeyPressed = false;
+        KeyHandler.upPressed = false;
+        KeyHandler.downPressed = false;
+        KeyHandler.leftPressed = false;
+        KeyHandler.rightPressed = false;
+        KeyHandler.movingKeyPressed = false;
     }
 
     public void getPlayerImage() {
@@ -125,19 +125,19 @@ public class Player extends Entity {
         gp.eventHandler.poisonMistCheck();
 
         //Move
-        if(keyHandler.upPressed == true || keyHandler.downPressed == true || keyHandler.leftPressed == true || keyHandler.rightPressed == true )
+        if(KeyHandler.upPressed || KeyHandler.downPressed || KeyHandler.leftPressed || KeyHandler.rightPressed)
         {
             //GamePanel.isMove = true;
-            if (keyHandler.upPressed == true) {
+            if (KeyHandler.upPressed) {
                 direction = "up";
             }
-            if (keyHandler.downPressed == true) {
+            if (KeyHandler.downPressed) {
                 direction = "down";
             }
-            if (keyHandler.leftPressed == true) {
+            if (KeyHandler.leftPressed) {
                 direction = "left";
             }
-            if (keyHandler.rightPressed == true) {
+            if (KeyHandler.rightPressed) {
                 direction = "right";
             }
 
@@ -153,7 +153,7 @@ public class Player extends Entity {
             gp.eventHandler.checkEvent();
 
             //IF COLLISION IS FALSE -> MOVE
-            if (collidisionOn == false) {
+            if (!collidisionOn) {
 
                 switch (direction) {
                     case "up":
@@ -187,14 +187,11 @@ public class Player extends Entity {
                 KeyHandler.movingKeyPressed = false;
             }
             spriteCounter++;
-            int spriteDistance = 0;
-            if (spriteCounter - spriteDistance > 4) {
+            if (spriteCounter > 4) {
                 if (spriteNum < 3) {
                     spriteNum++;
-                    spriteDistance += 1;
                 } else {
                     spriteNum = 1;
-                    spriteDistance = 0;
                 }
                 spriteCounter = 0;
             }
@@ -220,13 +217,13 @@ public class Player extends Entity {
     public void pickUpObject(int i) {
 
         if (i != 999) {
-            String objectName = gp.obj[gp.currentMap][i].name;
+            String objectName = gp.obj[GamePanel.currentMap][i].name;
 
             switch (objectName) {
                 case "Key":
                     gp.playSE(1);
                     hasKey++;
-                    gp.obj[gp.currentMap][i] = null;
+                    gp.obj[GamePanel.currentMap][i] = null;
                     gp.ui.showMess("You got a key");
                     break;
                 case "Portal":
@@ -237,21 +234,21 @@ public class Player extends Entity {
                 case "Boots":
                     gp.playSE(2);
                     speed += 2;
-                    gp.obj[gp.currentMap][i] = null;
+                    gp.obj[GamePanel.currentMap][i] = null;
                     gp.ui.showMess("Speed up");
                     break;
                 case "Chest":
                     if (hasKey > 0) {
-                        gp.totalScore += 500;
-                        gp.obj[gp.currentMap][i].collision = false;
+                        GamePanel.totalScore += 500;
+                        gp.obj[GamePanel.currentMap][i].collision = false;
                         hasKey--;
-                        gp.obj[gp.currentMap][i] = null;
+                        gp.obj[GamePanel.currentMap][i] = null;
                         gp.ui.showMess("You received some score");
                     }
                     break;
                 case "Axe":
                     hasAxe++;
-                    gp.obj[gp.currentMap][i] = null;
+                    gp.obj[GamePanel.currentMap][i] = null;
                     gp.ui.showMess("You got a axe");
                     break;
                 case "Spidernet":
@@ -260,21 +257,21 @@ public class Player extends Entity {
                     } else {
                         speed = 1;
                     }
-                    gp.obj[gp.currentMap][i] = null;
+                    gp.obj[GamePanel.currentMap][i] = null;
                     gp.ui.showMess("Speed down");
                     break;
                 case "Hole":
                     if (life > 0) {
                         life -= 1;
                     }
-                    gp.obj[gp.currentMap][i] = null;
+                    gp.obj[GamePanel.currentMap][i] = null;
                     gp.ui.showMess("You got a axe");
                     break;
                 case "HP":
                     if (life < maxLife) {
                         life += 1;
                     }
-                    gp.obj[gp.currentMap][i] = null;
+                    gp.obj[GamePanel.currentMap][i] = null;
                     gp.ui.showMess("You got a axe");
                     break;
             }
@@ -283,65 +280,35 @@ public class Player extends Entity {
 
     public void draw(Graphics2D g2) {
 
-        BufferedImage image = null;
+        BufferedImage image = up[0];
 
-        switch (direction) {
-            case "up":
-                switch (spriteNum) {
-                    case 1:
-                        image = up[0];
-                        break;
-                    case 2:
-                        image = up[1];
-                        break;
-                    case 3:
-                        image = up[2];
-                        break;
-                }
-                break;
-            case "down":
-                switch (spriteNum) {
-
-                    case 1:
-                        image = down[0];
-                        break;
-                    case 2:
-                        image = down[1];
-                        break;
-                    case 3:
-                        image = down[2];
-                        break;
-                }
-                break;
-            case "left":
-                switch (spriteNum) {
-
-                    case 1:
-                        image = left[0];
-                        break;
-                    case 2:
-                        image = left[1];
-                        break;
-                    case 3:
-                        image = left[2];
-                        break;
-                }
-                break;
-            case "right":
-                switch (spriteNum) {
-
-                    case 1:
-                        image = right[0];
-                        break;
-                    case 2:
-                        image = right[1];
-                        break;
-                    case 3:
-                        image = right[2];
-                        break;
-                }
-                break;
-        }
+        image = switch (direction) {
+            case "up" -> switch (spriteNum) {
+                case 1 -> up[0];
+                case 2 -> up[1];
+                case 3 -> up[2];
+                default -> image;
+            };
+            case "down" -> switch (spriteNum) {
+                case 1 -> down[0];
+                case 2 -> down[1];
+                case 3 -> down[2];
+                default -> image;
+            };
+            case "left" -> switch (spriteNum) {
+                case 1 -> left[0];
+                case 2 -> left[1];
+                case 3 -> left[2];
+                default -> image;
+            };
+            case "right" -> switch (spriteNum) {
+                case 1 -> right[0];
+                case 2 -> right[1];
+                case 3 -> right[2];
+                default -> image;
+            };
+            default -> null;
+        };
         g2.drawImage(image, screenX, screenY, null);
 
     }

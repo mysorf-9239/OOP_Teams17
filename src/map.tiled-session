@@ -5,10 +5,10 @@
     },
     "activeFile": "image/Tileset/Map.json",
     "expandedProjectPaths": [
+        "image",
         ".",
         "image/Tileset/40px",
-        "image/Tileset",
-        "image"
+        "image/Tileset"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -52,11 +52,11 @@
             "scaleInEditor": 1
         },
         "image/Tileset/Map.json": {
-            "scale": 0.25,
+            "scale": 0.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": -532,
-                "y": 15018
+                "x": 646,
+                "y": 15284
             }
         },
         "image/Tileset/Map1.json": {

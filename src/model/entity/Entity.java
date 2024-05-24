@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Entity {
     //Panel
@@ -23,7 +24,6 @@ public class Entity {
     //STATE
     public int worldX, worldY;
     public String direction = "down";
-    public String lastDirection = "down";
     public int spriteNum = 1;
     public boolean collision = false;
 
@@ -61,7 +61,7 @@ public class Entity {
         BufferedImage image = null;
 
         try {
-            image = ImageIO.read(getClass().getResourceAsStream(imageName + ".png"));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imageName + ".png")));
             image = utilityTool.scaleImage(image, gp.titleSize, gp.titleSize);
         } catch (IOException e) {
             e.getStackTrace();
@@ -80,7 +80,7 @@ public class Entity {
         gp.collisionChecker.CheckObject(this, false);
 
         //IF COLLISION IS FALSE -> MOVE
-        if (collidisionOn == false) {
+        if (!collidisionOn) {
             switch (direction) {
                 case "up":
                     worldY -= speed;
@@ -106,53 +106,35 @@ public class Entity {
 
     public void draw(Graphics2D g2) {
 
-        BufferedImage image = null;
+        BufferedImage image;
 
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-        switch (direction) {
-            case "up":
-                switch (spriteNum) {
-                    case 1:
-                        image = up[1];
-                        break;
-                    case 2:
-                        image = up[2];
-                        break;
-                }
-                break;
-            case "down":
-                switch (spriteNum) {
-                    case 1:
-                        image = down[1];
-                        break;
-                    case 2:
-                        image = down[2];
-                        break;
-                }
-                break;
-            case "left":
-                switch (spriteNum) {
-                    case 1:
-                        image = left[1];
-                        break;
-                    case 2:
-                        image = left[2];
-                        break;
-                }
-                break;
-            case "right":
-                switch (spriteNum) {
-                    case 1:
-                        image = right[1];
-                        break;
-                    case 2:
-                        image = right[2];
-                        break;
-                }
-                break;
-        }
+        image = up[1];
+        image = switch (direction) {
+            case "up" -> switch (spriteNum) {
+                case 1 -> up[1];
+                case 2 -> up[2];
+                default -> image;
+            };
+            case "down" -> switch (spriteNum) {
+                case 1 -> down[1];
+                case 2 -> down[2];
+                default -> image;
+            };
+            case "left" -> switch (spriteNum) {
+                case 1 -> left[1];
+                case 2 -> left[2];
+                default -> image;
+            };
+            case "right" -> switch (spriteNum) {
+                case 1 -> right[1];
+                case 2 -> right[2];
+                default -> image;
+            };
+            default -> image;
+        };
         g2.drawImage(image, screenX, screenY, gp.titleSize, gp.titleSize, null);
     }
 

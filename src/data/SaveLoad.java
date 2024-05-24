@@ -18,19 +18,16 @@ public class SaveLoad {
 
     public Entity getObject(String objName) {
 
-        Entity obj = null;
-
-        switch (objName) {
-            case "Portal": obj = new Obj_Portal(gp); break;
-            case "Axe": obj = new Obj_Axe(gp); break;
-            case "Key": obj = new Obj_Key(gp); break;
-            case "Boots": obj = new Obj_Boots(gp); break;
-            case "Spidernet": obj = new Obj_Spidernet(gp); break;
-            case "Hole": obj = new Obj_Hole(gp); break;
-            case "HP": obj = new Obj_Hole(gp); break;
-        }
-
-        return obj;
+        return switch (objName) {
+            case "Portal" -> new Obj_Portal(gp);
+            case "Axe" -> new Obj_Axe(gp);
+            case "Key" -> new Obj_Key(gp);
+            case "Boots" -> new Obj_Boots(gp);
+            case "Spidernet" -> new Obj_Spidernet(gp);
+            case "Hole" -> new Obj_Hole(gp);
+            case "HP" -> new Obj_Hole(gp);
+            default -> null;
+        };
     }
 
     public void save() {

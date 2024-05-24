@@ -3,7 +3,6 @@ package model.tile;
 import controller.tool.ImageLoader;
 import controller.tool.UtilityTool;
 import view.GamePanel;
-import controller.Config;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -12,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class TileManager {
@@ -20,8 +20,6 @@ public class TileManager {
     public Tile[] tile;
     int[][][] map;
     public static ArrayList<String> pathList = new ArrayList<>();
-    public static int pathNum;
-    Config config = new Config(gp);
 
     ImageLoader imageLoader;
 
@@ -33,8 +31,8 @@ public class TileManager {
 
         this.gp = gp;
 
-        tile = new Tile[100];
-        map = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
+        tile = new Tile[150];
+        map = new int[gp.maxMap][GamePanel.maxWorldCol][GamePanel.maxWorldRow];
 
         setMapPath();
 
@@ -44,10 +42,10 @@ public class TileManager {
 
         GamePanel.map = map;
 
-        getTileImage(tile);
+        getTileImage();
     }
 
-    public void getTileImage(Tile[] tile) {
+    public void getTileImage() {
 
         setup(0, "/tiles/trunk.png", false);
 
@@ -61,7 +59,7 @@ public class TileManager {
 
         try {
             tile[index] = new Tile();
-            tile[index].image = ImageIO.read(getClass().getResourceAsStream(imagePath));
+            tile[index].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
             tile[index].image = utilityTool.scaleImage(tile[index].image, gp.titleSize, gp.titleSize);
             tile[index].collision = collision;
         }
@@ -108,6 +106,7 @@ public class TileManager {
 
         try {
             InputStream is = getClass().getResourceAsStream(pathList.get(mapNum));
+            assert is != null;
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int col = 0;
@@ -119,7 +118,7 @@ public class TileManager {
 
                 while (col < loadMaxCol) {
 
-                    String numbers[] = line.split(" ");
+                    String[] numbers = line.split(" ");
 
                     int num = Integer.parseInt(numbers[col]);
 
@@ -160,25 +159,12 @@ public class TileManager {
                 break;
         }
 
-        if (tileCol >= 0 && tileCol <= gp.maxWorldCol && tileRow >= 0 && tileCol <= gp.maxWorldRow) {
+        if (tileCol >= 0 && tileCol <= GamePanel.maxWorldCol && tileRow >= 0) {
 
-            switch (map[gp.currentMap][tileCol][tileRow]) {
-                case 5:
-                case 13:
-                case 71:
-                case 72:
-                case 78:
-                case 79:
-                case 80:
-                case 87:
-                case 88:
-                case 91:
-                case 92:
-                case 95:
-                case 96:
-                    tileAddress = tileRow * gp.maxWorldRow + tileCol;
-                    break;
-            }
+            tileAddress = switch (map[GamePanel.currentMap][tileCol][tileRow]) {
+                case 5, 13, 71, 72, 78, 79, 80, 87, 88, 91, 92, 95, 96 -> tileRow * GamePanel.maxWorldRow + tileCol;
+                default -> tileAddress;
+            };
 
         }
 
@@ -187,10 +173,10 @@ public class TileManager {
 
     public void cutTree(int Col, int Row) {
 
-        if (map[gp.currentMap][Col][Row] == 5 || map[gp.currentMap][Col][Row] == 13){
-            map[gp.currentMap][Col][Row] = 0;
+        if (map[GamePanel.currentMap][Col][Row] == 5 || map[GamePanel.currentMap][Col][Row] == 13){
+            map[GamePanel.currentMap][Col][Row] = 0;
         } else {
-            map[gp.currentMap][Col][Row] = 70;
+            map[GamePanel.currentMap][Col][Row] = 70;
         }
     }
 
@@ -203,17 +189,17 @@ public class TileManager {
         int worldCol = 0;
         int worldRow = 0;
 
-        if (gp.currentMap == 0) {
-            gp.currentWorldCol = 40;
-            gp.currentWorldRow = 500;
-        } else if (gp.currentMap > 0) {
-            gp.currentWorldCol = 40;
-            gp.currentWorldRow = 40;
+        if (0 == GamePanel.currentMap) {
+            GamePanel.currentWorldCol = 40;
+            GamePanel.currentWorldRow = 500;
+        } else if (0 < GamePanel.currentMap) {
+            GamePanel.currentWorldCol = 40;
+            GamePanel.currentWorldRow = 40;
         }
 
-        while (worldCol < gp.currentWorldCol && worldRow < gp.currentWorldRow) {
+        while (worldCol < GamePanel.currentWorldCol && worldRow < GamePanel.currentWorldRow) {
 
-            int tileNum = map[gp.currentMap][worldCol][worldRow];
+            int tileNum = map[GamePanel.currentMap][worldCol][worldRow];
 
             int worldX = worldCol * gp.titleSize;
             int worldY = worldRow * gp.titleSize;
@@ -229,7 +215,7 @@ public class TileManager {
             }
             worldCol++;
 
-            if (worldCol == gp.currentWorldCol) {
+            if (worldCol == GamePanel.currentWorldCol) {
                 worldCol = 0;
                 worldRow++;
             }

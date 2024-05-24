@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.DecimalFormat;
+import java.util.Objects;
 
 public class UI {
 
@@ -22,7 +22,8 @@ public class UI {
     //Load images
     BufferedImage backgorundImage;
     BufferedImage[] characterImage = new BufferedImage[7];
-    BufferedImage[] objectImage = new BufferedImage[7];
+    BufferedImage[] objectImage = new BufferedImage[10];
+    BufferedImage[] mapImage = new BufferedImage[21];
     BufferedImage axeImage;
 
     //Obj image
@@ -34,9 +35,6 @@ public class UI {
     public int commanNum = 0;
 
     //Other
-    public boolean gameFnished = false;
-    double playTime;
-    DecimalFormat decimalFormat = new DecimalFormat("#0.00");
     String currentDialogue = "";
     public static int selectMap = 1;
 
@@ -53,16 +51,16 @@ public class UI {
         //Define font
         try {
             InputStream inputStream = getClass().getResourceAsStream("/font/x12y16pxMaruMonica.ttf");
+            assert inputStream != null;
             maruMonica = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-        } catch (FontFormatException e) {
+        } catch (FontFormatException | IOException e) {
             e.getStackTrace();
-        }  catch (IOException e) {
-        e.getStackTrace();
         }
 
         //Get character images for UI
         getCharacterImages();
         getObjectImages();
+        getMapImages();
 
         //Create hub object
         Entity heart = new Obj_Heart(gp);
@@ -148,25 +146,24 @@ public class UI {
 
         //Reset x, y
         x = gp.titleSize/2;
-        y = 0;
         int life = gp.player.life;
 
         //Draw current life
-        if (life > 0 && life <= 1) {
+        if (life == 1) {
             g2.drawImage(heart_half, x, y, null);
         }
-        else if (life > 1 && life <= 2) {
+        else if (life == 2) {
             g2.drawImage(heart_full, x, y, null);
         }
-        else if (life > 2 && life <= 3) {
+        else if (life == 3) {
             g2.drawImage(heart_full, x, y, null);
             g2.drawImage(heart_half, x + gp.titleSize, y, null);
         }
-        else if (life > 3 && life <= 4) {
+        else if (life == 4) {
             g2.drawImage(heart_full, x, y, null);
             g2.drawImage(heart_full, x + gp.titleSize, y, null);
         }
-        else if (life > 4 && life <= 5) {
+        else if (life == 5) {
             g2.drawImage(heart_full, x, y, null);
             g2.drawImage(heart_full, x + gp.titleSize, y, null);
             g2.drawImage(heart_half, x + gp.titleSize*2, y, null);
@@ -208,7 +205,7 @@ public class UI {
         UtilityTool utilityTool = new UtilityTool();
 
         try {
-            axeImage = ImageIO.read(getClass().getResourceAsStream("/objects/axe.png"));
+            axeImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/axe.png")));
             axeImage = utilityTool.scaleImage(axeImage, 32, 32);
         } catch (IOException e) {
             e.getStackTrace();
@@ -225,7 +222,7 @@ public class UI {
 
     public void drawTitleScreen() {
         try {
-            backgorundImage = ImageIO.read(getClass().getResourceAsStream("/Background.png"));
+            backgorundImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Background.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -263,8 +260,6 @@ public class UI {
             text = "Load Game";
             x = getXforCenterText(text) + gp.titleSize*4;
             y += gp.titleSize + 10;
-            int width = gp.titleSize;
-            int height = text.length() + 2;
             g2.drawString(text, x, y);
             if (commanNum == 1) {
                 drawColection(text, x, y);
@@ -289,8 +284,6 @@ public class UI {
             text = "Quit";
             x = getXforCenterText(text) + gp.titleSize*4;
             y += gp.titleSize + 10;
-            width = text.length()*13;
-            height = 3;
             g2.drawString(text, x, y);
             if (commanNum == 4) {
                 drawColection(text, x, y);
@@ -307,7 +300,6 @@ public class UI {
             //Version
             text = "version: 1.0.0";
             x = gp.screenWidth - gp.titleSize*2;
-            y = gp.screenHeight - gp.titleSize/6;
             g2.drawString(text, x, y);
 
         }
@@ -426,11 +418,11 @@ public class UI {
 
             g2.setColor(new Color(39, 47, 44, 200));
             g2.fillRect(x-gp.titleSize, y-gp.titleSize, gp.titleSize*5, gp.titleSize*6+10);
-            g2.drawImage(characterImage[gp.player.characterNum], x, y, width, height, null);
+            g2.drawImage(characterImage[Player.characterNum], x, y, width, height, null);
             if (commanNum == 0) {
                 g2.setColor(Color.white);
                 //Triange1
-                int[] xPoints = {x - gp.titleSize*1/2, x - gp.titleSize*1, x - gp.titleSize*1/2};
+                int[] xPoints = {x - gp.titleSize/2, x - gp.titleSize, x - gp.titleSize /2};
                 int[] yPoints = {y+gp.titleSize*9/5, y+gp.titleSize*3/2, y+gp.titleSize*6/5};
                 g2.fillPolygon(xPoints, yPoints, 3);
                 //Triange2
@@ -478,9 +470,7 @@ public class UI {
             int height = gp.titleSize*3;
 
             //Map image
-//            g2.setColor(new Color(39, 47, 44, 200));
-//            g2.fillRect(x-gp.titleSize, y-gp.titleSize, gp.titleSize*5, gp.titleSize*6+10);
-//            g2.drawImage(characterImage[gp.player.characterNum], x, y, width, height, null);
+            g2.drawImage(mapImage[selectMap], x, y, width, height, null);
 
             //Map num
             x = gp.titleSize*19/2 - 10;
@@ -496,7 +486,7 @@ public class UI {
             if (commanNum == 0) {
                 g2.setColor(Color.white);
                 //Triange1
-                int[] xPoints = {x - gp.titleSize*1/2 - 6, x - gp.titleSize - 6, x - gp.titleSize*1/2 - 6};
+                int[] xPoints = {x - gp.titleSize /2 - 6, x - gp.titleSize - 6, x - gp.titleSize /2 - 6};
                 int[] yPoints = {y+gp.titleSize*3/10 - 16, y - 16, y-gp.titleSize*3/10 - 16};
                 g2.fillPolygon(xPoints, yPoints, 3);
                 //Triange2
@@ -656,7 +646,7 @@ public class UI {
         g2.drawString("Down", textX, textY); textY += gp.titleSize*3/2;
         g2.drawString("Right", textX, textY); textY += gp.titleSize*3/2;
             textX -= gp.titleSize;
-        g2.drawString("Felling Tree", textX, textY); textX += gp.titleSize*3/2;
+        g2.drawString("Felling Tree", textX, textY);
 
         //Control
         textX = frameX + gp.titleSize*6;
@@ -666,7 +656,7 @@ public class UI {
         g2.drawString("A", textX, textY); textY += gp.titleSize*3/2;
         g2.drawString("S", textX, textY); textY += gp.titleSize*3/2;
         g2.drawString("D", textX, textY); textY += gp.titleSize*3/2;
-        g2.drawString("C", textX, textY); textX += gp.titleSize*3/2;
+        g2.drawString("C", textX, textY);
 
         //Back
         textX = frameX + gp.titleSize;
@@ -681,7 +671,7 @@ public class UI {
     public void option_EndGame_Confirmation(int frameX, int frameY) {
 
         int textX = frameX + gp.titleSize + 40;
-        int textY = frameY = gp.titleSize*6;
+        int textY = gp.titleSize*6;
 
         currentDialogue = "Save the game and \nreturn to the title screen";
 
@@ -850,7 +840,7 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(32F));
         g2.setFont(g2.getFont().deriveFont(Font.ITALIC));
 
-        int textX = frameX + gp.titleSize - 21;
+        int textX;
         int textY = frameY + gp.titleSize + 15;
 
         currentDialogue = "You must complete the \nprevious maps to \nunlock this map. \nPlease select another map.";
@@ -871,7 +861,7 @@ public class UI {
     public void drawGuideScreen() {
 
         try {
-            backgorundImage = ImageIO.read(getClass().getResourceAsStream("/Background.png"));
+            backgorundImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Background.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -965,7 +955,7 @@ public class UI {
         g2.drawString("Down", textX, textY); textY += gp.titleSize*3/2;
         g2.drawString("Right", textX, textY); textY += gp.titleSize*3/2;
         textX -= gp.titleSize;
-        g2.drawString("Felling Tree", textX, textY); textX += gp.titleSize*3/2;
+        g2.drawString("Felling Tree", textX, textY);
 
         //Control
         textX = frameX + gp.titleSize*6;
@@ -975,7 +965,7 @@ public class UI {
         g2.drawString("A", textX, textY); textY += gp.titleSize*3/2;
         g2.drawString("S", textX, textY); textY += gp.titleSize*3/2;
         g2.drawString("D", textX, textY); textY += gp.titleSize*3/2;
-        g2.drawString("C", textX, textY); textX += gp.titleSize*3/2;
+        g2.drawString("C", textX, textY);
 
         //Back
         textX = frameX + gp.titleSize;
@@ -989,7 +979,7 @@ public class UI {
 
     public void guide_object(int frameX, int frameY) {
 
-        g2.setFont(g2.getFont().deriveFont(Font.ITALIC));
+        g2.setFont(g2.getFont().deriveFont(Font.ITALIC, 28F));
 
         int textX;
         int textY;
@@ -1005,43 +995,46 @@ public class UI {
         int imageY = frameY + gp.titleSize*2;
         text = "Axe: Cut tree";
         textX = frameX + gp.titleSize*5/2;
-        textY += gp.titleSize*7/4;
-        g2.drawImage(objectImage[0], imageX, imageY, gp.titleSize, gp.titleSize, null);
+        textY += gp.titleSize*3/2;
+        g2.drawImage(objectImage[0], imageX, imageY, gp.titleSize*2/3, gp.titleSize*2/3, null);
         g2.drawString(text, textX, textY);
 
-        imageY += gp.titleSize*3/2;
+        imageY += gp.titleSize*5/4;
         text = "Boots: Speed up";
-        textY += gp.titleSize*3/2;
-        g2.drawImage(objectImage[1], imageX, imageY, gp.titleSize, gp.titleSize, null);
+        textY += gp.titleSize*5/4;
+        g2.drawImage(objectImage[1], imageX, imageY, gp.titleSize*2/3, gp.titleSize*2/3, null);
         g2.drawString(text, textX, textY);
 
-        imageY += gp.titleSize*3/2;
+        imageY += gp.titleSize*5/4;
+        text = "Spidernet: Speed down";
+        textY += gp.titleSize*5/4;
+        g2.drawImage(objectImage[5], imageX, imageY, gp.titleSize*2/3, gp.titleSize*2/3, null);
+        g2.drawString(text, textX, textY);
+
+        imageY += gp.titleSize*5/4;
+        text = "Hole: Bleed";
+        textY += gp.titleSize*5/4;
+        g2.drawImage(objectImage[6], imageX, imageY, gp.titleSize*2/3, gp.titleSize*2/3, null);
+        g2.drawString(text, textX, textY);
+
+        imageY += gp.titleSize*5/4;
+        text = "HP: Restore HP";
+        textY += gp.titleSize*5/4;
+        g2.drawImage(objectImage[7], imageX, imageY, gp.titleSize*2/3, gp.titleSize*2/3, null);
+        g2.drawString(text, textX, textY);
+
+        imageY += gp.titleSize*5/4;
         text = "Chest: Score up";
-        textY += gp.titleSize*3/2;
-        g2.drawImage(objectImage[2], imageX, imageY, gp.titleSize, gp.titleSize, null);
+        textY += gp.titleSize*5/4;
+        g2.drawImage(objectImage[2], imageX, imageY, gp.titleSize*2/3, gp.titleSize*2/3, null);
         g2.drawString(text, textX, textY);
 
-        imageY += gp.titleSize*3/2;
+        imageY += gp.titleSize*5/4;
         text = "Portal: Next map";
-        textY += gp.titleSize*3/2;
-        g2.drawImage(objectImage[3], imageX, imageY, gp.titleSize, gp.titleSize, null);
+        textY += gp.titleSize*5/4;
+        g2.drawImage(objectImage[3], imageX, imageY, gp.titleSize*2/3, gp.titleSize*2/3, null);
         g2.drawString(text, textX, textY);
 
-//        imageY += gp.titleSize*3/2;
-//        text = "Key: ";
-//        textY += gp.titleSize*3/2;
-//        g2.drawImage(objectImage[4], imageX, imageY, gp.titleSize, gp.titleSize, null);
-//        g2.drawString(text, textX, textY);
-
-        imageY += gp.titleSize*3/2;
-        text = "Spidernet: ";
-        textY += gp.titleSize*3/2;
-        g2.drawImage(objectImage[5], imageX, imageY, gp.titleSize, gp.titleSize, null);
-        g2.drawString(text, textX, textY);
-        text = "Speed down";
-        textX += gp.titleSize;
-        textY += gp.titleSize;
-        g2.drawString(text, textX, textY);
 
         //Back
         textX = frameX + gp.titleSize;
@@ -1057,9 +1050,8 @@ public class UI {
     public int getXforCenterText(String text) {
 
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-        int x = gp.screenWidth/2 - length/2;
 
-        return x;
+        return gp.screenWidth/2 - length/2;
     }
 
     private void drawSubWindown(int x, int y, int width, int height) {
@@ -1092,9 +1084,8 @@ public class UI {
         UtilityTool utilityTool = new UtilityTool();
 
         try {
-            BufferedImage bigImage = ImageIO.read(getClass().getResourceAsStream("/player/manyCharacter01.png"));
+            BufferedImage bigImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/manyCharacter01.png")));
 
-            int index = 0;
             int x = 32;
             int y = 0;
             for (int i = 0; i < 7; i++) {
@@ -1110,10 +1101,6 @@ public class UI {
                     y += 32*4;
                 }
 
-                // Kiểm tra nếu đã cắt đủ số ảnh
-                if (index >= 7) {
-                    break;
-                }
             }
 
         } catch (IOException e) {
@@ -1127,23 +1114,64 @@ public class UI {
         UtilityTool utilityTool = new UtilityTool();
 
         try {
-            objectImage[0] = ImageIO.read(getClass().getResourceAsStream("/objects/axe.png"));
+            objectImage[0] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/axe.png")));
             objectImage[0] = utilityTool.scaleImage(objectImage[0], 32, 32);
 
-            objectImage[1] = ImageIO.read(getClass().getResourceAsStream("/objects/boots.png"));
+            objectImage[1] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/boots.png")));
             objectImage[1] = utilityTool.scaleImage(objectImage[1], 32, 32);
 
-            objectImage[2] = ImageIO.read(getClass().getResourceAsStream("/objects/chest.png"));
+            objectImage[2] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/chest.png")));
             objectImage[2] = utilityTool.scaleImage(objectImage[2], 32, 32);
 
-            objectImage[3] = ImageIO.read(getClass().getResourceAsStream("/objects/portal.png"));
+            objectImage[3] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/portal.png")));
             objectImage[3] = utilityTool.scaleImage(objectImage[3], 32, 32);
 
-            objectImage[4] = ImageIO.read(getClass().getResourceAsStream("/objects/key.png"));
+            objectImage[4] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/key.png")));
             objectImage[4] = utilityTool.scaleImage(objectImage[4], 32, 32);
 
-            objectImage[5] = ImageIO.read(getClass().getResourceAsStream("/objects/spidernet.png"));
+            objectImage[5] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/spidernet.png")));
             objectImage[5] = utilityTool.scaleImage(objectImage[5], 32, 32);
+
+            objectImage[6] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/hole.png")));
+            objectImage[6] = utilityTool.scaleImage(objectImage[6], 32, 32);
+
+            objectImage[7] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/HP.png")));
+            objectImage[7] = utilityTool.scaleImage(objectImage[7], 32, 32);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getMapImages() {
+
+
+        UtilityTool utilityTool = new UtilityTool();
+
+        try {
+            mapImage[0] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map0.png")));
+            mapImage[0] = utilityTool.scaleImage(mapImage[0], 32, 32);
+
+            mapImage[1] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/boots.png")));
+            mapImage[1] = utilityTool.scaleImage(mapImage[1], 32, 32);
+
+            mapImage[2] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/chest.png")));
+            mapImage[2] = utilityTool.scaleImage(mapImage[2], 32, 32);
+
+            mapImage[3] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/portal.png")));
+            mapImage[3] = utilityTool.scaleImage(mapImage[3], 32, 32);
+
+            mapImage[4] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/key.png")));
+            mapImage[4] = utilityTool.scaleImage(mapImage[4], 32, 32);
+
+            mapImage[5] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/spidernet.png")));
+            mapImage[5] = utilityTool.scaleImage(mapImage[5], 32, 32);
+
+            mapImage[6] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/hole.png")));
+            mapImage[6] = utilityTool.scaleImage(mapImage[6], 32, 32);
+
+            mapImage[7] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/HP.png")));
+            mapImage[7] = utilityTool.scaleImage(mapImage[7], 32, 32);
 
         } catch (IOException e) {
             e.printStackTrace();
