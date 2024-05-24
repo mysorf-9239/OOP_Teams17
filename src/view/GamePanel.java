@@ -55,6 +55,7 @@ public class GamePanel extends JPanel implements Runnable {
     public UI ui = new UI(this);
     public Config config = new Config(this);
     public SaveLoad saveLoad = new SaveLoad(this);
+    public Map fullMap = new Map(this);
     Thread gameThread;
 
     //Entity and Object
@@ -72,6 +73,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int gameOverState = 3;
     public final int winState = 4;
     public final int guideState = 5;
+    public final int mapState = 6;
 
     //Mode
     public int gameMode;
@@ -150,6 +152,10 @@ public class GamePanel extends JPanel implements Runnable {
 
         //TITLE SCREEN
         if (gameState == titleState) { ui.draw(g2);}
+
+        //Map State
+        if (gameState == mapState) { fullMap.drawFullMapScreen(g2); }
+
         //Other
         else {
             //Tile Map

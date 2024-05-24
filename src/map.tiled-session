@@ -3,11 +3,11 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "image/Tileset/Map.json",
+    "activeFile": "image/Tileset/Map2.tmx",
     "expandedProjectPaths": [
         "image",
-        ".",
         "image/Tileset/40px",
+        ".",
         "image/Tileset"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -55,8 +55,8 @@
             "scale": 0.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 646,
-                "y": 15284
+                "x": 642,
+                "y": 15808
             }
         },
         "image/Tileset/Map1.json": {
@@ -84,11 +84,11 @@
             }
         },
         "image/Tileset/Map2.tmx": {
-            "scale": 0.75,
+            "scale": 0.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 642.6666666666665,
-                "y": 15497.333333333332
+                "x": 678,
+                "y": 13094
             }
         },
         "image/Tileset/Other.tsx": {
@@ -113,22 +113,22 @@
         }
     },
     "last.exportedFilePath": "C:/Users/Ha Giang/Desktop",
-    "last.imagePath": "E:/Danh/Wailieu/Pixel_art",
+    "last.imagePath": "E:/Danh/Wailieu/Eclipse/FugitiveFromLava/res/tiles",
     "map.height": 40,
     "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
     "map.lastUsedFormat": "json",
     "map.renderOrder": null,
     "map.width": 40,
     "openFiles": [
-        "image/Tileset/Map.json"
+        "image/Tileset/Map2.tmx"
     ],
     "project": "map.tiled-project",
     "recentFiles": [
-        "image/Tileset/Map.json",
+        "image/Tileset/Map2.tmx",
         "image/Tileset/All.tsx",
+        "image/Tileset/Map.json",
         "image/Tileset/Any.tsx",
         "image/Tileset/A.tsx",
-        "image/Tileset/Map2.tmx",
         "image/Tileset/Map2.json",
         "image/Tileset/Map1.tmx",
         "image/Tileset/Map1.json",

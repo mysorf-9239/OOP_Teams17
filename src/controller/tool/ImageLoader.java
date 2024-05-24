@@ -72,7 +72,7 @@ public class ImageLoader {
 
             for (int y = 0; y < bigImage.getHeight(); y += imageHeight) {
                 for (int x = 0; x < bigImage.getWidth(); x += imageWidth) {
-                    if (index >= numImages) {
+                    if (index > numImages) {
                         break;
                     }
 

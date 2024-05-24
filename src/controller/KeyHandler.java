@@ -46,6 +46,9 @@ public class KeyHandler implements KeyListener
             case 5:
                 guideState(code);
                 break;
+            case 6:
+                mapState(code);
+                break;
         }
 
     }
@@ -59,6 +62,10 @@ public class KeyHandler implements KeyListener
             gp.gameState = gp.optionState;
             gp.stopMusic();
             gp.ui.commanNum = 5;
+        }
+
+        if (code == KeyEvent.VK_M) {
+            gp.gameState = gp.mapState;
         }
 
         if (!movingKeyPressed) {
@@ -683,6 +690,13 @@ public class KeyHandler implements KeyListener
                 }
             }
             gp.playSE(5);
+        }
+    }
+
+    private void mapState(int code) {
+
+        if (code == KeyEvent.VK_M) {
+            gp.gameState = gp.playState;
         }
     }
 }

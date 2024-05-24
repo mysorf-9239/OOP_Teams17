@@ -23,7 +23,7 @@ public class TileManager {
 
     ImageLoader imageLoader;
 
-    public final int numImage = 96;
+    public final int numImage = 100;
     public final int imageWidth = 32;
     public final int imageHeight = 32;
 
@@ -39,7 +39,6 @@ public class TileManager {
         for (int i = 0; i < 21; i++) {
             loadMap(i);
         }
-
         GamePanel.map = map;
 
         getTileImage();
@@ -70,27 +69,9 @@ public class TileManager {
 
     public void setMapPath() {
 
-        pathList.add("/map/map0.txt");
-        pathList.add("/map/map1.txt");
-        pathList.add("/map/map2.txt");
-        pathList.add("/map/map3.txt");
-        pathList.add("/map/map4.txt");
-        pathList.add("/map/map5.txt");
-        pathList.add("/map/map6.txt");
-        pathList.add("/map/map7.txt");
-        pathList.add("/map/map8.txt");
-        pathList.add("/map/map9.txt");
-        pathList.add("/map/map10.txt");
-        pathList.add("/map/map11.txt");
-        pathList.add("/map/map12.txt");
-        pathList.add("/map/map13.txt");
-        pathList.add("/map/map14.txt");
-        pathList.add("/map/map15.txt");
-        pathList.add("/map/map16.txt");
-        pathList.add("/map/map17.txt");
-        pathList.add("/map/map18.txt");
-        pathList.add("/map/map19.txt");
-        pathList.add("/map/map20.txt");
+        for (int i = 0; i <= 20; i++) {
+            pathList.add(String.format("/map/map%d.txt", i));
+        }
     }
 
     public void loadMap(int mapNum) {
