@@ -12,7 +12,7 @@ public class Obj_Key extends Entity {
         super(gp);
 
         name = "Key";
-        down[1] = setup("/objects/Key");
+        down[1] = setup("/objects/key");
 
     }
 

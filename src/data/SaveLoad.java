@@ -21,11 +21,13 @@ public class SaveLoad {
         Entity obj = null;
 
         switch (objName) {
-            case "Door": obj = new Obj_Door(gp); break;
+            case "Portal": obj = new Obj_Portal(gp); break;
             case "Axe": obj = new Obj_Axe(gp); break;
             case "Key": obj = new Obj_Key(gp); break;
             case "Boots": obj = new Obj_Boots(gp); break;
             case "Spidernet": obj = new Obj_Spidernet(gp); break;
+            case "Hole": obj = new Obj_Hole(gp); break;
+            case "HP": obj = new Obj_Hole(gp); break;
         }
 
         return obj;

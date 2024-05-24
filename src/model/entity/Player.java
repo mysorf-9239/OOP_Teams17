@@ -229,7 +229,7 @@ public class Player extends Entity {
                     gp.obj[gp.currentMap][i] = null;
                     gp.ui.showMess("You got a key");
                     break;
-                case "Door":
+                case "Portal":
                     gp.playSE(3);
                     gp.ui.commanNum = -1;
                     gp.gameState = gp.winState;
@@ -262,6 +262,20 @@ public class Player extends Entity {
                     }
                     gp.obj[gp.currentMap][i] = null;
                     gp.ui.showMess("Speed down");
+                    break;
+                case "Hole":
+                    if (life > 0) {
+                        life -= 1;
+                    }
+                    gp.obj[gp.currentMap][i] = null;
+                    gp.ui.showMess("You got a axe");
+                    break;
+                case "HP":
+                    if (life < maxLife) {
+                        life += 1;
+                    }
+                    gp.obj[gp.currentMap][i] = null;
+                    gp.ui.showMess("You got a axe");
                     break;
             }
         }

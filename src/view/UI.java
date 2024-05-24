@@ -1,7 +1,6 @@
 package view;
 
 import controller.tool.UtilityTool;
-import model.Object.Obj_Axe;
 import model.Object.Obj_Heart;
 import model.entity.Entity;
 import model.entity.Player;
@@ -209,7 +208,7 @@ public class UI {
         UtilityTool utilityTool = new UtilityTool();
 
         try {
-            axeImage = ImageIO.read(getClass().getResourceAsStream("/objects/Axe.png"));
+            axeImage = ImageIO.read(getClass().getResourceAsStream("/objects/axe.png"));
             axeImage = utilityTool.scaleImage(axeImage, 32, 32);
         } catch (IOException e) {
             e.getStackTrace();
@@ -1128,22 +1127,22 @@ public class UI {
         UtilityTool utilityTool = new UtilityTool();
 
         try {
-            objectImage[0] = ImageIO.read(getClass().getResourceAsStream("/objects/Axe.png"));
+            objectImage[0] = ImageIO.read(getClass().getResourceAsStream("/objects/axe.png"));
             objectImage[0] = utilityTool.scaleImage(objectImage[0], 32, 32);
 
-            objectImage[1] = ImageIO.read(getClass().getResourceAsStream("/objects/Boots.png"));
+            objectImage[1] = ImageIO.read(getClass().getResourceAsStream("/objects/boots.png"));
             objectImage[1] = utilityTool.scaleImage(objectImage[1], 32, 32);
 
-            objectImage[2] = ImageIO.read(getClass().getResourceAsStream("/objects/Chess.png"));
+            objectImage[2] = ImageIO.read(getClass().getResourceAsStream("/objects/chest.png"));
             objectImage[2] = utilityTool.scaleImage(objectImage[2], 32, 32);
 
             objectImage[3] = ImageIO.read(getClass().getResourceAsStream("/objects/portal.png"));
             objectImage[3] = utilityTool.scaleImage(objectImage[3], 32, 32);
 
-            objectImage[4] = ImageIO.read(getClass().getResourceAsStream("/objects/Key.png"));
+            objectImage[4] = ImageIO.read(getClass().getResourceAsStream("/objects/key.png"));
             objectImage[4] = utilityTool.scaleImage(objectImage[4], 32, 32);
 
-            objectImage[5] = ImageIO.read(getClass().getResourceAsStream("/objects/Spidernet.png"));
+            objectImage[5] = ImageIO.read(getClass().getResourceAsStream("/objects/spidernet.png"));
             objectImage[5] = utilityTool.scaleImage(objectImage[5], 32, 32);
 
         } catch (IOException e) {

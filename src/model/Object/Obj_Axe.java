@@ -10,7 +10,7 @@ public class Obj_Axe extends Entity {
 
         super(gp);
         name = "Axe";
-        down[1] = setup("/objects/Axe");
+        down[1] = setup("/objects/axe");
     }
 
 

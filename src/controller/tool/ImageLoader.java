@@ -18,7 +18,7 @@ public class ImageLoader {
     int imageWidth;
     int imageHeight;
 
-    int[] collisionTile = {5, 8, 13, 16, 17, 18, 19, 20, 21, 25, 26, 27, 28, 29, 33, 34, 35, 36, 37, 41, 42, 43, 49, 51, 57, 58, 59, 60, 61, 65, 66, 67, 68, 70, 71, 72, 73, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 95, 96};
+    int[] collisionTile = {5, 8, 13, 16, 17, 18, 19, 20, 21, 25, 27, 28, 29, 33, 34, 35, 37, 41, 42, 43, 49, 50, 51, 57, 58, 59, 60, 61, 65, 66, 67, 68, 69, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 95, 96};
 
     public ImageLoader(GamePanel gp, String imagePath, int numImages, int imageWidth, int imageHeight) {
         this.gp = gp;

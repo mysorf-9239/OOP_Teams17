@@ -162,9 +162,24 @@ public class TileManager {
 
         if (tileCol >= 0 && tileCol <= gp.maxWorldCol && tileRow >= 0 && tileCol <= gp.maxWorldRow) {
 
-            if (map[gp.currentMap][tileCol][tileRow] == 5 || map[gp.currentMap][tileCol][tileRow] == 13) {
-                tileAddress = tileRow * gp.maxWorldRow + tileCol;
+            switch (map[gp.currentMap][tileCol][tileRow]) {
+                case 5:
+                case 13:
+                case 71:
+                case 72:
+                case 78:
+                case 79:
+                case 80:
+                case 87:
+                case 88:
+                case 91:
+                case 92:
+                case 95:
+                case 96:
+                    tileAddress = tileRow * gp.maxWorldRow + tileCol;
+                    break;
             }
+
         }
 
         return tileAddress;
@@ -172,7 +187,11 @@ public class TileManager {
 
     public void cutTree(int Col, int Row) {
 
-        map[gp.currentMap][Col][Row] = 0;
+        if (map[gp.currentMap][Col][Row] == 5 || map[gp.currentMap][Col][Row] == 13){
+            map[gp.currentMap][Col][Row] = 0;
+        } else {
+            map[gp.currentMap][Col][Row] = 70;
+        }
     }
 
 

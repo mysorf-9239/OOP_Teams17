@@ -9,7 +9,7 @@ public class Obj_Spidernet extends Entity {
         super(gp);
 
         name = "Spidernet";
-        down[1] = setup("/objects/Spidernet");
+        down[1] = setup("/objects/spidernet");
     }
 
 }
