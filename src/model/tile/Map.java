@@ -13,6 +13,7 @@ public class Map extends TileManager {
     public Map(GamePanel gp) {
         super(gp);
         this.gp = gp;
+        this.map = gp.tileManager.map;
         createWorldMap();
     }
 

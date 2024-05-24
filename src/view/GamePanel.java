@@ -46,6 +46,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     //System
     public TileManager tileManager = new TileManager(this);
+    public Map fullMap = new Map(this);
     public KeyHandler keyHandler = new KeyHandler(this);
     public EventHandler eventHandler = new EventHandler(this);
     public Sound music = new Sound();
@@ -55,7 +56,6 @@ public class GamePanel extends JPanel implements Runnable {
     public UI ui = new UI(this);
     public Config config = new Config(this);
     public SaveLoad saveLoad = new SaveLoad(this);
-    public Map fullMap = new Map(this);
     Thread gameThread;
 
     //Entity and Object
@@ -154,7 +154,7 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameState == titleState) { ui.draw(g2);}
 
         //Map State
-        if (gameState == mapState) { fullMap.drawFullMapScreen(g2); }
+        else if (gameState == mapState) { fullMap.drawFullMapScreen(g2); }
 
         //Other
         else {

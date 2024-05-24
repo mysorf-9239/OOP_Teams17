@@ -64,10 +64,6 @@ public class KeyHandler implements KeyListener
             gp.ui.commanNum = 5;
         }
 
-        if (code == KeyEvent.VK_M) {
-            gp.gameState = gp.mapState;
-        }
-
         if (!movingKeyPressed) {
             if (code == KeyEvent.VK_W) {
                 upPressed = true;
@@ -103,6 +99,11 @@ public class KeyHandler implements KeyListener
                     gp.tileManager.cutTree(tileCol, tileRow);
                 }
             }
+
+            if (code == KeyEvent.VK_M) {
+                gp.gameState = gp.mapState;
+            }
+
 
             //DeBug
             if (code == KeyEvent.VK_T) {

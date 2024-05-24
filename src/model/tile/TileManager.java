@@ -18,7 +18,7 @@ public class TileManager {
     GamePanel gp;
 
     public Tile[] tile;
-    int[][][] map;
+    public int[][][] map;
     public static ArrayList<String> pathList = new ArrayList<>();
 
     ImageLoader imageLoader;
@@ -153,13 +153,15 @@ public class TileManager {
     }
 
     public void cutTree(int Col, int Row) {
-
-        if (map[GamePanel.currentMap][Col][Row] == 5 || map[GamePanel.currentMap][Col][Row] == 13){
+        int tileIndex = map[GamePanel.currentMap][Col][Row];
+        if (tileIndex == 5 || tileIndex == 13){
             map[GamePanel.currentMap][Col][Row] = 0;
         } else {
             map[GamePanel.currentMap][Col][Row] = 70;
         }
+        tile[map[GamePanel.currentMap][Col][Row]].collision = false;
     }
+
 
 
     public void draw(Graphics2D g2) {
