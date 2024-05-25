@@ -70,8 +70,8 @@ public class Player extends Entity {
                 worldY = gp.titleSize * 29;
                 break;
             case 10:
-                worldX = gp.titleSize * 34;
-                worldY = gp.titleSize * 6;
+                worldX = gp.titleSize * 2;
+                worldY = gp.titleSize * 2;
                 break;
             case 11:
                 worldX = gp.titleSize * 25;
@@ -83,6 +83,10 @@ public class Player extends Entity {
             case 15:
                 worldX = gp.titleSize * 3;
                 worldY = gp.titleSize * 3;
+                break;
+            case 20:
+                worldX = gp.titleSize * 2;
+                worldY = gp.titleSize * 2;
                 break;
             default:
                 worldX = gp.titleSize * 21;

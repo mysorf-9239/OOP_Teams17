@@ -1310,8 +1310,8 @@ public class UI {
             mapImage[9] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map9.png")));
             mapImage[9] = utilityTool.scaleImage(mapImage[9], 240, 240);
 
-//            mapImage[10] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map10.png")));
-//            mapImage[10] = utilityTool.scaleImage(mapImage[10], 240, 240);
+            mapImage[10] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map10.png")));
+            mapImage[10] = utilityTool.scaleImage(mapImage[10], 240, 240);
 
             mapImage[11] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map11.png")));
             mapImage[11] = utilityTool.scaleImage(mapImage[11], 240, 240);
@@ -1340,8 +1340,8 @@ public class UI {
             mapImage[19] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map19.png")));
             mapImage[19] = utilityTool.scaleImage(mapImage[19], 240, 240);
 
-//            mapImage[20] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map20.png")));
-//            mapImage[20] = utilityTool.scaleImage(mapImage[20], 240, 240);
+            mapImage[20] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map20.png")));
+            mapImage[20] = utilityTool.scaleImage(mapImage[20], 240, 240);
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -116,8 +116,8 @@ public class AssetSetter {
 
             //Map10
             gp.obj[10][0] = new Obj_Portal(gp);
-            gp.obj[10][0].worldX = 6*gp.titleSize;
-            gp.obj[10][0].worldY = 9*gp.titleSize;
+            gp.obj[10][0].worldX = 38*gp.titleSize;
+            gp.obj[10][0].worldY = 16*gp.titleSize;
 
             //Map11
             gp.obj[11][0] = new Obj_Portal(gp);
@@ -178,7 +178,7 @@ public class AssetSetter {
 
             //Map20
             gp.obj[20][0] = new Obj_Portal(gp);
-            gp.obj[20][0].worldX = 6*gp.titleSize;
-            gp.obj[20][0].worldY = 9*gp.titleSize;
+            gp.obj[20][0].worldX = 38*gp.titleSize;
+            gp.obj[20][0].worldY = 38*gp.titleSize;
         }
 }
