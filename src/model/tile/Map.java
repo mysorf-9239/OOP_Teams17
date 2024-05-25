@@ -100,6 +100,17 @@ public class Map extends TileManager {
         int playerSize = (int) (gp.titleSize / scale);
         g2.drawImage(gp.player.down[1], playerX, playerY, playerSize, playerSize, null);
 
+
+
+        for (int i = 0; i < gp.maxObject; i++) {
+            if (gp.obj[GamePanel.currentMap][i] != null) {
+                int objX = (int) (x + gp.obj[GamePanel.currentMap][i].worldX / scale);
+                int objY = (int) (y + (gp.obj[GamePanel.currentMap][i].worldY - sy1) / scale);
+                int objSize = (int) (gp.titleSize / scale);
+                g2.drawImage(gp.obj[GamePanel.currentMap][i].down[1], objX, objY, objSize, objSize, null);
+            }
+        }
+
         // Title and hint
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
         g2.setColor(Color.white);

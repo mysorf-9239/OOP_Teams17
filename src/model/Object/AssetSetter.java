@@ -18,12 +18,40 @@ public class AssetSetter {
             gp.obj[0][0].worldY = 488*gp.titleSize;
 
             gp.obj[0][1] = new Obj_Hole(gp);
-            gp.obj[0][1].worldX = 17*gp.titleSize;
-            gp.obj[0][1].worldY = 489*gp.titleSize;
+            gp.obj[0][1].worldX = 33*gp.titleSize;
+            gp.obj[0][1].worldY = 470*gp.titleSize;
 
-            gp.obj[0][2] = new Obj_HP(gp);
-            gp.obj[0][2].worldX = 17*gp.titleSize;
-            gp.obj[0][2].worldY = 486*gp.titleSize;
+            gp.obj[0][2] = new Obj_Hole(gp);
+            gp.obj[0][2].worldX = 33*gp.titleSize;
+            gp.obj[0][2].worldY = 471*gp.titleSize;
+
+            gp.obj[0][3] = new Obj_Spidernet(gp);
+            gp.obj[0][3].worldX = 25*gp.titleSize;
+            gp.obj[0][3].worldY = 469*gp.titleSize;
+
+            gp.obj[0][4] = new Obj_HP(gp);
+            gp.obj[0][4].worldX = 16*gp.titleSize;
+            gp.obj[0][4].worldY = 350*gp.titleSize;
+
+            gp.obj[0][5] = new Obj_Axe(gp);
+            gp.obj[0][5].worldX = 38*gp.titleSize;
+            gp.obj[0][5].worldY = 379*gp.titleSize;
+
+            gp.obj[0][6] = new Obj_Axe(gp);
+            gp.obj[0][6].worldX = 16*gp.titleSize;
+            gp.obj[0][6].worldY = 357*gp.titleSize;
+
+            gp.obj[0][7] = new Obj_Boots(gp);
+            gp.obj[0][7].worldX = 13*gp.titleSize;
+            gp.obj[0][7].worldY = 429*gp.titleSize;
+
+            gp.obj[0][8] = new Obj_Boots(gp);
+            gp.obj[0][8].worldX = 38*gp.titleSize;
+            gp.obj[0][8].worldY = 370*gp.titleSize;
+
+            gp.obj[0][9] = new Obj_Spidernet(gp);
+            gp.obj[0][9].worldX = 15*gp.titleSize;
+            gp.obj[0][9].worldY = 476*gp.titleSize;
 
             //Map 1
             gp.obj[1][0] = new Obj_Axe(gp);
@@ -96,10 +124,22 @@ public class AssetSetter {
             gp.obj[11][0].worldX = 18*gp.titleSize;
             gp.obj[11][0].worldY = 37*gp.titleSize;
 
+            gp.obj[11][1] = new Obj_Axe(gp);
+            gp.obj[11][1].worldX = 23*gp.titleSize;
+            gp.obj[11][1].worldY = 10*gp.titleSize;
+
+            gp.obj[11][2] = new Obj_Axe(gp);
+            gp.obj[11][2].worldX = 28*gp.titleSize;
+            gp.obj[11][2].worldY = 33*gp.titleSize;
+
             //Map12
             gp.obj[12][0] = new Obj_Portal(gp);
             gp.obj[12][0].worldX = 38*gp.titleSize;
             gp.obj[12][0].worldY = 38*gp.titleSize;
+
+            gp.obj[12][0] = new Obj_Axe(gp);
+            gp.obj[12][0].worldX = 36*gp.titleSize;
+            gp.obj[12][0].worldY = 21*gp.titleSize;
 
             //Map13
             gp.obj[13][0] = new Obj_Portal(gp);

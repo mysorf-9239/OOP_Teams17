@@ -5,7 +5,7 @@ import java.net.URL;
 
 public class Sound {
 
-    Clip clip;
+    private Clip clip;
     URL[] soundURL = new URL[30];
     FloatControl floatControl;
     public int volumeScale = 3;
@@ -22,19 +22,18 @@ public class Sound {
     }
 
     public void setFile(int i) {
+
         try {
             AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
             clip = AudioSystem.getClip();
             clip.open(ais);
-            floatControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            if (floatControl != null) {
-                checkVolume();
-            } else {
-                System.err.println("Float control is null");
-            }
+            floatControl = (FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
+            checkVolume();
+
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getStackTrace();
         }
+
     }
 
     public void play() {

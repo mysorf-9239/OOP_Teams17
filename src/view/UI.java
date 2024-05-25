@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class UI {
@@ -30,8 +31,8 @@ public class UI {
     BufferedImage heart_full, heart_half, heart_blank;
 
     //Message
-    public boolean messageOn = false;
-    public String message = "";
+    ArrayList<String> message = new ArrayList<>();
+    ArrayList<Integer> messageCounter = new ArrayList<>();
     public int commanNum = 0;
 
     //Other
@@ -73,8 +74,8 @@ public class UI {
 
     public void showMess(String text) {
 
-        message = text;
-        messageOn = true;
+        message.add(text);
+        messageCounter.add(0);
     }
 
     public void draw(Graphics2D g2) {
@@ -98,6 +99,7 @@ public class UI {
                 drawMap();
                 drawAxe();
             }
+            drawMessage();
         }
         //Option screen
         if (gp.gameState == gp.optionState) {
@@ -118,6 +120,30 @@ public class UI {
         //Intro
         if (gp.gameState == gp.introState) {
             drawIntro();
+        }
+    }
+
+    public void drawMessage () {
+
+        int messageX = gp.titleSize/2;
+        int messageY = gp.screenHeight/2;
+        g2.setFont(g2.getFont().deriveFont(32F));
+
+        for (int i = 0; i < message.size(); i++) {
+            if (message.get(i) != null) {
+
+                g2.setColor(Color.white);
+                g2.drawString(message.get(i), messageX, messageY);
+
+                int counter = messageCounter.get(i) + 1;
+                messageCounter.set(i, counter);
+                messageY += 50;
+
+                if (messageCounter.get(i) >= 180) {
+                    message.remove(i);
+                    messageCounter.remove(i);
+                }
+            }
         }
     }
 

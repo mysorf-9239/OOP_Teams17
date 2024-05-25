@@ -241,7 +241,7 @@ public class Player extends Entity {
             gp.ui.commanNum = -1;
             gp.stopMusic();
             //Play end game music (index = i)
-            //gp.playSE(i);
+            gp.playSE(1);
         }
     }
 
@@ -256,17 +256,20 @@ public class Player extends Entity {
                     hasKey++;
                     gp.obj[GamePanel.currentMap][i] = null;
                     gp.ui.showMess("You got a key");
+                    gp.playSE(1);
                     break;
                 case "Portal":
                     gp.playSE(3);
                     gp.ui.commanNum = -1;
                     gp.gameState = gp.winState;
+                    gp.playSE(1);
                     break;
                 case "Boots":
                     gp.playSE(2);
                     speed += 2;
                     gp.obj[GamePanel.currentMap][i] = null;
                     gp.ui.showMess("Speed up");
+                    gp.playSE(1);
                     break;
                 case "Chest":
                     if (hasKey > 0) {
@@ -275,12 +278,14 @@ public class Player extends Entity {
                         hasKey--;
                         gp.obj[GamePanel.currentMap][i] = null;
                         gp.ui.showMess("You received some score");
+                        gp.playSE(1);
                     }
                     break;
                 case "Axe":
                     hasAxe++;
                     gp.obj[GamePanel.currentMap][i] = null;
-                    gp.ui.showMess("You got a axe");
+                    gp.ui.showMess("You got an axe");
+                    gp.playSE(1);
                     break;
                 case "Spidernet":
                     if (speed > 2) {
@@ -290,20 +295,23 @@ public class Player extends Entity {
                     }
                     gp.obj[GamePanel.currentMap][i] = null;
                     gp.ui.showMess("Speed down");
+                    gp.playSE(1);
                     break;
                 case "Hole":
                     if (life > 0) {
                         life -= 1;
                     }
                     gp.obj[GamePanel.currentMap][i] = null;
-                    gp.ui.showMess("You got a axe");
+                    gp.ui.showMess("You are falling");
+                    gp.playSE(1);
                     break;
                 case "HP":
                     if (life < maxLife) {
                         life += 1;
                     }
                     gp.obj[GamePanel.currentMap][i] = null;
-                    gp.ui.showMess("You got a axe");
+                    gp.ui.showMess("HP up");
+                    gp.playSE(1);
                     break;
             }
         }
