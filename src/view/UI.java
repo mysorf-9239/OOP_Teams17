@@ -41,6 +41,7 @@ public class UI {
     public int titleScreenState = 0;
     public int subState = 0;
     public int guideState = 0;
+    public int introState = 0;
 
 
     public UI (GamePanel gp) {
@@ -113,6 +114,10 @@ public class UI {
         //GuideScreen
         if (gp.gameState == gp.guideState) {
             drawGuideScreen();
+        }
+        //Intro
+        if (gp.gameState == gp.introState) {
+            drawIntro();
         }
     }
 
@@ -883,10 +888,10 @@ public class UI {
                 guide_selection(frameX, frameY);
                 break;
             case 1:
-                guide_top(frameX, frameY);
+                guide_top(frameX, frameY, 1);
                 break;
             case 2:
-                guide_object(frameX, frameY);
+                guide_object(frameX, frameY, 1);
                 break;
             default:
                 break;
@@ -931,7 +936,7 @@ public class UI {
         }
     }
 
-    public void guide_top(int frameX, int frameY) {
+    public void guide_top(int frameX, int frameY, int num) {
 
         g2.setFont(g2.getFont().deriveFont(Font.ITALIC));
 
@@ -948,36 +953,39 @@ public class UI {
         textX = frameX + gp.titleSize;
         textY += gp.titleSize*3/2;
 
-        g2.drawString("Move", textX, textY); textY += gp.titleSize*3/2;
+        g2.drawString("Move", textX, textY); textY += gp.titleSize*5/4;
         textX += gp.titleSize;
-        g2.drawString("Up", textX, textY); textY += gp.titleSize*3/2;
-        g2.drawString("Left", textX, textY); textY += gp.titleSize*3/2;
-        g2.drawString("Down", textX, textY); textY += gp.titleSize*3/2;
-        g2.drawString("Right", textX, textY); textY += gp.titleSize*3/2;
+        g2.drawString("Up", textX, textY); textY += gp.titleSize*5/4;
+        g2.drawString("Left", textX, textY); textY += gp.titleSize*5/4;
+        g2.drawString("Down", textX, textY); textY += gp.titleSize*5/4;
+        g2.drawString("Right", textX, textY); textY += gp.titleSize*5/4;
         textX -= gp.titleSize;
-        g2.drawString("Felling Tree", textX, textY);
+        g2.drawString("Felling Tree", textX, textY);  textY += gp.titleSize*5/4;
+        g2.drawString("Overview", textX, textY);
 
         //Control
         textX = frameX + gp.titleSize*6;
-        textY = frameY + gp.titleSize*4;
+        textY = frameY + gp.titleSize*15/4;
 
-        g2.drawString("W", textX, textY); textY += gp.titleSize*3/2;
-        g2.drawString("A", textX, textY); textY += gp.titleSize*3/2;
-        g2.drawString("S", textX, textY); textY += gp.titleSize*3/2;
-        g2.drawString("D", textX, textY); textY += gp.titleSize*3/2;
-        g2.drawString("C", textX, textY);
+        g2.drawString("W", textX, textY); textY += gp.titleSize*5/4;
+        g2.drawString("A", textX, textY); textY += gp.titleSize*5/4;
+        g2.drawString("S", textX, textY); textY += gp.titleSize*5/4;
+        g2.drawString("D", textX, textY); textY += gp.titleSize*5/4;
+        g2.drawString("C", textX, textY); textY += gp.titleSize*5/4;
+        g2.drawString("M", textX, textY);
 
-        //Back
-        textX = frameX + gp.titleSize;
-        textY = frameY + gp.titleSize*23/2;
-        g2.drawString("Back", textX, textY);
-        if (commanNum == 0) {
-            drawColection("Back", textX, textY);
+        if (num == 1) {//Back
+            textX = frameX + gp.titleSize;
+            textY = frameY + gp.titleSize * 23 / 2;
+            g2.drawString("Back", textX, textY);
+            if (commanNum == 0) {
+                drawColection("Back", textX, textY);
+            }
         }
 
     }
 
-    public void guide_object(int frameX, int frameY) {
+    public void guide_object(int frameX, int frameY, int num) {
 
         g2.setFont(g2.getFont().deriveFont(Font.ITALIC, 28F));
 
@@ -1036,13 +1044,110 @@ public class UI {
         g2.drawString(text, textX, textY);
 
 
-        //Back
-        textX = frameX + gp.titleSize;
-        textY = frameY + gp.titleSize*23/2;
-        g2.drawString("Back", textX, textY);
-        if (commanNum == 0) {
-            drawColection("Back", textX, textY);
+        if (num == 1) {
+            //Back
+            textX = frameX + gp.titleSize;
+            textY = frameY + gp.titleSize * 23 / 2;
+            g2.drawString("Back", textX, textY);
+            if (commanNum == 0) {
+                drawColection("Back", textX, textY);
+            }
         }
+
+    }
+
+    public void drawIntro() {
+
+        try {
+            backgorundImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Background.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //Background
+        g2.drawImage(backgorundImage, 0, 0, gp.screenWidth, gp.screenHeight, null);
+
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(32F));
+
+        int frameX = gp.titleSize*6;
+        int frameY = gp.titleSize*3;
+        int frameWidth = gp.titleSize*8;
+        int frameHeight = gp.titleSize*12;
+        drawSubWindown(0, gp.screenHeight - gp.titleSize*3/2, gp.screenWidth, gp.titleSize*2);
+
+        switch (introState) {
+            case 0:
+                intro_0(frameX, frameY);
+                break;
+            case 1:
+                drawSubWindown(frameX, frameY, frameWidth, frameHeight);
+                intro_1(frameX, frameY);
+                break;
+            case 2:
+                drawSubWindown(frameX, frameY, frameWidth, frameHeight);
+                intro_2(frameX, frameY);
+                break;
+            default:
+                gp.gameState = gp.titleState;
+                break;
+        }
+    }
+
+    public void intro_0(int frameX, int frameY) {
+
+        String text;
+        int textX;
+        int textY;
+
+        g2.setColor(new Color(94, 89, 89, 76));
+        g2.fillRect(0, gp.titleSize*11/2, gp.screenWidth, gp.titleSize*2);
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 64F));
+        g2.setColor(Color.white);
+        text = "Welcome to Team17's Game";
+        textX = getXforCenterText(text);
+        textY = gp.titleSize*7;
+        g2.drawString(text, textX, textY);
+
+        g2.setFont(g2.getFont().deriveFont(Font.ITALIC, 32F));
+        text = "Press Enter to continue";
+        textX = gp.screenWidth - gp.titleSize*7;
+        textY = gp.screenHeight - gp.titleSize/2;
+        g2.drawString(text, textX, textY);
+    }
+
+    public void intro_1(int frameX, int frameY) {
+
+        g2.setFont(g2.getFont().deriveFont(Font.ITALIC, 32F));
+        g2.setColor(Color.white);
+
+        String text;
+        int textX;
+        int textY;
+
+        guide_top(frameX, frameY, 0);
+
+        text = "Press Enter to continue";
+        textX = gp.screenWidth - gp.titleSize*7;
+        textY = gp.screenHeight - gp.titleSize/2;
+        g2.drawString(text, textX, textY);
+
+    }
+
+    public void intro_2(int frameX, int frameY) {
+
+        String text;
+        int textX;
+        int textY;
+
+        guide_object(frameX, frameY, 0);
+
+        g2.setFont(g2.getFont().deriveFont(Font.ITALIC, 32F));
+        text = "Press Enter to continue";
+        textX = gp.screenWidth - gp.titleSize*7;
+        textY = gp.screenHeight - gp.titleSize/2;
+        g2.drawString(text, textX, textY);
 
     }
 

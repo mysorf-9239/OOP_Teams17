@@ -49,6 +49,9 @@ public class KeyHandler implements KeyListener
             case 6:
                 mapState(code);
                 break;
+            case 7:
+                introState(code);
+                break;
         }
 
     }
@@ -698,6 +701,25 @@ public class KeyHandler implements KeyListener
 
         if (code == KeyEvent.VK_M) {
             gp.gameState = gp.playState;
+        }
+    }
+
+    private void introState(int code) {
+
+        if (code == KeyEvent.VK_ENTER) {
+            switch (gp.ui.introState) {
+                case 0:
+                    gp.ui.introState = 1;
+                    break;
+                case 1:
+                    gp.ui.introState = 2;
+                    break;
+                case 2:
+                    gp.gameState = gp.titleState;
+                    Config.hasSeenIntro = true;
+                    gp.config.saveConfig();
+                    break;
+            }
         }
     }
 }

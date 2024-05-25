@@ -74,6 +74,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int winState = 4;
     public final int guideState = 5;
     public final int mapState = 6;
+    public final int introState = 7;
 
     //Mode
     public int gameMode;
@@ -94,6 +95,12 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
+
+        if (!config.hasSeenIntro()) {
+            gameState = introState;
+        } else {
+            gameState = titleState;
+        }
     }
 
     public void setupObject() {
@@ -155,6 +162,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         //Map State
         else if (gameState == mapState) { fullMap.drawFullMapScreen(g2); }
+
+        //Intro State
+        else if (gameState == introState) { ui.draw(g2);}
 
         //Other
         else {
@@ -248,6 +258,14 @@ public class GamePanel extends JPanel implements Runnable {
 
         //PoisonMist
         poisonMist.setDefaultPoisonMist();
+
+        //Intro
+        if (!config.hasSeenIntro()) {
+            gameState = introState;
+            config.setHasSeenIntro(true);
+        } else {
+            gameState = titleState;
+        }
     }
 
 }

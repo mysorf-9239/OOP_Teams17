@@ -7,8 +7,8 @@
     "expandedProjectPaths": [
         "image/Tileset",
         "image",
-        ".",
-        "image/Tileset/40px"
+        "image/Tileset/40px",
+        "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -167,8 +167,8 @@
             "scale": 0.75,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 687.3333333333333,
-                "y": 790.6666666666667
+                "x": 685.9999999999999,
+                "y": 789.3333333333333
             }
         }
     },
