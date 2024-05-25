@@ -588,7 +588,7 @@ public class KeyHandler implements KeyListener
             switch (gp.ui.commanNum) {
                 //Next Map
                 case 0:
-                    if (GamePanel.currentMap > 0 && GamePanel.currentMap < 6) {
+                    if (GamePanel.currentMap > 0 && GamePanel.currentMap < 20) {
                         GamePanel.currentMap += 1;
                         gp.player.hasAxe = 1;
                         gp.tileManager.loadMap(GamePanel.currentMap);

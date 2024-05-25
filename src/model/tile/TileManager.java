@@ -162,6 +162,8 @@ public class TileManager {
         int tileIndex = map[GamePanel.currentMap][Col][Row];
         if (tileIndex == 5 || tileIndex == 13){
             map[GamePanel.currentMap][Col][Row] = 0;
+        } else if (tileIndex == 96 || tileIndex == 95 || tileIndex == 92 || tileIndex == 91) {
+            map[GamePanel.currentMap][Col][Row] = 1;
         } else {
             map[GamePanel.currentMap][Col][Row] = 70;
         }

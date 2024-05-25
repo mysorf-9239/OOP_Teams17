@@ -1281,8 +1281,41 @@ public class UI {
             mapImage[8] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map8.png")));
             mapImage[8] = utilityTool.scaleImage(mapImage[8], 240, 240);
 
-            mapImage[9] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/HP.png")));
+            mapImage[9] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map9.png")));
             mapImage[9] = utilityTool.scaleImage(mapImage[9], 240, 240);
+
+//            mapImage[10] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map10.png")));
+//            mapImage[10] = utilityTool.scaleImage(mapImage[10], 240, 240);
+
+            mapImage[11] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map11.png")));
+            mapImage[11] = utilityTool.scaleImage(mapImage[11], 240, 240);
+
+            mapImage[12] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map12.png")));
+            mapImage[12] = utilityTool.scaleImage(mapImage[12], 240, 240);
+
+            mapImage[13] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map13.png")));
+            mapImage[13] = utilityTool.scaleImage(mapImage[13], 240, 240);
+
+            mapImage[14] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map14.png")));
+            mapImage[14] = utilityTool.scaleImage(mapImage[14], 240, 240);
+
+            mapImage[15] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map15.png")));
+            mapImage[15] = utilityTool.scaleImage(mapImage[15], 240, 240);
+
+            mapImage[16] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map16.png")));
+            mapImage[16] = utilityTool.scaleImage(mapImage[16], 240, 240);
+
+            mapImage[17] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map17.png")));
+            mapImage[17] = utilityTool.scaleImage(mapImage[17], 240, 240);
+
+            mapImage[18] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map18.png")));
+            mapImage[18] = utilityTool.scaleImage(mapImage[18], 240, 240);
+
+            mapImage[19] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map19.png")));
+            mapImage[19] = utilityTool.scaleImage(mapImage[19], 240, 240);
+
+//            mapImage[20] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/map/map20.png")));
+//            mapImage[20] = utilityTool.scaleImage(mapImage[20], 240, 240);
 
         } catch (IOException e) {
             e.printStackTrace();

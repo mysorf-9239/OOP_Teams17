@@ -51,13 +51,44 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
         //Define the start screen's andres
-        if (GamePanel.currentMap == 0) {
-            worldX = gp.titleSize * 20;
-            worldY = gp.titleSize * 489;
-            furthestY = worldY;
-        } else if (GamePanel.currentMap > 0) {
-            worldX = gp.titleSize * 20;
-            worldY = gp.titleSize * 29;
+        switch (GamePanel.currentMap) {
+
+            case 0:
+                worldX = gp.titleSize * 20;
+                worldY = gp.titleSize * 489;
+                break;
+            case 1:
+                worldX = gp.titleSize * 19;
+                worldY = gp.titleSize * 29;
+                break;
+            case 6:
+                worldX = gp.titleSize * 19;
+                worldY = gp.titleSize * 29;
+                break;
+            case 9:
+                worldX = gp.titleSize * 20;
+                worldY = gp.titleSize * 29;
+                break;
+            case 10:
+                worldX = gp.titleSize * 34;
+                worldY = gp.titleSize * 6;
+                break;
+            case 11:
+                worldX = gp.titleSize * 25;
+                worldY = gp.titleSize * 2;
+                break;
+            case 12:
+            case 13:
+            case 14:
+            case 15:
+                worldX = gp.titleSize * 3;
+                worldY = gp.titleSize * 3;
+                break;
+            default:
+                worldX = gp.titleSize * 21;
+                worldY = gp.titleSize * 29;
+                break;
+
         }
 
         speed = gp.titleSize/5;
