@@ -218,6 +218,7 @@ public class KeyHandler implements KeyListener
                     case 1:
                         if (gp.music.volumeScale > 0) {
                             gp.music.volumeScale--;
+                            gp.music.setFile(0);
                             gp.music.checkVolume();
                         }
                         gp.playSE(5);
@@ -244,6 +245,7 @@ public class KeyHandler implements KeyListener
                     case 1:
                         if (gp.music.volumeScale < 5) {
                             gp.music.volumeScale++;
+                            gp.music.setFile(0);
                             gp.music.checkVolume();
                         }
                         gp.playSE(5);
@@ -442,6 +444,7 @@ public class KeyHandler implements KeyListener
             if(gp.ui.subState == 0) {
                 if (gp.ui.commanNum == 0 && gp.music.volumeScale > 0) {
                     gp.music.volumeScale--;
+                    gp.music.setFile(0);
                     gp.music.checkVolume();
                     gp.playSE(5);
                 }
@@ -455,6 +458,7 @@ public class KeyHandler implements KeyListener
             if(gp.ui.subState == 0) {
                 if (gp.ui.commanNum == 0 && gp.music.volumeScale < 5) {
                     gp.music.volumeScale++;
+                    gp.music.setFile(0);
                     gp.music.checkVolume();
                     gp.playSE(5);
                 }
