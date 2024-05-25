@@ -245,7 +245,7 @@ public class Player extends Entity {
             gp.ui.commanNum = -1;
             gp.stopMusic();
             //Play end game music (index = i)
-            gp.playSE(1);
+            gp.playSE(3);
         }
     }
 
@@ -266,7 +266,8 @@ public class Player extends Entity {
                     gp.playSE(3);
                     gp.ui.commanNum = -1;
                     gp.gameState = gp.winState;
-                    gp.playSE(1);
+                    gp.stopMusic();
+                    gp.playSE(6);
                     break;
                 case "Boots":
                     gp.playSE(2);

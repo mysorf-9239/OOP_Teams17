@@ -168,7 +168,8 @@ public class TileManager {
             map[GamePanel.currentMap][Col][Row] = 70;
         }
         tile[map[GamePanel.currentMap][Col][Row]].collision = false;
-        gp.playSE(1);
+        gp.playSE(2);
+        gp.ui.showMess("You cut down a tree");
     }
 
 
