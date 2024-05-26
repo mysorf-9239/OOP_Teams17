@@ -256,21 +256,18 @@ public class Player extends Entity {
 
             switch (objectName) {
                 case "Key":
-                    gp.playSE(1);
                     hasKey++;
                     gp.obj[GamePanel.currentMap][i] = null;
                     gp.ui.showMess("You got a key");
                     gp.playSE(1);
                     break;
                 case "Portal":
-                    gp.playSE(3);
                     gp.ui.commanNum = -1;
                     gp.gameState = gp.winState;
                     gp.stopMusic();
                     gp.playSE(6);
                     break;
                 case "Boots":
-                    gp.playSE(2);
                     speed += 2;
                     gp.obj[GamePanel.currentMap][i] = null;
                     gp.ui.showMess("Speed up");
